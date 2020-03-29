@@ -1,0 +1,48 @@
+﻿<src:UserControlBase xmlns:DataGridObjects="clr-namespace:WPF.Tools.DataGridObjects;assembly=WPF.Tools" 
+                     xmlns:ModelViewer="clr-namespace:WPF.Tools.ModelViewer;assembly=WPF.Tools" 
+                     xmlns:CommonControls="clr-namespace:WPF.Tools.CommonControls;assembly=WPF.Tools"  
+                     x:Class="Bibles.Setup.TranslationSetup"
+                     xmlns:src="clr-namespace:WPF.Tools.BaseClasses;assembly=WPF.Tools"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                     xmlns:local="clr-namespace:Bibles.Setup"
+                     Title="Translation Setup"
+                     mc:Ignorable="d" 
+                     d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+            <CommonControls:ActionButton ResourceImageName="Add" ToolTip="Add Transalation" Click="Add_Cliked" />
+            <CommonControls:ActionButton ResourceImageName="Edit" ToolTip="Edit Translation" Click="Edit_Cliked" />
+            <CommonControls:ActionButton ResourceImageName="Delete" ToolTip="Delete Transalation" Click="Delete_Cliked" />
+            <CommonControls:ActionButton ResourceImageName="Export" ToolTip="Export Transalation File" Click="ExportTranslation_Cliked" />
+            <CommonControls:ActionButton ResourceImageName="Import" ToolTip="Import Transalation File" Click="ImportTranslation_Cliked" />
+        </StackPanel>
+
+        <ModelViewer:ModelViewer Grid.Row="0" Grid.Column="1" x:Name="uxLanguage" ModelViewItemBrowse="LanguageSetup_Browse" />
+
+        <!--<ScrollViewer Grid.Row="1" Grid.Column="1">-->
+        <DataGridObjects:ViSoDataGrid Grid.Row="1" Grid.Column="1"
+                ItemsSource="{Binding TranslationMappings}"
+                                          SelectedItem="{Binding SelectedMapping}"
+                                          AutoGenerateColumns="False">
+            <DataGridObjects:ViSoDataGrid.Columns>
+                <DataGridObjects:VisoDataGridTextColumn HeaderTranslate="English" Binding="{Binding EnglishLanguage}" />
+                <DataGridObjects:VisoDataGridTextColumn HeaderTranslate="Other Language" Binding="{Binding OtherLanguage}" x:Name="uxOtherLanguage" />
+            </DataGridObjects:ViSoDataGrid.Columns>
+        </DataGridObjects:ViSoDataGrid>
+        <!--</ScrollViewer>-->
+        
+    </Grid>
+</src:UserControlBase>

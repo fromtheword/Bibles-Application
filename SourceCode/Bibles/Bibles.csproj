@@ -1,0 +1,233 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3E69298C-BA70-42FF-AFE2-2C297AF56550}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Bibles</RootNamespace>
+    <AssemblyName>Bibles</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Books.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\x64\Release\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug 32|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug 32\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug 32|x64'">
+    <OutputPath>bin\x64\Debug 32\</OutputPath>
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug 32|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug 32\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bibles.BookIndex\Bibles.BookIndex.csproj">
+      <Project>{b65d0057-2539-41d4-9a6d-2e1f8f76b182}</Project>
+      <Name>Bibles.BookIndex</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bibles.Bookmarks\Bibles.Bookmarks.csproj">
+      <Project>{dbb8a019-9327-4874-996d-03621ef9a141}</Project>
+      <Name>Bibles.Bookmarks</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bibles.Common\Bibles.Common.csproj">
+      <Project>{1AB1D3C5-374D-48E6-95FA-36DCA0A912AF}</Project>
+      <Name>Bibles.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bibles.DataResources\Bibles.DataResources.csproj">
+      <Project>{1d25ca61-d07c-47e4-96cb-bee25d82c0f7}</Project>
+      <Name>Bibles.DataResources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bibles.Data\Bibles.Data.csproj">
+      <Project>{eb22bf5b-1a1a-4db7-874b-50de6f7e1d1f}</Project>
+      <Name>Bibles.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bibles.Link\Bibles.Link.csproj">
+      <Project>{ab2c4b31-47f7-4f89-a0a7-3b696a602e50}</Project>
+      <Name>Bibles.Link</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bibles.Reader\Bibles.Reader.csproj">
+      <Project>{0d0860a4-94be-4384-9e23-4a0b4d35e28e}</Project>
+      <Name>Bibles.Reader</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bibles.Search\Bibles.Search.csproj">
+      <Project>{94447aaf-87d5-4a42-a5cc-59d722a502ec}</Project>
+      <Name>Bibles.Search</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bibles.Setup\Bibles.Setup.csproj">
+      <Project>{4d3a4daf-06ca-41a9-8b6c-422040b5175a}</Project>
+      <Name>Bibles.Setup</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bibles.Studies\Bibles.Studies.csproj">
+      <Project>{da8a71fc-2293-4d3e-81c9-a5bb9ad0fd69}</Project>
+      <Name>Bibles.Studies</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GeneralExtensions\GeneralExtensions.csproj">
+      <Project>{df72187c-d643-4e5f-af68-190c023930a9}</Project>
+      <Name>GeneralExtensions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IconSet\IconSet.csproj">
+      <Project>{8ae0a307-a872-4d6d-a58e-31d28ce5b89d}</Project>
+      <Name>IconSet</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViSo.Common\ViSo.Common.csproj">
+      <Project>{cfb74caf-b98c-4387-94e3-ae9afbe16b7e}</Project>
+      <Name>ViSo.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViSo.Dialogs\ViSo.Dialogs.csproj">
+      <Project>{53c1d2ae-46e4-428f-80fb-7e1b238a2276}</Project>
+      <Name>ViSo.Dialogs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ViSo.SharedEnums\ViSo.SharedEnums.csproj">
+      <Project>{44340843-a61b-4a2b-99d8-7142bf456d85}</Project>
+      <Name>ViSo.SharedEnums</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WPF.Tools\WPF.Tools.csproj">
+      <Project>{53799c60-aa9d-4deb-86e0-8e70dd1844f3}</Project>
+      <Name>WPF.Tools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Books.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
