@@ -736,7 +736,7 @@ namespace Bibles.DataResources
 
             if (headerTask.Result != null)
             {
-                throw new ApplicationException($"Cannot delete category whiles study {headerTask.Result.StudyName} is attached to it. Please move or remove the study before attempting to delete the category.");
+                throw new ApplicationException("Cannot delete category whiles a study is attached to it. Please move the study before attempting to delete the category.");
             }
             
             Task<List<StudyCategoryModel>> currentCategories = BiblesData.database
@@ -747,7 +747,7 @@ namespace Bibles.DataResources
 
             if (header != null)
             {
-                throw new ApplicationException($"Cannot delete category whiles child category have study {header.StudyName} is attached to it. Please move or remove the study before attempting to delete the category.");
+                throw new ApplicationException("Cannot delete category whiles a study is attached to it. Please move the study before attempting to delete the category.");
             }
 
             this.DeleteChildCategoryTreeDown(studyCategoryId, currentCategories.Result);

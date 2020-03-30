@@ -6,6 +6,7 @@ using System;
 using System.Windows;
 using System.Windows.Media;
 using WPF.Tools.BaseClasses;
+using WPF.Tools.Dictionaries;
 using WPF.Tools.Exstention;
 using WPF.Tools.Specialized;
 
@@ -46,11 +47,11 @@ namespace Bibles.Link
                 BiblesData.Database.CreateLink(link);
 
                 string message = GlobalStaticData.Intance.GetKeyDescription(this.parentVerse.BibleVerseKey) +
-                    " was linked to " +
+                    $" {TranslationDictionary.Translate("was linked to")} " +
                     GlobalStaticData.Intance.GetKeyDescription(this.childVerse.BibleVerseKey) +
                     "." +
                     Environment.NewLine + Environment.NewLine +
-                    "Would you like to link another one?";
+                    TranslationDictionary.Translate("Would you like to link another one?");
 
                 if (MessageDisplay.Show(message, "Link Another?", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 {

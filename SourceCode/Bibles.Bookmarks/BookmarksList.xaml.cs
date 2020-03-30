@@ -11,6 +11,7 @@ using ViSo.Dialogs.TextEditor;
 using WPF.Tools.BaseClasses;
 using WPF.Tools.Exstention;
 using WPF.Tools.Specialized;
+using WPF.Tools.Dictionaries;
 
 namespace Bibles.Bookmarks
 {
@@ -154,7 +155,7 @@ namespace Bibles.Bookmarks
 
             try
             {
-                string message = $"Are you sure you would like to delete Bookmark {this.SelectedBookmark.SelectedVerse}.";
+                string message = $"{TranslationDictionary.Translate("Are you sure you would like to delete?")} {this.SelectedBookmark.SelectedVerse}.";
 
                 if (MessageDisplay.Show(message, "Warning", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 {

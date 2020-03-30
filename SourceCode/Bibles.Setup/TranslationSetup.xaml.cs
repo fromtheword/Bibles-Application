@@ -20,6 +20,7 @@ using ViSo.Common;
 using static ViSo.Common.KnownFolders;
 using System.Diagnostics;
 using Microsoft.Win32;
+using WPF.Tools.Dictionaries;
 
 namespace Bibles.Setup
 {
@@ -174,7 +175,7 @@ namespace Bibles.Setup
 
             try
             {
-                string message = $"Are you sure you would like to delete the mapping {this.SelectedMapping.EnglishLanguage} -> {this.SelectedMapping.OtherLanguage}?";
+                string message = $"{TranslationDictionary.Translate("Are you sure you would like to delete?")} {this.SelectedMapping.EnglishLanguage} -> {this.SelectedMapping.OtherLanguage}?";
 
                 if (MessageDisplay.Show(message, "Warning", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 {

@@ -149,7 +149,7 @@ namespace Bibles
             }
             catch (Exception err)
             {
-                MessageDisplay.Show(err.InnerExceptionMessage());
+                ErrorLog.ShowError(err);
             }
         }
         

@@ -10,6 +10,7 @@ using System.Windows;
 using System.Collections.Generic;
 using IconSet;
 using WPF.Tools.Specialized;
+using WPF.Tools.Dictionaries;
 
 namespace Bibles.Bookmarks
 {
@@ -124,7 +125,7 @@ namespace Bibles.Bookmarks
 
             try
             {
-                string message = $"Are you sure you would like to delete {this.SelectedHighlight.Verse}?";
+                string message = $"{TranslationDictionary.Translate("Are you sure you would like to delete?")} {this.SelectedHighlight.Verse}";
 
                 if (MessageDisplay.Show(message, "Warning", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 {

@@ -9,6 +9,7 @@ using GeneralExtensions;
 using System.Windows;
 using System.Collections.Generic;
 using WPF.Tools.Specialized;
+using WPF.Tools.Dictionaries;
 
 namespace Bibles.Link
 {
@@ -124,7 +125,7 @@ namespace Bibles.Link
                     return;
                 }
 
-                string message = $"Are you sure that you would like to delete the {GlobalStaticData.Intance.GetKeyDescription(verseKey)} Link?";
+                string message = $"{TranslationDictionary.Translate("Are you sure you would like to delete?")} {GlobalStaticData.Intance.GetKeyDescription(verseKey)}";
 
                 if (MessageDisplay.Show(message, "Warning", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 {

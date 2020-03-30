@@ -363,7 +363,7 @@ namespace Bibles.Reader
             if (this.SelectedVerseKey.IsNullEmptyOrWhiteSpace() ||
                 Formatters.GetVerseFromKey(this.SelectedVerseKey) <= 0)
             {
-                MessageDisplay.Show("Please select a verse.");
+                MessageDisplay.Show("Please select a Verse.");
 
                 return;
             }
@@ -473,7 +473,7 @@ namespace Bibles.Reader
             if (this.selectedKey.IsNullEmptyOrWhiteSpace()
                 || Formatters.GetVerseFromKey(this.selectedKey) <= 0)
             {
-                MessageDisplay.Show("Please select a verse.");
+                MessageDisplay.Show("Please select a Verse.");
 
                 return;
             }

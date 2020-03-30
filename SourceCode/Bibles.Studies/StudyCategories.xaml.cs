@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using ViSo.Dialogs.Input;
 using WPF.Tools.BaseClasses;
 using WPF.Tools.CommonControls;
+using WPF.Tools.Dictionaries;
 using WPF.Tools.Specialized;
 
 namespace Bibles.Studies
@@ -104,7 +105,7 @@ namespace Bibles.Studies
         {
             try
             {
-                if (MessageDisplay.Show($"Are you sure you would like to delete {this.SelectedCategory.CategoryName}", "Warning", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                if (MessageDisplay.Show($"{TranslationDictionary.Translate("Are you sure you would like to delete?")} {this.SelectedCategory.CategoryName}", "Warning", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 {
                     return;
                 }

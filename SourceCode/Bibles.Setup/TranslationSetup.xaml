@@ -38,8 +38,21 @@
                                           SelectedItem="{Binding SelectedMapping}"
                                           AutoGenerateColumns="False">
             <DataGridObjects:ViSoDataGrid.Columns>
-                <DataGridObjects:VisoDataGridTextColumn HeaderTranslate="English" Binding="{Binding EnglishLanguage}" />
-                <DataGridObjects:VisoDataGridTextColumn HeaderTranslate="Other Language" Binding="{Binding OtherLanguage}" x:Name="uxOtherLanguage" />
+                <DataGridObjects:VisoDataGridTextColumn HeaderTranslate="English" Binding="{Binding EnglishLanguage}" Width="50*">
+                    <DataGridObjects:VisoDataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridObjects:VisoDataGridTextColumn.ElementStyle>
+                </DataGridObjects:VisoDataGridTextColumn>
+
+                <DataGridObjects:VisoDataGridTextColumn HeaderTranslate="Other Language" Binding="{Binding OtherLanguage}" x:Name="uxOtherLanguage" Width="50*" >
+                    <DataGridObjects:VisoDataGridTextColumn.ElementStyle>
+                        <Style>
+                            <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                        </Style>
+                    </DataGridObjects:VisoDataGridTextColumn.ElementStyle>
+                </DataGridObjects:VisoDataGridTextColumn>
             </DataGridObjects:ViSoDataGrid.Columns>
         </DataGridObjects:ViSoDataGrid>
         <!--</ScrollViewer>-->
