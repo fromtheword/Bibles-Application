@@ -275,7 +275,7 @@ namespace Bibles
             {
                 SearchView search = new SearchView();
 
-                ControlDialog.Show("Search", search, string.Empty, owner:this, showCancelButton:false);
+                ControlDialog.Show("Search", search, string.Empty, owner:this, showCancelButton:false, autoSize:false);
             }
             catch (Exception err)
             {

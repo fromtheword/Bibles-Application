@@ -30,7 +30,7 @@
             <CommonControls:ComboBoxTool x:Name="uxSearchInBible" MinWidth="150" SelectionChanged="SearchInBible_Changed" />
         </StackPanel>
 
-        <DataGridObjects:ViSoDataGridPager Grid.Row="1" Grid.Column="0" x:Name="uxSearchPager" SelectedPageChange="SearchPage_Changed" />
+        <DataGridObjects:ViSoDataGridPager Grid.Row="1" Grid.Column="0" x:Name="uxSearchPager" SelectedPageChange="SearchPage_Changed" ShowSearch="True" />
 
         <StackPanel Grid.Row="2" Grid.Column="0" Orientation="Horizontal">
             <CommonControls:ActionButton ToolTip="Open Book in Reader" ResourceImageName="OpenBook" Click="OpenBookmark_Cliked" />
