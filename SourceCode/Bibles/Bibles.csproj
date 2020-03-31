@@ -96,6 +96,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Octokit, Version=0.46.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Octokit.0.46.0\lib\net46\Octokit.dll</HintPath>
+    </Reference>
     <Reference Include="SQLite-net, Version=1.6.292.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\sqlite-net-pcl.1.6.292\lib\netstandard1.1\SQLite-net.dll</HintPath>
     </Reference>
@@ -198,6 +201,10 @@
     <ProjectReference Include="..\Bibles.Data\Bibles.Data.csproj">
       <Project>{eb22bf5b-1a1a-4db7-874b-50de6f7e1d1f}</Project>
       <Name>Bibles.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bibles.Downloads\Bibles.Downloads.csproj">
+      <Project>{45068231-2c07-4759-8e4e-097433625ab1}</Project>
+      <Name>Bibles.Downloads</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bibles.Link\Bibles.Link.csproj">
       <Project>{ab2c4b31-47f7-4f89-a0a7-3b696a602e50}</Project>

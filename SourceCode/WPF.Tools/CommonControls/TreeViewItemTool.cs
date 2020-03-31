@@ -3,163 +3,184 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using GeneralExtensions;
+using IconSet;
 
 namespace WPF.Tools.CommonControls
 {
-  public class TreeViewItemTool : TreeViewItem
-  {
-    public delegate void OnCheckChangedEvent(object sender, bool? checkState);
-
-    public event OnCheckChangedEvent OnCheck_Changed;
-
-    private bool isCheckBox;
-
-    private bool isChecked;
-
-    private  CheckBoxItem checkBox;
-    
-    private LableItem labelItem;
-
-    private object itemContent;
-
-    private Brush labelForeGround = Brushes.Black;
-
-    public TreeViewItemTool()
+    public class TreeViewItemTool : TreeViewItem
     {
-      this.Initialize();
-    }
+        public delegate void OnCheckChangedEvent(object sender, bool? checkState);
 
-    public bool IsCheckBox
-    {
-      get => this.IsChecked ? this.IsChecked : this.isCheckBox;
+        public event OnCheckChangedEvent OnCheck_Changed;
+        
+        private bool isCheckBox;
 
-      set
-      {
-        if (this.isCheckBox != value && value)
+        private bool isChecked;
+
+        private CheckBoxItem checkBox;
+
+        private LableItem labelItem;
+
+        private Image image;
+
+        private StackPanel itemsStack;
+
+        private object itemContent;
+
+        private Brush labelForeGround = Brushes.Black;
+
+        private string resourceImageName;
+
+        public TreeViewItemTool()
         {
-          this.InitializeCheckBox();
+            this.InitializeLayout();
         }
-        else
+        
+        public bool IsCheckBox
         {
-          this.Initialize();
-        }
+            get => this.IsChecked ? this.IsChecked : this.isCheckBox;
 
-        this.isCheckBox = value;
+            set
+            {
+                this.isCheckBox = value;
 
-        if (this.checkBox != null)
-        {
-          this.checkBox.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
-        }
-      }
-    }
+                if (value)
+                {
+                    this.checkBox = new CheckBoxItem { Margin = new Thickness(0, 5, 0, 0) };
 
-    public bool IsChecked
-    {
-      get
-      {
-        if (this.checkBox == null)
-        {
-          return this.isChecked;
-        }
+                    this.checkBox.Visibility = this.IsCheckBox ? Visibility.Visible : Visibility.Collapsed;
 
-        return this.checkBox.IsChecked.IsTrue();
-      }
+                    this.checkBox.IsChecked = this.IsChecked;
 
-      set
-      {
-        this.isChecked = value;
+                    this.checkBox.Checked += this.isChecked_Changeds;
 
-        if (this.checkBox != null)
-        {
-          this.checkBox.IsChecked = value;
-        }
-      }
-    }
+                    this.checkBox.Unchecked += this.isChecked_Changeds;
 
-    new public object Header
-    {
-      get
-      {
-        if (this.labelItem == null)
-        {
-          return this.itemContent;
+                    this.itemsStack.Children.Insert(0, this.checkBox);
+                }
+                else if (this.checkBox != null)
+                {
+                    this.itemsStack.Children.RemoveAt(0);
+
+                    this.checkBox = null;
+                }
+
+                if (this.checkBox != null)
+                {
+                    this.checkBox.Visibility = value ? Visibility.Visible : Visibility.Collapsed;
+                }
+            }
         }
 
-        return this.labelItem.Content;
-      }
-
-      set
-      {
-        this.itemContent = value;
-
-        if (this.labelItem != null)
+        public bool IsChecked
         {
-          this.labelItem.Content = value;
+            get
+            {
+                if (this.checkBox == null)
+                {
+                    return this.isChecked;
+                }
+
+                return this.checkBox.IsChecked.IsTrue();
+            }
+
+            set
+            {
+                this.isChecked = value;
+
+                if (this.checkBox != null)
+                {
+                    this.checkBox.IsChecked = value;
+                }
+            }
         }
-      }
-    }
 
-    new public Brush Foreground
-    {
-      get
-      {
-        return this.labelForeGround;
-      }
+        public string ResourceImageName 
+        { 
+            get
+            {
+                return this.resourceImageName;
+            }
+            
+            set
+            {
+                this.resourceImageName = value;
 
-      set
-      {
-        this.labelForeGround = value;
+                if (!value.IsNullEmptyOrWhiteSpace())
+                {
+                    this.image = new Image
+                    {
+                        Source = IconSets.ResourceImageSource(value, 16),
+                    };
 
-        if (this.labelItem != null)
+                    this.itemsStack.Children.Insert(0, this.image);
+                }
+                else if (this.image != null)
+                {
+                    this.itemsStack.Children.RemoveAt(0);
+
+                    this.image = null;
+                }
+            }
+        }
+
+        new public object Header
         {
-          this.labelItem.Foreground = value;
+            get
+            {
+                if (this.labelItem == null)
+                {
+                    return this.itemContent;
+                }
+
+                return this.labelItem.Content;
+            }
+
+            set
+            {
+                this.itemContent = value;
+
+                if (this.labelItem != null)
+                {
+                    this.labelItem.Content = value;
+                }
+            }
         }
-      }
+
+        new public Brush Foreground
+        {
+            get
+            {
+                return this.labelForeGround;
+            }
+
+            set
+            {
+                this.labelForeGround = value;
+
+                if (this.labelItem != null)
+                {
+                    this.labelItem.Foreground = value;
+                }
+            }
+        }
+
+        private void isChecked_Changeds(object sender, RoutedEventArgs e)
+        {
+            OnCheck_Changed?.Invoke(this, this.checkBox.IsChecked);
+        }
+        
+        private void InitializeLayout()
+        {
+            this.itemsStack = new StackPanel();
+
+            this.itemsStack.Orientation = Orientation.Horizontal;
+
+            this.labelItem = new LableItem { Content = this.Header, VerticalContentAlignment = VerticalAlignment.Top };
+
+            this.itemsStack.Children.Add(this.labelItem);
+
+            base.Header = this.itemsStack;
+        }
     }
-
-    private void isChecked_Changeds(object sender, RoutedEventArgs e)
-    {
-      OnCheck_Changed?.Invoke(this, this.checkBox.IsChecked);
-    }
-
-    private void Initialize()
-    {
-      StackPanel pnl = new StackPanel();
-
-      pnl.Orientation = Orientation.Horizontal;
-
-      this.checkBox = null;
-
-      this.labelItem = new LableItem { Content =  this.Header, Foreground = this.Foreground };
-
-      pnl.Children.Add(this.labelItem);
-
-      base.Header = pnl;
-    }
-
-    private void InitializeCheckBox()
-    {
-      StackPanel pnl = new StackPanel();
-
-      pnl.Orientation = Orientation.Horizontal;
-
-      this.checkBox = new CheckBoxItem { Margin = new Thickness(0,5,0,0) };
-
-      this.checkBox.Visibility = this.IsCheckBox ? Visibility.Visible : Visibility.Collapsed;
-
-      this.checkBox.IsChecked = this.IsChecked;
-
-      this.checkBox.Checked += this.isChecked_Changeds;
-
-      this.checkBox.Unchecked += this.isChecked_Changeds;
-
-      pnl.Children.Add(this.checkBox);
-
-      this.labelItem = new LableItem { Content = this.Header, VerticalContentAlignment = VerticalAlignment.Top };
-
-      pnl.Children.Add(this.labelItem);
-
-      base.Header = pnl;
-    }
-  }
 }

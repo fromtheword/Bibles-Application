@@ -7,6 +7,7 @@ using Bibles.DataResources.Aggregates;
 using Bibles.DataResources.AvailableBooks;
 using Bibles.DataResources.Bookmarks;
 using Bibles.DataResources.Models.Preferences;
+using Bibles.Downloads;
 using Bibles.Reader;
 using Bibles.Search;
 using Bibles.Setup;
@@ -431,7 +432,21 @@ namespace Bibles
                 ErrorLog.ShowError(err);
             }
         }
-        
+
+        private void Downloads_Cliked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DownloadsView down = new DownloadsView();
+
+                ControlDialog.Show("Downloads", down, "DownLoad", autoSize:false);
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
+        }
+
         private void About_Cliked(object sender, RoutedEventArgs e)
         {
             About about = new About();
@@ -540,6 +555,6 @@ namespace Bibles
             reader.SelectedVerseChanged += this.OnReaderSelectedVerse_Changed;
 
             return reader;
-        }
+        }            
     }
 }

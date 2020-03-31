@@ -43,6 +43,7 @@
                 <MenuItem Header="User Preferences" Click="UserPreferences_Cliked" />
                 <MenuItem Header="Language Setup" Click="LanguageSetup_Cliked" />
             </MenuItem>
+            <MenuItem Header="Downloads" Click="Downloads_Cliked" />
             <MenuItem Header="Help">
                 <MenuItem Header="About" Click="About_Cliked" />
             </MenuItem>
