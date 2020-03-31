@@ -117,6 +117,10 @@
       <Project>{0d0860a4-94be-4384-9e23-4a0b4d35e28e}</Project>
       <Name>Bibles.Reader</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Bibles.Studies\Bibles.Studies.csproj">
+      <Project>{DA8A71FC-2293-4D3E-81C9-A5BB9AD0FD69}</Project>
+      <Name>Bibles.Studies</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GeneralExtensions\GeneralExtensions.csproj">
       <Project>{df72187c-d643-4e5f-af68-190c023930a9}</Project>
       <Name>GeneralExtensions</Name>

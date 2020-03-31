@@ -15,6 +15,14 @@ using WPF.Tools.CommonControls;
 using WPF.Tools.Exstention;
 using WPF.Tools.Specialized;
 using WPF.Tools.ToolModels;
+using ViSo.Dialogs.Controls;
+using Bibles.Studies;
+using Bibles.Studies.Models;
+using Bibles.DataResources.Bookmarks;
+using ViSo.Dialogs.TextEditor;
+using ViSo.Dialogs.ModelViewer;
+using Bibles.DataResources.Models.Bookmarks;
+using System.Linq;
 
 namespace Bibles.Search
 {
@@ -23,14 +31,20 @@ namespace Bibles.Search
     /// </summary>
     public partial class SearchView : UserControlBase
     {
+        public delegate void SearchReaderRequestEvent(object sender, string verseKey);
+
+        public event SearchReaderRequestEvent SearchReaderRequest;
+
         private int rowIndex = 0;
 
         private bool showBibleColumn = false;
 
+        private string selectedKey;
+
         private string[] searchSplitResult = null;
 
         private Dictionary<int, string> bibleNames = new Dictionary<int, string>();
-               
+
         public SearchView()
         {
             this.InitializeComponent();
@@ -47,7 +61,7 @@ namespace Bibles.Search
                 SearchComparisonEnum comparisonType = (SearchComparisonEnum)this.uxSearchComparison.SelectedValue;
 
                 int bibleId = this.uxSearchInBible.SelectedValue.ToInt32();
-                
+
                 switch (comparisonType)
                 {
                     case SearchComparisonEnum.AllOfTheWords:
@@ -98,7 +112,7 @@ namespace Bibles.Search
 
                 this.showBibleColumn = selectedBible.ItemKey.ToInt32() <= 0;
 
-                this.uxBibleColumn.Width = this.showBibleColumn ?  new GridLength(150, GridUnitType.Auto) : new GridLength(0);
+                this.uxBibleColumn.Width = this.showBibleColumn ? new GridLength(150, GridUnitType.Auto) : new GridLength(0);
 
                 this.ResetGrid();
             }
@@ -110,9 +124,16 @@ namespace Bibles.Search
 
         private void OpenBookmark_Cliked(object sender, RoutedEventArgs e)
         {
+            if (this.selectedKey.IsNullEmptyOrWhiteSpace())
+            {
+                MessageDisplay.Show("Please select a Verse.");
+
+                return;
+            }
+
             try
             {
-
+                this.SearchReaderRequest?.Invoke(this, this.selectedKey);
             }
             catch (Exception err)
             {
@@ -122,9 +143,35 @@ namespace Bibles.Search
 
         private void Bookmark_Cliked(object sender, RoutedEventArgs e)
         {
+            if (this.selectedKey.IsNullEmptyOrWhiteSpace())
+            {
+                MessageDisplay.Show("Please select a Verse.");
+
+                return;
+            }
+
             try
             {
+                this.BookmarkVerse();
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
+        }
 
+        private void BookmarkModel_Browse(object sender, object model, string buttonKey)
+        {
+            try
+            {
+                ModelsBookmark bookmark = (ModelsBookmark)model;
+
+                if (TextEditing.ShowDialog("Bookmark Description", bookmark.Description).IsFalse())
+                {
+                    return;
+                }
+
+                bookmark.Description = TextEditing.Text;
             }
             catch (Exception err)
             {
@@ -134,21 +181,67 @@ namespace Bibles.Search
 
         private void LinkVerse_Cliked(object sender, RoutedEventArgs e)
         {
+            if (this.selectedKey.IsNullEmptyOrWhiteSpace())
+            {
+                MessageDisplay.Show("Please select a Verse.");
+
+                return;
+            }
+
             try
             {
+                Type linkType = Type.GetType("Bibles.Link.LinkEditor,Bibles.Link");
 
+                BibleVerseModel verseModel = this.uxSearchPager
+                    .ItemsSource
+                    .Items
+                    .FirstOrDefault(vk => ((BibleVerseModel)vk).BibleVerseKey == this.selectedKey)
+                    .To<BibleVerseModel>();
+
+                object[] args = new object[]
+                {
+                    Formatters.GetBibleFromKey(this.selectedKey),
+                    verseModel
+                };
+
+                UserControlBase linkEditor = Activator.CreateInstance(linkType, args) as UserControlBase;
+
+                string title = $"Link - {GlobalStaticData.Intance.GetKeyDescription(this.selectedKey)}";
+
+                linkEditor.Height = this.Height;
+
+                if (ControlDialog.ShowDialog(title, linkEditor, "AcceptLink", false).IsFalse())
+                {
+                    return;
+                }
+
+                int selectedVerse = Formatters.GetVerseFromKey(this.selectedKey);
             }
             catch (Exception err)
             {
                 ErrorLog.ShowError(err);
             }
         }
-
+        
         private void SearchPage_Changed(object sender, object[] selectedItems)
         {
             this.ResetGrid();
 
             this.LoadSearchResults(selectedItems.TryCast<BibleVerseModel>());
+        }
+
+        private void Verse_GotFocus(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                HighlightRitchTextBox box = (HighlightRitchTextBox)sender;
+
+                this.selectedKey = ((BibleVerseModel)box.Tag).BibleVerseKey;
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
         }
 
         private RowDefinition GetRowDefinition()
@@ -159,7 +252,7 @@ namespace Bibles.Search
 
             return result;
         }
-        
+
         private void Initialize()
         {
             foreach (DataItemModel enumItem in Enum<SearchComparisonEnum>.ToDataItemsEnumKey())
@@ -212,7 +305,7 @@ namespace Bibles.Search
 
         private void LoadSearchResults(BibleVerseModel[] result)
         {
-            foreach(BibleVerseModel row in result)
+            foreach (BibleVerseModel row in result)
             {
                 this.uxResultGrid.RowDefinitions.Add(this.GetRowDefinition());
 
@@ -238,6 +331,8 @@ namespace Bibles.Search
                     Margin = new Thickness(2, 0, 0, 15)
                 };
 
+                text.GotFocus += this.Verse_GotFocus;
+
                 text.HighlightText(this.searchSplitResult);
 
                 this.SetUiElementPosition(text, 2);
@@ -255,6 +350,119 @@ namespace Bibles.Search
             this.uxResultGrid.Children.Add(element);
         }
 
-        
+        private void BookmarkVerse()
+        {
+            int selectedVerse = Formatters.GetVerseFromKey(this.selectedKey);
+
+            if (selectedVerse <= 0)
+            {
+                throw new ApplicationException("Please select a Verse.");
+            }
+
+            Dictionary<int, UserControlBase> openStudies = new Dictionary<int, UserControlBase>();
+
+            Dictionary<int, StudyHeader> studyHeaders = new Dictionary<int, StudyHeader>();
+
+            #region CHECK FOR OPEN STUDIES
+
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType() != typeof(ControlWindow))
+                {
+                    continue;
+                }
+
+                UserControlBase controlBase = window.GetPropertyValue("ControlContent").To<UserControlBase>();
+
+                if (controlBase.GetType() != typeof(EditStudy))
+                {
+                    continue;
+                }
+
+                StudyHeader studyHeader = controlBase.GetPropertyValue("SubjectHeader").To<StudyHeader>();
+
+                if (studyHeader.StudyHeaderId <= 0)
+                {
+                    string studyName = studyHeader.StudyName.IsNullEmptyOrWhiteSpace() ? "Unknown" : studyHeader.StudyName;
+
+                    string message = $"Study {studyName} have not been saved yet. This study will not be available for bookmarks.";
+
+                    MessageDisplay.Show(message);
+
+                    continue;
+                }
+
+                openStudies.Add(studyHeader.StudyHeaderId, controlBase);
+
+                studyHeaders.Add(studyHeader.StudyHeaderId, studyHeader);
+            }
+
+            #endregion
+
+            ModelsBookmark bookmark = new ModelsBookmark();
+
+            ModelView.OnItemBrowse += this.BookmarkModel_Browse;
+                
+            bookmark.SetVerse(this.selectedKey);
+
+            if (studyHeaders.Count > 0)
+            {
+                #region STUDY BOOKMARKS
+
+                StudyBookmarksModel studyMark = bookmark.CopyToObject(new StudyBookmarksModel()).To<StudyBookmarksModel>();
+
+                List<DataItemModel> studyOptions = new List<DataItemModel>();
+
+                studyOptions.Add(new DataItemModel { DisplayValue = $"<Default>", ItemKey = -1 });
+
+                foreach (KeyValuePair<int, StudyHeader> studyKey in studyHeaders)
+                {
+                    studyOptions.Add(new DataItemModel { DisplayValue = studyKey.Value.StudyName, ItemKey = studyKey.Key });
+                }
+
+                studyMark.AvailableStudies = studyOptions.ToArray();
+
+                if (ModelView.ShowDialog("Bookmark", studyMark).IsFalse())
+                {
+                    return;
+                }
+
+                if (studyMark.Study <= 0)
+                {
+                    BookmarkModel dbModel = studyMark.CopyToObject(new BookmarkModel()).To<BookmarkModel>();
+
+                    BiblesData.Database.InsertBookmarkModel(dbModel);
+                }
+                else
+                {
+                    StudyBookmarkModel dbModel = studyMark.CopyToObject(new StudyBookmarkModel()).To<StudyBookmarkModel>();
+
+                    dbModel.StudyName = studyMark.AvailableStudies.First(st => st.ItemKey.ToInt32() == studyMark.Study).DisplayValue;
+
+                    dbModel.StudyVerseKey = $"{studyMark.Study}||{dbModel.VerseKey}";
+
+                    BiblesData.Database.InsertStudyBookmarkModel(dbModel);
+
+                    this.InvokeMethod(openStudies[studyMark.Study], "AddBookmark", new object[] { bookmark });
+                }
+
+                #endregion
+            }
+            else
+            {
+                #region NORMAL BOOKMARKS
+
+                if (ModelView.ShowDialog("Bookmark", bookmark).IsFalse())
+                {
+                    return;
+                }
+
+                BookmarkModel dbModel = bookmark.CopyToObject(new BookmarkModel()).To<BookmarkModel>();
+
+                BiblesData.Database.InsertBookmarkModel(dbModel);
+
+                #endregion
+            }
+        }
     }
 }

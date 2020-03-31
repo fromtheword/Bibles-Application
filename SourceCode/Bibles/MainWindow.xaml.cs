@@ -276,6 +276,8 @@ namespace Bibles
             {
                 SearchView search = new SearchView();
 
+                search.SearchReaderRequest += this.SearchReader_Request;
+
                 ControlDialog.Show("Search", search, string.Empty, owner:this, showCancelButton:false, autoSize:false);
             }
             catch (Exception err)
@@ -283,7 +285,7 @@ namespace Bibles
                 ErrorLog.ShowError(err);
             }
         }
-        
+
         private void Highlights_Cliked(object sender, RoutedEventArgs e)
         {
             try
@@ -303,6 +305,18 @@ namespace Bibles
             try
             {
                 this.LoadReader(Formatters.GetBibleFromKey(bookmark.VerseKey), bookmark.VerseKey);
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
+        }
+
+        private void SearchReader_Request(object sender, string verseKey)
+        {
+            try
+            {
+                this.LoadReader(Formatters.GetBibleFromKey(verseKey), verseKey);
             }
             catch (Exception err)
             {
