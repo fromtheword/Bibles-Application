@@ -171,13 +171,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Afrikaans 1933-56 Hersien.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\English King James Version.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\German Luther 1545.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Xhosa.txt" />

@@ -118,14 +118,8 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Afrikaans_1933_56_Hersien" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Afrikaans 1933-56 Hersien.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-  </data>
   <data name="English_King_James_Version" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\English King James Version.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
-  </data>
-  <data name="German_Luther_1545" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\German Luther 1545.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="Xhosa" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Xhosa.txt;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>

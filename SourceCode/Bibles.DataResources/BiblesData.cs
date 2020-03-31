@@ -901,6 +901,14 @@ namespace Bibles.DataResources
             return result.Result;
         }
 
+        public LanguageSetupModel GetLanguage(string language)
+        {
+            Task<LanguageSetupModel> result = BiblesData.database
+                .Table<LanguageSetupModel>()
+                .FirstOrDefaultAsync(li => li.Language == language);
+
+            return result.Result;
+        }
 
         public List<LanguageSetupModel> GetLanguages()
         {

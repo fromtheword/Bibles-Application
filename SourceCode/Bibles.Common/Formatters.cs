@@ -17,6 +17,13 @@ namespace Bibles.Common
         
         public static bool IsBiblesKey(string key, out string[] keyItems)
         {
+            if (key.IsNullEmptyOrWhiteSpace())
+            {
+                keyItems = new string[] { };
+
+                return false;
+            }
+
             keyItems = key.Split(Formatters.KeySplitValue, StringSplitOptions.RemoveEmptyEntries);
 
             return Formatters.IsBiblesKey(keyItems);
@@ -36,6 +43,11 @@ namespace Bibles.Common
 
         public static int GetBibleFromKey(string bibleKey)
         {
+            if (bibleKey.IsNullEmptyOrWhiteSpace())
+            {
+                return -1;
+            }
+
             string[] keySplit = bibleKey.Split(Formatters.KeySplitValue, StringSplitOptions.RemoveEmptyEntries);
 
             return keySplit.Length >= 1 ? keySplit[0].ToInt32() : -1;

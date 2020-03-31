@@ -61,20 +61,6 @@ namespace Bibles.DataResources.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 01O||1||1||In die begin het God die hemel en die aarde geskape.
-        ///01O||1||2||En die aarde was woes en leeg, en duisternis was op die wêreldvloed, en die Gees van God het gesweef op die waters.
-        ///01O||1||3||En God het gesê: Laat daar lig wees! En daar was lig.
-        ///01O||1||4||Toe sien God dat die lig goed was. En God het skeiding gemaak tussen die lig en die duisternis;
-        ///01O||1||5||en God het die lig dag genoem, en die duisternis het Hy nag genoem. En dit was aand en dit was môre, die eerste dag.
-        ///01O||1||6||En Go [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string Afrikaans_1933_56_Hersien {
-            get {
-                return ResourceManager.GetString("Afrikaans_1933_56_Hersien", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to 01O||1||1||In the beginning God created the heaven and the earth.
         ///01O||1||2||And the earth was without form, and void; and darkness was upon the face of the deep. And the Spirit of God moved upon the face of the waters.
         ///01O||1||3||And God said, Let there be light: and there was light.
@@ -84,20 +70,6 @@ namespace Bibles.DataResources.Properties {
         internal static string English_King_James_Version {
             get {
                 return ResourceManager.GetString("English_King_James_Version", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 01O||1||1||Am Anfang schuf Gott Himmel und Erde.
-        ///01O||1||2||Und die Erde war wüst und leer, und es war finster auf der Tiefe; und der Geist Gottes schwebete auf dem Wasser.
-        ///01O||1||3||Und Gott sprach: Es werde Licht! Und es ward Licht.
-        ///01O||1||4||Und Gott sah, daß das Licht gut war. Da schied Gott das Licht von der Finsternis
-        ///01O||1||5||und nannte das Licht Tag und die Finsternis Nacht. Da ward aus Abend und Morgen der erste Tag.
-        ///01O||1||6||Und Gott sprach: Es werde eine Feste zwischen den Wassern, und [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string German_Luther_1545 {
-            get {
-                return ResourceManager.GetString("German_Luther_1545", resourceCulture);
             }
         }
         

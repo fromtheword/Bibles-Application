@@ -339,9 +339,12 @@ namespace Bibles
 
                 reader.SetBible(bibleId);
 
-                reader.SetChapter(this.selectedItemKey);
+                if (!this.selectedItemKey.IsNullEmptyOrWhiteSpace())
+                {
+                    reader.SetChapter(this.selectedItemKey);
 
-                reader.SetVerse(this.selectedItemKey);
+                    reader.SetVerse(this.selectedItemKey);
+                }
 
                 this.uxMainTab.Items.Add(reader);
             }

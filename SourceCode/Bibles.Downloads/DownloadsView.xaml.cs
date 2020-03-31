@@ -1,4 +1,6 @@
 ﻿using Bibles.Common;
+using Bibles.DataResources;
+using Bibles.DataResources.Aggregates;
 using GeneralExtensions;
 using Octokit;
 using System;
@@ -12,6 +14,8 @@ using System.Windows;
 using ViSo.Common;
 using WPF.Tools.BaseClasses;
 using WPF.Tools.CommonControls;
+using WPF.Tools.Functions;
+using WPF.Tools.Specialized;
 
 namespace Bibles.Downloads
 {
@@ -20,7 +24,7 @@ namespace Bibles.Downloads
     /// </summary>
     public partial class DownloadsView : UserControlBase
     {
-        private readonly string[] directoryNames = new string[] { "Books", "Translations" };
+        private readonly string[] directoryNames = new string[] { "Bibles", "Books", "Translations" };
 
         private GitHubClient gitHubClient;
 
@@ -36,24 +40,14 @@ namespace Bibles.Downloads
         {
             try
             {
-                string basePath = Paths.KnownFolder(KnownFolders.KnownFolder.Downloads);
-                
-                using (WebClient client = new WebClient())
+                string message = "Are you sure that you want to download the selected items? This may take a while.";
+
+                if (MessageDisplay.Show(message, "Are you Sure?", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 {
-                    client.UseDefaultCredentials = false;
-
-                    client.Credentials = new NetworkCredential("fromtheword.info@gmail.com", "Sonj@Vih@n2");
-
-
-                    foreach (RepositoryContent repository in this.GetSelectedRepositories())
-                    {
-                        client.DownloadFile(repository.DownloadUrl, Path.Combine(basePath, repository.Name));
-                    }
+                    return false;
                 }
 
-                Process.Start(basePath);
-
-                return true;
+                return this.TryDownload();
             }
             catch (Exception err)
             {
@@ -62,7 +56,7 @@ namespace Bibles.Downloads
                 return false;
             }
         }
-
+        
         private void DownloadsView_Loaded(object sender, RoutedEventArgs e)
         {
             if (base.WasFirstLoaded)
@@ -80,10 +74,71 @@ namespace Bibles.Downloads
             }
         }
 
+        private bool TryDownload()
+        {
+            try
+            {
+                bool openDirectory = false;
+
+                string basePath = Paths.KnownFolder(KnownFolders.KnownFolder.Downloads);
+
+                using (WebClient client = new WebClient())
+                {
+                    client.UseDefaultCredentials = false;
+
+                    client.Credentials = new NetworkCredential("fromtheword.info@gmail.com", "Sonj@Vih@n2");
+
+                    foreach (RepositoryContent repository in this.GetSelectedRepositories())
+                    {
+                        string fullName = Path.Combine(basePath, repository.Name);
+
+                        client.DownloadFile(repository.DownloadUrl, fullName);
+
+                        if (repository.Path.StartsWith("Bibles/"))
+                        {
+                            if (DownloadedBibleLoader.LoadBible(fullName))
+                            {
+                                File.Delete(fullName);
+                            }
+                        }
+                        else if (repository.Path.StartsWith("Translations/"))
+                        {
+                            if (LoadTranslations.LoadFile(fullName))
+                            {
+                                File.Delete(fullName);
+                            }
+                        }
+                        else
+                        {
+                            openDirectory = true;
+                        }
+                    }
+                }
+
+                if (openDirectory)
+                {
+                    Process.Start(basePath);
+                }
+            }
+            catch (Exception err)
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    ErrorLog.ShowError(err);
+                });
+
+                return false;
+            }
+
+            return true;
+        }
+
         private async void ConnectToGitHub()
         {
             await Task.Run(() => 
-            { 
+            {
+                this.Dispatcher.Invoke(() => { this.uxMessage.Content = "Connecting with server"; });
+
                 Credentials credentials = new Credentials("fromtheword.info@gmail.com", "Sonj@Vih@n2");
 
                 this.gitHubClient = new GitHubClient(new ProductHeaderValue("fromtheword"));
@@ -114,7 +169,7 @@ namespace Bibles.Downloads
                 }
             });
         }
-
+               
         private void LoadDirectoryContent(RepositoryContent parentContent, TreeViewItemTool parentTreeItem, long repositoryId)
         {
             IReadOnlyList<RepositoryContent> repositoryContentList = this.gitHubClient.Repository.Content.GetAllContents(repositoryId, parentContent.Path).Result;
@@ -151,7 +206,7 @@ namespace Bibles.Downloads
                 });
             }
         }
-
+                
         private List<RepositoryContent> GetSelectedRepositories()
         {
             List<RepositoryContent> result = new List<RepositoryContent>();

@@ -1,4 +1,5 @@
-﻿<src:UserControlBase xmlns:CommonControls="clr-namespace:WPF.Tools.CommonControls;assembly=WPF.Tools" 
+﻿<src:UserControlBase xmlns:Specialized="clr-namespace:WPF.Tools.Specialized;assembly=WPF.Tools" 
+                     xmlns:CommonControls="clr-namespace:WPF.Tools.CommonControls;assembly=WPF.Tools" 
                      x:Class="Bibles.Downloads.DownloadsView"
                      xmlns:src="clr-namespace:WPF.Tools.BaseClasses;assembly=WPF.Tools"
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -10,16 +11,18 @@
                      mc:Ignorable="d" 
                      d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid.RowDefinitions>
+        <Grid.RowDefinitions>            
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         
-        <CommonControls:ViSoTreeView Grid.Row="0" Grid.Column="1" x:Name="uxDownloadTree"  />
-            
+        <CommonControls:ViSoTreeView Grid.Row="0" Grid.Column="0" x:Name="uxDownloadTree"  />
+
+        <Specialized:MessageLabel Grid.Row="1" Grid.Column="0" x:Name="uxMessage" HorizontalAlignment="Right" Foreground="Red" FontWeight="Bold" />
+        
     </Grid>
 </src:UserControlBase>

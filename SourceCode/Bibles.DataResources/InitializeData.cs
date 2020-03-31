@@ -15,15 +15,14 @@ namespace Bibles.DataResources
 {
     public class InitializeData
     {
-        private string[] bibleNames = new string[] { "English King James Version", "Afrikaans 1933-56 Hersien", "German Luther 1545", "Xhosa" };
+        private string[] bibleNames = new string[] { "English King James Version", "Xhosa" };
 
         private string systemDefaultbible = "English King James Version";
 
         public delegate void InitialDataLoadCompletedEvent(object sender, string message, bool completed, Exception error);
 
         public event InitialDataLoadCompletedEvent InitialDataLoadCompleted;
-
-
+        
         public async void LoadEmbeddedBibles(Dispatcher dispatcher, FontFamily defaultFont)
         {
             Task<List<BibleModel>> loadedBiles = BiblesData.Database.GetBibles();
@@ -104,7 +103,7 @@ namespace Bibles.DataResources
                 });
             });
         }
-
+        
         private void LoadBibleVerses(Dispatcher dispatcher, BibleModel bibleModel)
         {
             string bibleFormatName = bibleModel.BibleName
