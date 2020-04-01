@@ -1,3 +1,7 @@
+To Install select the Bibles.msi. 
+To the right select the ‘Download’ button.
+This will download the installable to your defined downloads folder from where you can install the Bibles Application
+
 During the ages the controversy between Jesus and Satan is portrayed in the Word of God a battle between good and eval. Satan trying to dethrone God, and God displaying to His whole kingdom the result of transgressing His law.
 
 Satan, knowing the ways of his eval, knowing that his time is short, try by force to destroy Gods people, and thereby inflicting as much harm and sorrow to Jesus, and his people.
@@ -16,7 +20,5 @@ With studies and links to follow as this project takes form, scriptures will be 
 
 No dogma, just scripture. Though some text needs explaining, like the word ‘hell’ that occurs in the old testament 65 times, in the Hebrew, was translated half the time as ‘Death’ and the other half as ‘Hell’. There for no perceptions will be allowed in the studies.
 
-To Install select the Bibles.msi. 
-To the right select the ‘Download’ button.
-This will download the installable to your defined downloads folder from where you can install the Bibles Application
+
 
