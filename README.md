@@ -1,6 +1,9 @@
-To Install select the Bibles.msi. 
+To Install select the Bibles.msi.
+
 To the right select the ‘Download’ button.
+
 This will download the installable to your defined downloads folder from where you can install the Bibles Application
+
 
 During the ages the controversy between Jesus and Satan is portrayed in the Word of God a battle between good and eval. Satan trying to dethrone God, and God displaying to His whole kingdom the result of transgressing His law.
 
@@ -19,6 +22,3 @@ These teachings are not Biblically correct. God in his grace, send His Son, to f
 With studies and links to follow as this project takes form, scriptures will be highlighted so that you can read it for yourself.
 
 No dogma, just scripture. Though some text needs explaining, like the word ‘hell’ that occurs in the old testament 65 times, in the Hebrew, was translated half the time as ‘Death’ and the other half as ‘Hell’. There for no perceptions will be allowed in the studies.
-
-
-
