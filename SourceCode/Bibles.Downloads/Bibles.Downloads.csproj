@@ -80,6 +80,7 @@
     <Compile Include="DownloadsView.xaml.cs">
       <DependentUpon>DownloadsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ImportBibleStudy.cs" />
     <Compile Include="LoadTranslations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

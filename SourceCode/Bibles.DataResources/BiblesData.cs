@@ -706,6 +706,24 @@ namespace Bibles.DataResources
             return result.Result == null ? string.Empty : result.Result.CategoryName;
         }
 
+        public StudyCategoryModel GetCategory(string categoryName)
+        {
+            Task<StudyCategoryModel> result = BiblesData.database
+                .Table<StudyCategoryModel>()
+                .FirstOrDefaultAsync(sc => sc.CategoryName == categoryName);
+
+            return result.Result;
+        }
+
+        public StudyCategoryModel GetCategory(int studyCategoryId)
+        {
+            Task<StudyCategoryModel> result = BiblesData.database
+                .Table<StudyCategoryModel>()
+                .FirstOrDefaultAsync(sc => sc.StudyCategoryId == studyCategoryId);
+
+            return result.Result;
+        }
+
         public List<CategoryTreeModel> GetCategoryTree()
         {
             Task<List<StudyCategoryModel>> categoriesTask = BiblesData.database
@@ -838,16 +856,15 @@ namespace Bibles.DataResources
             }
         }
 
-        public List<StudyHeaderModel> GetStudyHeaderByCategory(int categoryId)
+        public StudyHeaderModel GetStudyInCategory(string studyName, int studyCategoryId)
         {
-            Task<List<StudyHeaderModel>> result = BiblesData.database
+            Task<StudyHeaderModel> result = BiblesData.database
                 .Table<StudyHeaderModel>()
-                .Where(ci => ci.StudyCategoryId == categoryId)
-                .ToListAsync();
+                .FirstOrDefaultAsync(ci => ci.StudyName == studyName
+                                           && ci.StudyCategoryId == studyCategoryId);
 
             return result.Result;
         }
-
         public StudyHeaderModel GetStudyHeader(int studyHeaderId)
         {
             Task<StudyHeaderModel> result = BiblesData.database
@@ -856,6 +873,21 @@ namespace Bibles.DataResources
 
             return result.Result;
         }
+
+        public List<StudyHeaderModel> GetStudyHeaderByCategory(int categoryId)
+        {
+            Task<List<StudyHeaderModel>> result = BiblesData.database
+                .Table<StudyHeaderModel>()
+                .Where(ci => ci.StudyCategoryId == categoryId)                
+                .ToListAsync();
+
+            StudyHeaderModel[] resultArray = result.Result.ToArray();
+
+            resultArray.SortLogically("StudyName");
+
+            return resultArray.ToList();
+        }
+
 
         #endregion
 

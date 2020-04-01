@@ -3,6 +3,7 @@ using Bibles.DataResources;
 using Bibles.DataResources.Aggregates;
 using Bibles.Studies.Models;
 using GeneralExtensions;
+using Microsoft.Win32;
 using System;
 using System.ComponentModel;
 using System.Windows;
@@ -167,6 +168,35 @@ namespace Bibles.Studies
                 ControlDialog.Show(this.SelectedStudyHeader.StudyName, edit, "SaveStudy", autoSize:false);
 
                 this.CloseIfNotMainWindow(true);
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
+        }
+
+        private void ImportStudy_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OpenFileDialog openDlg = new OpenFileDialog();
+
+                openDlg.Title = "Import Study";
+
+                openDlg.DefaultExt = ".study";
+
+                openDlg.Filter = "Bible Study (.study)|*.study";
+
+                if (openDlg.ShowDialog(this.GetParentWindow()).IsFalse())
+                {
+                    return;
+                }
+
+                this.InvokeMethod("Bibles.Downloads.ImportBibleStudy,Bibles.Downloads", "ImportStudy", new object[] { openDlg.FileName });
+
+                this.uxStudyCategories.Initialize();
+
+                MessageDisplay.Show("Import Completed.");
             }
             catch (Exception err)
             {

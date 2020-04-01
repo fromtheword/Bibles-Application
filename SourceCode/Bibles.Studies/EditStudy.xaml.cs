@@ -4,10 +4,15 @@ using Bibles.DataResources.Aggregates;
 using Bibles.DataResources.Bookmarks;
 using Bibles.Studies.Models;
 using GeneralExtensions;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 using System;
+using System.IO;
+using System.Text;
 using System.Windows;
 using ViSo.Dialogs.Controls;
 using WPF.Tools.BaseClasses;
+using WPF.Tools.Exstention;
 
 namespace Bibles.Studies
 {
@@ -15,7 +20,7 @@ namespace Bibles.Studies
     /// Interaction logic for EditStudy.xaml
     /// </summary>
     public partial class EditStudy : UserControlBase
-    {
+    {        
         public EditStudy(StudyHeaderModel study)
         {
             this.InitializeComponent();
@@ -89,7 +94,7 @@ namespace Bibles.Studies
 
             try
             {    
-                this.uxColumn0.Width = new GridLength(this.uxColumn0.Width.Value + 1, GridUnitType.Star);
+                this.uxColumn1.Width = new GridLength(this.uxColumn1.Width.Value + 1, GridUnitType.Star);
 
                 this.uxContent.FlowDocumentText = this.SubjectContent.Content.UnzipFile().ParseToString();
 
@@ -131,6 +136,82 @@ namespace Bibles.Studies
 
                         break;
                 }
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
+        }
+
+        private void ExportStudy_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SaveFileDialog saveDlg = new SaveFileDialog();
+
+                saveDlg.Title = "Export Study";
+
+                saveDlg.DefaultExt = ".study";
+
+                saveDlg.Filter = "Bible Study (.study)|*.study";
+
+                saveDlg.FileName = this.SubjectHeader.StudyName;
+
+                if(saveDlg.ShowDialog(this.GetParentWindow()).IsFalse())
+                {
+                    return;
+                }
+
+                if (!this.SaveStudy())
+                {
+                    return;
+                }                
+
+                StringBuilder result = new StringBuilder();
+
+                #region CATEGORIES
+
+                StudyCategoryModel category = BiblesData.Database.GetCategory(this.SubjectHeader.StudyCategoryId);
+
+                result.AppendLine(JsonConvert.SerializeObject(category));
+
+                while(category.ParentStudyCategoryId > 0)
+                {
+                    category = BiblesData.Database.GetCategory(category.ParentStudyCategoryId);
+
+                    result.AppendLine(JsonConvert.SerializeObject(category));
+                }
+
+                #endregion
+
+                result.AppendLine(Constants.StudyBookarkMark);
+
+                #region BOOKMARKS
+
+                foreach (ModelsBookmark bookmark in this.uxStudyBookmarks.Bookmarks)
+                {
+                    StudyBookmarkModel studyBookmark = bookmark.CopyToObject(new StudyBookmarkModel()).To<StudyBookmarkModel>();
+
+                    result.AppendLine(JsonConvert.SerializeObject(studyBookmark));
+                }
+
+                #endregion
+
+                result.AppendLine(Constants.StudyMark);
+
+                #region STUDY
+
+                StudyHeaderModel headerModel = this.SubjectHeader.CopyToObject(new StudyHeaderModel()).To<StudyHeaderModel>();
+
+                result.AppendLine(JsonConvert.SerializeObject(headerModel));
+
+                result.AppendLine(Constants.StudyContentMark);
+
+                result.AppendLine(JsonConvert.SerializeObject(this.SubjectContent));
+
+                #endregion
+
+                File.WriteAllText(saveDlg.FileName, result.ToString());
             }
             catch (Exception err)
             {

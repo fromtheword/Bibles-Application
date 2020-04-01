@@ -18,18 +18,23 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" x:Name="uxColumn0" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" x:Name="uxColumn1" />
             <ColumnDefinition Width="3" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
+        <StackPanel>
+            <CommonControls:ActionButton ResourceImageName="Export" ToolTip="Export Study" Click="ExportStudy_Click" />
+        </StackPanel>
                 
-        <ModelViewer:ModelViewer Grid.Row="0" Grid.Column="0" x:Name="uxSubjectHeader" ModelViewItemBrowse="SubjectHeder_Browsed" />
+        <ModelViewer:ModelViewer Grid.Row="0" Grid.Column="1" x:Name="uxSubjectHeader" ModelViewItemBrowse="SubjectHeder_Browsed" />
 
-        <HTML:HTMLEditor Grid.Row="1" Grid.Column="0" x:Name="uxContent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" />
+        <HTML:HTMLEditor Grid.Row="1" Grid.Column="1" x:Name="uxContent" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" />
 
-        <CommonControls:VerticalGridSplit Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" />
+        <CommonControls:VerticalGridSplit Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" />
         
-        <local:StudyBookmarks Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" x:Name="uxStudyBookmarks" />
+        <local:StudyBookmarks Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" x:Name="uxStudyBookmarks" />
         
     </Grid>
 </src:UserControlBase>
