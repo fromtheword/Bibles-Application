@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="ImportBibleStudy.cs" />
     <Compile Include="LoadTranslations.cs" />
+    <Compile Include="LogonCredentials.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

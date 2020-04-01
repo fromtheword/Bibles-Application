@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Resources;
 using System.Threading.Tasks;
 using System.Windows;
 using ViSo.Common;
@@ -86,7 +87,11 @@ namespace Bibles.Downloads
                 {
                     client.UseDefaultCredentials = false;
 
-                    client.Credentials = new NetworkCredential("fromtheword.info@gmail.com", "Sonj@Vih@n2");
+                    string username = LogonCredentials.UserName();
+
+                    string password = LogonCredentials.Password();
+
+                    client.Credentials = new NetworkCredential(username, password);
 
                     foreach (RepositoryContent repository in this.GetSelectedRepositories())
                     {
@@ -165,11 +170,18 @@ namespace Bibles.Downloads
 
         private async void ConnectToGitHub()
         {
+            string username = LogonCredentials.UserName();
+
+            string password = LogonCredentials.Password();
+
             await Task.Run(() => 
             {
-                this.Dispatcher.Invoke(() => { this.uxMessage.Content = "Connecting with server"; });
+                this.Dispatcher.Invoke(() => 
+                {                
+                    this.uxMessage.Content = "Connecting with server"; 
+                });
 
-                Credentials credentials = new Credentials("fromtheword.info@gmail.com", "Sonj@Vih@n2");
+                Credentials credentials = new Credentials(username, password);
 
                 this.gitHubClient = new GitHubClient(new ProductHeaderValue("fromtheword"));
 
