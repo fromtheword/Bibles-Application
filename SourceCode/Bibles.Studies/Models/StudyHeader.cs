@@ -63,7 +63,7 @@ namespace Bibles.Studies.Models
             }
         }
 
-        [FieldInformation("Category", IsRequired = true, Sort = 3)]
+        [FieldInformation("Category", IsReadOnly = true, IsRequired = true, Sort = 3)]
         [BrowseButton("StudyCategoryBrowse", "Search Category", "Search")]
         public string StudyCategoryName
         {

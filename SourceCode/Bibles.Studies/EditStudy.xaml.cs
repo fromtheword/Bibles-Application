@@ -118,6 +118,11 @@ namespace Bibles.Studies
                             return;
                         }
 
+                        if (category.SelectedCategory == null)
+                        {
+                            throw new ApplicationException("Category not Selected.");
+                        }
+
                         StudyCategoryModel categoryModel = category.SelectedCategory;
 
                         this.SubjectHeader.StudyCategoryId = categoryModel.StudyCategoryId;

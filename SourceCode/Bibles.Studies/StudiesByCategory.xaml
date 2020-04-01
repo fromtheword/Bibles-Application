@@ -23,6 +23,7 @@
         </Grid.ColumnDefinitions>
         
         <StackPanel Grid.Row="0" Grid.Column="0">
+            <CommonControls:ActionButton ResourceImageName="Add" ToolTip="New Study" Click="NewStudy_Click" />
             <CommonControls:ActionButton ResourceImageName="Edit" ToolTip="Edit Selected Study" Click="EditStudy_Click" />
         </StackPanel>
 

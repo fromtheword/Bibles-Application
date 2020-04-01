@@ -4,6 +4,7 @@ using Bibles.DataResources.Aggregates;
 using Bibles.Studies.Models;
 using GeneralExtensions;
 using System;
+using System.ComponentModel;
 using System.Windows;
 using ViSo.Dialogs.Controls;
 using WPF.Tools.BaseClasses;
@@ -17,6 +18,8 @@ namespace Bibles.Studies
     /// </summary>
     public partial class StudiesByCategory : UserControlBase
     {
+        private EditStudy newStudy;
+
         private StudyHeaderModel selectedStudyHeader;
 
         private StudyHeaderModel[] categoryStudyHeaders;
@@ -58,7 +61,7 @@ namespace Bibles.Studies
             }
         }
 
-        private void SelectedCategory_Changed(object sender, System.Windows.RoutedPropertyChangedEventArgs<object> e)
+        private void SelectedCategory_Changed(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             try
             {
@@ -72,6 +75,41 @@ namespace Bibles.Studies
                 }
 
                 this.CategoryStudyHeaders = BiblesData.Database.GetStudyHeaderByCategory(category.StudyCategoryId).ToArray();
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
+        }
+
+        private void NewStudy_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                this.newStudy = new EditStudy();
+
+                ControlDialog.ControlDialogClosing += this.ControlDialog_Closing;
+
+                ControlDialog.Show("New Study", this.newStudy, "SaveStudy", owner: this.GetParentWindow(), autoSize: false);
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
+        }
+
+        private void ControlDialog_Closing(object sender, CancelEventArgs e)
+        {
+            try
+            {
+                    this.uxStudyCategories.Initialize();
+
+                    if (this.newStudy != null
+                        && this.newStudy.SubjectHeader != null
+                        && this.newStudy.SubjectHeader.StudyHeaderId > 0)
+                    {
+                        this.uxStudyCategories.SelectCategory(this.newStudy.SubjectHeader.StudyHeaderId);
+                    }
             }
             catch (Exception err)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,145 +11,161 @@ using GeneralExtensions;
 
 namespace WPF.Tools.Specialized
 {
-  public class HighlightRitchTextBox : RichTextBox
-  {
-    private Brush highlightColour = Brushes.Yellow;
-
-    public string Text
+    public class HighlightRitchTextBox : RichTextBox
     {
-      get
-      {
-        TextRange result = new TextRange(base.Document.ContentStart, base.Document.ContentEnd);
+        private Brush highlightColour = Brushes.Yellow;
 
-        return result.Text;
-      }
+        private List<int> startPoints = new List<int>();
 
-      set
-      {
-        base.Document.Blocks.Clear();
-
-        if (value.IsNullEmptyOrWhiteSpace())
+        public string Text
         {
-          return;
+            get
+            {
+                TextRange result = new TextRange(base.Document.ContentStart, base.Document.ContentEnd);
+
+                return result.Text;
+            }
+
+            set
+            {
+                this.startPoints.Clear();
+
+                base.Document.Blocks.Clear();
+
+                if (value.IsNullEmptyOrWhiteSpace())
+                {
+                    return;
+                }
+
+                string[] valueSplit = value.TrimEnd(new char[] { ' ', '\n', '\r' }).Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+
+                Paragraph runParagraph = new Paragraph();
+
+                foreach (string item in valueSplit)
+                {
+
+                    Run itemRun = new Run(item);
+
+                    runParagraph.Inlines.Add(itemRun);
+                }
+
+                base.Document.Blocks.Add(runParagraph);
+            }
         }
 
-        string[] valueSplit = value.TrimEnd(new char[] {' ', '\n', '\r'}).Split(new string[] {Environment.NewLine}, StringSplitOptions.None);
-
-        Paragraph runParagraph = new Paragraph();
-
-        foreach (string item in valueSplit)
+        public Brush HighlightColour
         {
+            get
+            {
+                return this.highlightColour;
+            }
 
-          Run itemRun = new Run(item);
-
-          runParagraph.Inlines.Add(itemRun);
+            set
+            {
+                this.highlightColour = value;
+            }
         }
 
-        base.Document.Blocks.Add(runParagraph);
-      }
-    }
-
-    public Brush HighlightColour
-    {
-      get
-      {
-        return this.highlightColour;
-      }
-
-      set
-      {
-        this.highlightColour = value;
-      }
-    }
-
-    public int GetSelectionStartIndex()
-    {
-      //return this.CaretPositionIndex() - this.GetSelectedTextLength();
-      TextPointer documentStart = base.Document.ContentStart;
-
-      TextPointer textStart = this.Selection.Start;
-
-      TextRange range = new TextRange(documentStart, textStart);
-
-      int result = range.Text.Length;
-
-      return result;
-    }
-
-    public int GetSelectedTextLength()
-    {
-      return base.Selection.Text.Length;
-    }
-
-    public void HighlightText(int start, int length, Brush colour)
-    {
-      if (start <= 0)
-      {
-        start = 0;
-      }
-
-      start += 2;
-
-      TextPointer startPointer = base.Document.ContentStart.GetPositionAtOffset(start);
-
-      TextPointer endPointer = startPointer.GetPositionAtOffset(length);
-
-      TextRange range = new TextRange(startPointer, endPointer);
-
-      // Programmatically change the selection in the RichTextBox.
-      range.ApplyPropertyValue(TextElement.BackgroundProperty, colour);
-    }
-
-    public void HighlightText(string[] phraseArray)
-    {
-      this.Text = this.Text; // This will reset the previous serch
-
-      foreach (string phrase in phraseArray)
-      {
-        this.Highlite(phrase);
-      }
-    }
-
-    public void HighlightText(string phrase)
-    {
-      this.Text = this.Text; // This will reset the previous serch
-
-      this.Highlite(phrase);
-    }
-
-    private void Highlite(string phrase)
-    {
-      phrase = phrase.ToUpperInvariant();
-
-      for (TextPointer position = base.Document.ContentStart;
-        position != null && position.CompareTo(base.Document.ContentEnd) <= 0;
-        position = position.GetNextContextPosition(LogicalDirection.Forward))
-      {
-        if (position.CompareTo(base.Document.ContentEnd) == 0)
+        public int GetSelectionStartIndex()
         {
-          break;
+            //return this.CaretPositionIndex() - this.GetSelectedTextLength();
+            TextPointer documentStart = base.Document.ContentStart;
+
+            TextPointer textStart = this.Selection.Start;
+
+            TextRange range = new TextRange(documentStart, textStart);
+
+            int result = range.Text.Length;
+
+            return result;
         }
 
-        String textRun = position.GetTextInRun(LogicalDirection.Forward);
-
-        StringComparison stringComparison = StringComparison.CurrentCulture;
-
-        Int32 indexInRun = textRun.ToUpperInvariant().IndexOf(phrase, stringComparison);
-
-        if (indexInRun >= 0)
+        public int GetSelectedTextLength()
         {
-          position = position.GetPositionAtOffset(indexInRun);
-
-          if (position != null)
-          {
-            TextPointer nextPointer = position.GetPositionAtOffset(phrase.Length);
-
-            TextRange textRange = new TextRange(position, nextPointer);
-
-            textRange.ApplyPropertyValue(TextElement.BackgroundProperty, this.HighlightColour);
-          }
+            return base.Selection.Text.Length;
         }
-      }
+
+        public void HighlightText(int start, int length, Brush colour)
+        {
+            if (start <= 0)
+            {
+                start = 0;
+            }
+
+            start += 2;
+            
+            foreach(int startItem in this.startPoints)
+            {
+                if (startItem > start)
+                {
+                    continue;
+                }
+
+                start += 4;
+            }
+
+            TextPointer startPointer = base.Document.ContentStart.GetPositionAtOffset(start);
+
+            TextPointer endPointer = startPointer.GetPositionAtOffset(length);
+
+            TextRange range = new TextRange(startPointer, endPointer);
+
+            // Programmatically change the selection in the RichTextBox.
+            range.ApplyPropertyValue(TextElement.BackgroundProperty, colour);
+
+            this.startPoints.Add(start);
+        }
+
+        public void HighlightText(string[] phraseArray)
+        {
+            this.Text = this.Text; // This will reset the previous serch
+
+            foreach (string phrase in phraseArray)
+            {
+                this.Highlite(phrase);
+            }
+        }
+
+        public void HighlightText(string phrase)
+        {
+            this.Text = this.Text; // This will reset the previous serch
+
+            this.Highlite(phrase);
+        }
+
+        private void Highlite(string phrase)
+        {
+            phrase = phrase.ToUpperInvariant();
+
+            for (TextPointer position = base.Document.ContentStart;
+              position != null && position.CompareTo(base.Document.ContentEnd) <= 0;
+              position = position.GetNextContextPosition(LogicalDirection.Forward))
+            {
+                if (position.CompareTo(base.Document.ContentEnd) == 0)
+                {
+                    break;
+                }
+
+                String textRun = position.GetTextInRun(LogicalDirection.Forward);
+
+                StringComparison stringComparison = StringComparison.CurrentCulture;
+
+                Int32 indexInRun = textRun.ToUpperInvariant().IndexOf(phrase, stringComparison);
+
+                if (indexInRun >= 0)
+                {
+                    position = position.GetPositionAtOffset(indexInRun);
+
+                    if (position != null)
+                    {
+                        TextPointer nextPointer = position.GetPositionAtOffset(phrase.Length);
+
+                        TextRange textRange = new TextRange(position, nextPointer);
+
+                        textRange.ApplyPropertyValue(TextElement.BackgroundProperty, this.HighlightColour);
+                    }
+                }
+            }
+        }
     }
-  }
 }

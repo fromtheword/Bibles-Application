@@ -1,5 +1,7 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
+using Bibles.Common;
 using GeneralExtensions;
 using WPF.Tools.BaseClasses;
 using WPF.Tools.Specialized;
@@ -8,8 +10,12 @@ namespace ViSo.Dialogs.Controls
 {
     public static class ControlDialog
     {
-        private static ControlWindow window;
+        public delegate void ControlDialogClosingEvent(object sender, CancelEventArgs e);
 
+        public static event ControlDialogClosingEvent ControlDialogClosing;
+
+        private static ControlWindow window;
+        
         public static bool? ShowDialog(
             string windowTitle, 
             UserControlBase control, 
@@ -22,6 +28,8 @@ namespace ViSo.Dialogs.Controls
             {
                 ControlDialog.window = new ControlWindow(windowTitle, control, boolUpdateMethod, true, autoSize, showOkButton, showCancelButton);
 
+                ControlDialog.window.Closing += ControlDialog.ControlWindow_Closing;
+
                 return ControlDialog.window.ShowDialog();
             }
             catch (Exception err)
@@ -30,12 +38,8 @@ namespace ViSo.Dialogs.Controls
 
                 return false;
             }
-            finally
-            {
-                ControlDialog.window = null;
-            }
         }
-
+        
         public static void Show(string windowTitle, 
             UserControlBase control, 
             string boolUpdateMethod,
@@ -56,12 +60,27 @@ namespace ViSo.Dialogs.Controls
 
                 ControlDialog.window.Topmost = isTopMost;
 
+                ControlDialog.window.Closing += ControlDialog.ControlWindow_Closing;
+
                 ControlDialog.window.Show();
 
             }
             catch (Exception err)
             {
                 MessageDisplay.Show(err.InnerExceptionMessage());
+            }
+        }
+        
+
+        private static void ControlWindow_Closing(object sender, CancelEventArgs e)
+        {
+            try
+            {
+                ControlDialog.ControlDialogClosing?.Invoke(sender, e);
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
             }
             finally
             {

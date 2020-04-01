@@ -89,11 +89,14 @@ namespace Bibles.Studies
                     ParentStudyCategoryId = this.SelectedCategory.StudyCategoryId,
                     StudyCategoryId = studyCategoryId
                 };
-                
-                ((TreeViewItemTool)this.uxCategoryTree.SelectedItem).Items.Add(this.CreateTreeViewItem(treeModel));
+
+                TreeViewItemTool tool = this.CreateTreeViewItem(treeModel);
+
+                ((TreeViewItemTool)this.uxCategoryTree.SelectedItem).Items.Add(tool);
 
                 ((TreeViewItemTool)this.uxCategoryTree.SelectedItem).IsExpanded = true;
 
+                tool.IsSelected = true;
             }
             catch (Exception err)
             {
@@ -146,11 +149,23 @@ namespace Bibles.Studies
             }
         }
 
+        public void SelectCategory(int studyCategoryId)
+        {
+            foreach(TreeViewItemTool item in this.uxCategoryTree.Items)
+            {
+                item.IsExpanded = this.SelectCategoryItem(item, studyCategoryId);
+            }
+        }
+
         public void Initialize()
         {
+            this.uxCategoryTree.ContextMenu = null;
+
+            this.uxCategoryTree.Items.Clear();
+
             ContextMenu categoryTreeContextMenu = new ContextMenu();
 
-            MenuItem treeAdd = new MenuItem { Header = "Add Category" };
+            MenuItem treeAdd = new MenuItem { Header = "Add Parent Category" };
 
             treeAdd.Click += this.CategoryTree_Add;
 
@@ -204,6 +219,38 @@ namespace Bibles.Studies
             result.ContextMenu.Items.Add(itemDelete);
 
             return result;
+        }
+    
+        private bool SelectCategoryItem(TreeViewItemTool parent, int studyCategoryId)
+        {
+            if (parent.Tag != null)
+            {
+                CategoryTreeModel tagValue = parent.Tag.To<CategoryTreeModel>();
+
+                if (tagValue.StudyCategoryId == studyCategoryId)
+                {
+                    parent.IsSelected = true;
+
+                    return true;
+                }
+            }
+
+            if (parent.Items == null)
+            {
+                return false;
+            }
+
+            foreach(TreeViewItemTool child in parent.Items)
+            {
+                child.IsExpanded = this.SelectCategoryItem(child, studyCategoryId);
+
+                if (child.IsExpanded)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
