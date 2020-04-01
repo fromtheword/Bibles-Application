@@ -82,7 +82,8 @@ namespace Bibles.DataResources
                                 Font = defaultFont.ParseToString(),
                                 FontSize = 12,
                                 SynchronizzeTabs = false,
-                                LanguageId = 0
+                                LanguageId = 0,
+                                LastReadVerse = $"{bibleModel.BiblesId}||01O||1||1||"
                             };
 
                             BiblesData.Database.InsertPreference(userPref);

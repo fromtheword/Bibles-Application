@@ -1,6 +1,4 @@
 ﻿using Bibles.Common;
-using Bibles.DataResources;
-using Bibles.DataResources.Aggregates;
 using GeneralExtensions;
 using Octokit;
 using System;
@@ -9,12 +7,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using ViSo.Common;
 using WPF.Tools.BaseClasses;
 using WPF.Tools.CommonControls;
-using WPF.Tools.Functions;
 using WPF.Tools.Specialized;
 
 namespace Bibles.Downloads
@@ -80,6 +78,8 @@ namespace Bibles.Downloads
             {
                 bool openDirectory = false;
 
+                bool restart = false;
+
                 string basePath = Paths.KnownFolder(KnownFolders.KnownFolder.Downloads);
 
                 using (WebClient client = new WebClient())
@@ -96,6 +96,8 @@ namespace Bibles.Downloads
 
                         if (repository.Path.StartsWith("Bibles/"))
                         {
+                            restart = true;
+
                             if (DownloadedBibleLoader.LoadBible(fullName))
                             {
                                 File.Delete(fullName);
@@ -103,6 +105,8 @@ namespace Bibles.Downloads
                         }
                         else if (repository.Path.StartsWith("Translations/"))
                         {
+                            restart = true;
+
                             if (LoadTranslations.LoadFile(fullName))
                             {
                                 File.Delete(fullName);
@@ -118,6 +122,23 @@ namespace Bibles.Downloads
                 if (openDirectory)
                 {
                     Process.Start(basePath);
+                }
+
+                if (restart)
+                {
+                    ProcessStartInfo Info = new ProcessStartInfo();
+
+                    Info.Arguments = "/C choice /C Y /N /D Y /T 1 & START \"\" \"" + Assembly.GetEntryAssembly().Location + "\"";
+                    
+                    Info.WindowStyle = ProcessWindowStyle.Hidden;
+
+                    Info.CreateNoWindow = true;
+
+                    Info.FileName = "cmd.exe";
+
+                    Process.Start(Info);
+
+                    Process.GetCurrentProcess().Kill();
                 }
             }
             catch (Exception err)

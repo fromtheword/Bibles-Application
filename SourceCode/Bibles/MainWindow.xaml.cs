@@ -456,7 +456,11 @@ namespace Bibles
             {
                 DownloadsView down = new DownloadsView();
 
-                ControlDialog.Show("Downloads", down, "DownLoad", autoSize:false);
+                if (ControlDialog.ShowDialog("Downloads", down, "DownLoad", autoSize:false).IsFalse())
+                {
+                    return;
+                }
+
             }
             catch (Exception err)
             {
