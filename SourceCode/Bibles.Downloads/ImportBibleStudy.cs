@@ -104,7 +104,7 @@ namespace Bibles.Downloads
 
                         if (existing != null)
                         {
-                            return true;
+                            studyHeader = existing.CopyTo(studyHeader);
                         }
 
                         studyHeader.StudyHeaderId = BiblesData.Database.InsertSubjectHeader(studyHeader);
