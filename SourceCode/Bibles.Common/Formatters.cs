@@ -43,7 +43,8 @@ namespace Bibles.Common
 
         public static int GetBibleFromKey(string bibleKey)
         {
-            if (bibleKey.IsNullEmptyOrWhiteSpace())
+            if (bibleKey.IsNullEmptyOrWhiteSpace()
+                || !Formatters.IsBiblesKey(bibleKey))
             {
                 return -1;
             }
