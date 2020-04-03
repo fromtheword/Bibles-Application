@@ -31,16 +31,12 @@ namespace Bibles.Reader
     /// </summary>
     public partial class Reader : UserControlBase
     {
-        public delegate void ScrollChangedEvent(object sender, int visibleVerse, ScrollChangedEventArgs e);
-
         public delegate void BibleChangedEvent(object sender, ModelsBibleBook bible);
 
         public delegate void BookChangedEvent(object sender, string chapterkey);
 
         public delegate void SelectedVerseChangedEvent(object sender, BibleVerseModel verse);
-
-        public event ScrollChangedEvent ScrollChanged;
-
+        
         public event BibleChangedEvent BibleChanged;
 
         public event BookChangedEvent BookChanged;
@@ -556,24 +552,6 @@ namespace Bibles.Reader
             {
                 ErrorLog.ShowError(err);
             }
-        }
-
-        private void Scroll_Changed(object sender, ScrollChangedEventArgs e)
-        {
-            int visiblVerse = 0;
-
-            foreach(KeyValuePair<int, StackPanel> item in this.loadedVerseStackDictionary)
-            {
-                if (item.Value.IsVisibleOnScreen(this))
-                {
-                    visiblVerse = item.Key;
-
-                    break;
-                }
-
-            }
-
-            this.ScrollChanged?.Invoke(this, visiblVerse, e);
         }
                
         private void SetHeader()

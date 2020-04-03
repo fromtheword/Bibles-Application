@@ -101,6 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BibleLoader.cs" />
+    <Compile Include="ParalelleSideEnum.cs" />
     <Compile Include="ParallelReader.xaml.cs">
       <DependentUpon>ParallelReader.xaml</DependentUpon>
     </Compile>

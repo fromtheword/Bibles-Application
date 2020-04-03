@@ -1,15 +1,14 @@
-﻿using SQLite;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using GeneralExtensions;
+﻿using Bibles.Common;
 using Bibles.DataResources.Aggregates;
-using System.Collections.Generic;
-using Bibles.Common;
 using Bibles.DataResources.Link;
-using System.Text;
 using Bibles.DataResources.Models.Categories;
-using WPF.Tools.Functions;
+using GeneralExtensions;
+using SQLite;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Bibles.DataResources
 {

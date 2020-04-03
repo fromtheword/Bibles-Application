@@ -145,9 +145,14 @@ namespace Bibles.Common
         
         public static string RemoveBibleId(string bibleKey)
         {
-            string[] keySplit = bibleKey.Split(Formatters.KeySplitValue, StringSplitOptions.RemoveEmptyEntries);
+            string[] keyItems = null;
 
-            return $"{keySplit[1]}||{keySplit[2]}||{keySplit[3]}||";
+            if (!Formatters.IsBiblesKey(bibleKey, out keyItems))
+            {
+                return bibleKey;
+            }
+
+            return $"{keyItems[1]}||{keyItems[2]}||{keyItems[3]}||";
         }
     
         public static string[] CreateBibleKeySplit(string key)

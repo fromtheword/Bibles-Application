@@ -83,7 +83,7 @@ namespace Bibles.Downloads
 
                 string basePath = Paths.KnownFolder(KnownFolders.KnownFolder.Downloads);
 
-                using (WebClient client = new WebClient())
+                using (DownloadWebClient client = new DownloadWebClient())
                 {
                     client.UseDefaultCredentials = false;
 
@@ -140,6 +140,13 @@ namespace Bibles.Downloads
 
                 if (restart)
                 {
+                    string message = "Bibles need to restart. Would you like to restart now?";
+
+                    if (MessageDisplay.Show(message, "Restart", MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+                    {
+                        return true;
+                    }
+
                     ProcessStartInfo Info = new ProcessStartInfo();
 
                     Info.Arguments = "/C choice /C Y /N /D Y /T 1 & START \"\" \"" + Assembly.GetEntryAssembly().Location + "\"";
@@ -186,6 +193,8 @@ namespace Bibles.Downloads
                 this.gitHubClient = new GitHubClient(new ProductHeaderValue("fromtheword"));
 
                 this.gitHubClient.Credentials = credentials;
+
+                this.gitHubClient.SetRequestTimeout(new TimeSpan(0, 5, 0));
 
                 IReadOnlyList<Repository> repositories = this.gitHubClient.Repository.GetAllForCurrent().Result;
 
