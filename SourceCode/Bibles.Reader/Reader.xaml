@@ -1,4 +1,5 @@
-﻿<src:UserControlBase xmlns:src="clr-namespace:WPF.Tools.BaseClasses;assembly=WPF.Tools"
+﻿<src:UserControlBase xmlns:TabControl="clr-namespace:WPF.Tools.TabControl;assembly=WPF.Tools"  
+                     xmlns:src="clr-namespace:WPF.Tools.BaseClasses;assembly=WPF.Tools"
                      xmlns:CommonControls="clr-namespace:WPF.Tools.CommonControls;assembly=WPF.Tools" 
                      xmlns:ModelViewer="clr-namespace:WPF.Tools.ModelViewer;assembly=WPF.Tools"
                      x:Class="Bibles.Reader.Reader"
@@ -19,6 +20,8 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0" x:Name="uxColumn1" />
+            <ColumnDefinition Width="Auto" x:Name="uxColumn2" />
         </Grid.ColumnDefinitions>
 
         <StackPanel  Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
@@ -42,5 +45,10 @@
                 </Grid.ColumnDefinitions>
             </Grid>
         </ScrollViewer>
+
+        <CommonControls:VerticalGridSplit Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" />
+        
+        <TabControl:TabControlVertical Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" x:Name="uxStrongsPin" DockLocation="Right" OnPinChanged="StronsPin_Changed" />
+        
     </Grid>
 </src:UserControlBase>

@@ -1,6 +1,7 @@
 ﻿using Bibles.Common;
 using Bibles.DataResources.Aggregates;
 using Bibles.DataResources.Link;
+using Bibles.DataResources.Models;
 using Bibles.DataResources.Models.Categories;
 using GeneralExtensions;
 using SQLite;
@@ -175,6 +176,8 @@ namespace Bibles.DataResources
         public void InsertBibleVerseBulk(List<BibleVerseModel> verseList)
         {
             Task<int> result = BiblesData.database.InsertAllAsync(verseList);
+
+            int check = result.Result;
         }
 
         public void InsertBibleVerse(BibleVerseModel verse)
@@ -1011,6 +1014,65 @@ namespace Bibles.DataResources
 
         #endregion
 
+        #region STRONGS
+
+        public bool IsStrongsMapped()
+        {
+            var result = BiblesData.database.Table<StrongsVerseKeyModel>().FirstOrDefaultAsync();
+
+            return result.Result != null;
+        }
+
+        public void InsertStrongsVerseKeysBulk(List<StrongsVerseKeyModel> verseList)
+        {
+            Task<int> result = BiblesData.database.InsertAllAsync(verseList);
+
+            int check = result.Result;
+        }
+
+        public void InsertStrongsEntryModelBulk(List<StrongsEntryModel> entries)
+        {
+            Task<int> result = BiblesData.database.InsertAllAsync(entries);
+
+            int check = result.Result;
+        }
+
+        public List<StrongsEntry> GetStrongsEnteries(string verseKey)
+        {
+            List<StrongsEntry> result = new List<StrongsEntry>();
+
+            Task<List<StrongsVerseKeyModel>> verseKeysList = BiblesData.database
+                .Table<StrongsVerseKeyModel>()
+                .Where(vk => vk.VerseKey == verseKey)
+                .ToListAsync();
+
+            foreach(StrongsVerseKeyModel key in verseKeysList.Result)
+            {
+                string strongsKey = key.StrongsReference.Replace("H", "0").Replace("G", "0");
+
+                Task<StrongsEntryModel> strongsEntry = BiblesData.database
+                    .Table<StrongsEntryModel>()
+                    .FirstOrDefaultAsync(sm => sm.StrongsNumber == strongsKey);
+
+                if (strongsEntry.Result == null)
+                {
+                    continue;
+                }
+
+                StrongsEntry resultEntry = strongsEntry.Result.CopyToObject(new StrongsEntry()).To<StrongsEntry>();
+
+                resultEntry.ReferencedText = key.ReferencedText;
+
+                resultEntry.StrongsReference = key.StrongsReference;
+
+                result.Add(resultEntry);
+            }
+
+            return result;
+        }
+
+        #endregion
+
         private async Task InitializeAsync()
         {
             if (!BiblesData.IsInitialized)
@@ -1073,6 +1135,16 @@ namespace Bibles.DataResources
                 if (!database.TableMappings.Any(scon => scon.MappedType.Name == typeof(TranslationMappingModel).Name))
                 {
                     await database.CreateTablesAsync(CreateFlags.AutoIncPK, typeof(TranslationMappingModel)).ConfigureAwait(false);
+                }
+
+                if (!database.TableMappings.Any(scon => scon.MappedType.Name == typeof(StrongsVerseKeyModel).Name))
+                {
+                    await database.CreateTablesAsync(CreateFlags.AutoIncPK, typeof(StrongsVerseKeyModel)).ConfigureAwait(false);
+                }
+
+                if (!database.TableMappings.Any(scon => scon.MappedType.Name == typeof(StrongsEntryModel).Name))
+                {
+                    await database.CreateTablesAsync(CreateFlags.None, typeof(StrongsEntryModel)).ConfigureAwait(false);
                 }
 
                 BiblesData.IsInitialized = true;

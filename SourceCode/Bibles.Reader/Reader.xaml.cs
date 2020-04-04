@@ -23,6 +23,7 @@ using Bibles.Studies.Models;
 using Bibles.DataResources.Models.Bookmarks;
 using WPF.Tools.ToolModels;
 using System.Linq;
+using WPF.Tools.TabControl;
 
 namespace Bibles.Reader
 {
@@ -47,6 +48,8 @@ namespace Bibles.Reader
 
         private string selectedKey;
 
+        private Strongs uxStrongs = new Strongs();
+
         private Dictionary<int, BibleVerseModel> versesDictionary;
 
         private Dictionary<int, HighlightRitchTextBox> loadedTextBoxDictionary = new Dictionary<int, HighlightRitchTextBox>();
@@ -66,6 +69,8 @@ namespace Bibles.Reader
             BibleLoader.LinkViewerClosed += this.RemoteLinkViewer_Closed;
 
             this.uxBible.Items.Add(this.Bible);
+
+            this.uxStrongsPin.Items.Add(this.uxStrongs);
         }
 
         ~Reader()
@@ -547,10 +552,28 @@ namespace Bibles.Reader
                 this.SetHeader();
 
                 this.SelectedVerseChanged?.Invoke(this, this.versesDictionary[Formatters.GetVerseFromKey(this.selectedKey)]);
+
+                this.uxStrongs.VerseKey = this.selectedKey;
             }
             catch (Exception err)
             {
                 ErrorLog.ShowError(err);
+            }
+        }
+
+        private void StronsPin_Changed(object sender, bool isPined)
+        {
+            TabControlVertical item = (TabControlVertical)sender;
+
+            this.uxColumn2.Width = new GridLength(item.ActualWidth, GridUnitType.Auto);
+
+            if (isPined)
+            {
+                this.uxColumn1.Width = new GridLength(3);
+            }
+            else
+            {
+                this.uxColumn1.Width = new GridLength(0);
             }
         }
                

@@ -1,15 +1,14 @@
 ﻿using Bibles.DataResources.Aggregates;
+using GeneralExtensions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using GeneralExtensions;
-using System;
-using System.Windows.Threading;
 using System.Windows.Media;
+using System.Windows.Threading;
+using System.Xml.Linq;
 using WPF.Tools.Functions;
-using System.Text;
-using System.IO;
 
 namespace Bibles.DataResources
 {
@@ -26,69 +25,68 @@ namespace Bibles.DataResources
         public async void LoadEmbeddedBibles(Dispatcher dispatcher, FontFamily defaultFont)
         {
             Task<List<BibleModel>> loadedBiles = BiblesData.Database.GetBibles();
-
-            if (loadedBiles.Result.Count >= bibleNames.Length)
-            {
-                dispatcher.Invoke(() => 
-                { 
-                    this.InitialDataLoadCompleted?.Invoke(this, string.Empty, true, null);
-                });
-
-                return;
-            }
-
+            
             await Task.Run(() => 
             {                
                 try
                 {
-                    foreach (string bible in bibleNames)
+                    #region LOAD BIBLES
+
+                    if (loadedBiles.Result.Count == 0)
                     {
-                        dispatcher.Invoke(() =>
+                        foreach (string bible in bibleNames)
                         {
-                            this.InitialDataLoadCompleted?.Invoke(this, $"Loading...{bible}", false, null);
-                        });
-
-                        BibleModel bibleModel = loadedBiles.Result.FirstOrDefault(l => l.BibleName == bible);
-
-                        if (bibleModel == null)
-                        {
-                            bibleModel = new BibleModel
+                            dispatcher.Invoke(() =>
                             {
-                                BiblesId = 0,
-                                BibleName = bible
-                            };
+                                this.InitialDataLoadCompleted?.Invoke(this, $"Loading...{bible}", false, null);
+                            });
 
-                            BiblesData.Database.InsertBible(bibleModel);
+                            BibleModel bibleModel = loadedBiles.Result.FirstOrDefault(l => l.BibleName == bible);
 
-                            BibleModel added = BiblesData.Database.GetBible(bible);
-
-                            while(added == null)
+                            if (bibleModel == null)
                             {
-                                Sleep.ThreadWait(100);
+                                bibleModel = new BibleModel
+                                {
+                                    BiblesId = 0,
+                                    BibleName = bible
+                                };
 
-                                added = BiblesData.Database.GetBible(bible);
+                                BiblesData.Database.InsertBible(bibleModel);
+
+                                BibleModel added = BiblesData.Database.GetBible(bible);
+
+                                while (added == null)
+                                {
+                                    Sleep.ThreadWait(100);
+
+                                    added = BiblesData.Database.GetBible(bible);
+                                }
+
+                                bibleModel.BiblesId = added.BiblesId;
                             }
 
-                            bibleModel.BiblesId = added.BiblesId;
-                        }
+                            this.LoadBibleVerses(dispatcher, bibleModel);
 
-                        this.LoadBibleVerses(dispatcher, bibleModel);
-
-                        if (bible == this.systemDefaultbible)
-                        {
-                            UserPreferenceModel userPref = new UserPreferenceModel
+                            if (bible == this.systemDefaultbible)
                             {
-                                DefaultBible = bibleModel.BiblesId,
-                                Font = defaultFont.ParseToString(),
-                                FontSize = 12,
-                                SynchronizzeTabs = false,
-                                LanguageId = 0,
-                                LastReadVerse = $"{bibleModel.BiblesId}||01O||1||1||"
-                            };
+                                UserPreferenceModel userPref = new UserPreferenceModel
+                                {
+                                    DefaultBible = bibleModel.BiblesId,
+                                    Font = defaultFont.ParseToString(),
+                                    FontSize = 12,
+                                    SynchronizzeTabs = false,
+                                    LanguageId = 0,
+                                    LastReadVerse = $"{bibleModel.BiblesId}||01O||1||1||"
+                                };
 
-                            BiblesData.Database.InsertPreference(userPref);
+                                BiblesData.Database.InsertPreference(userPref);
+                            }
                         }
                     }
+
+                    #endregion
+
+                    this.LoadStrongsConcordance(dispatcher);
                 }
                 catch (Exception err)
                 {
@@ -180,5 +178,126 @@ namespace Bibles.DataResources
                 }
             }                   
         }
+
+        private void LoadStrongsConcordance(Dispatcher dispatcher)
+        {
+            if (BiblesData.Database.IsStrongsMapped())
+            {
+                return;
+            }
+
+            #region MAPPED VERSES
+
+            dispatcher.Invoke(() =>
+            {
+                this.InitialDataLoadCompleted?.Invoke(this, "Loading Concordance Links", false, null);
+            });
+
+            var mappedVersesText = typeof(Properties.Resources)
+                  .GetProperties(BindingFlags.Static | BindingFlags.NonPublic |
+                                 BindingFlags.Public)
+                  .Where(p => p.PropertyType == typeof(string) && p.Name == "StrongsVerseMapping")
+                  .Select(x => new { Map = x.GetValue(null, null) })
+                  .FirstOrDefault();
+
+            List<string> mapedVerseList = mappedVersesText.Map
+                  .ParseToString()
+                  .Split(new char[] { '\n', '\r' }, System.StringSplitOptions.RemoveEmptyEntries)
+                  .ToList();
+
+            char[] charSplitArray = new char[] { '*' };
+
+            List<StrongsVerseKeyModel> versesKeys = new List<StrongsVerseKeyModel>();
+
+            foreach (string line in mapedVerseList)
+            {
+                string[] lineSplit = line.Split(charSplitArray, StringSplitOptions.None);
+
+                versesKeys.Add(new StrongsVerseKeyModel
+                {
+                    VerseKey = lineSplit[0],
+                    StrongsReference = lineSplit[1],
+                    ReferencedText = lineSplit[2]
+                });
+            }
+
+            dispatcher.Invoke(() =>
+            {
+                this.InitialDataLoadCompleted?.Invoke(this, "Inserting Concordance Links", false, null);
+            });
+
+            int skipIndex = 0;
+
+            int takeValue = 500;
+
+            while (skipIndex <= versesKeys.Count)
+            {
+                List<StrongsVerseKeyModel> addList = versesKeys.Skip(skipIndex).Take(takeValue).ToList();
+
+                BiblesData.Database.InsertStrongsVerseKeysBulk(addList);
+
+                skipIndex += takeValue;
+            }
+
+            #endregion
+            
+            #region LOADING CONCORDANCE
+
+            dispatcher.Invoke(() =>
+            {
+                this.InitialDataLoadCompleted?.Invoke(this, "Loading Concordance Links", false, null);
+            });
+
+            var concordance = typeof(Properties.Resources)
+                 .GetProperties(BindingFlags.Static | BindingFlags.NonPublic |
+                                BindingFlags.Public)
+                 .Where(p => p.PropertyType == typeof(string) && p.Name == "StrongsFormated")
+                 .Select(x => new { XmlString = x.GetValue(null, null) })
+                 .FirstOrDefault();
+
+            XDocument doc = XDocument.Parse(concordance.XmlString.ParseToString());
+
+            List<StrongsEntryModel> strongsEntries = new List<StrongsEntryModel>();
+
+            foreach(XElement entry in doc.Root.Descendants("entry"))
+            {
+                strongsEntries.Add(new StrongsEntryModel
+                {
+                    StrongsNumber = entry.GetAttributeValue("strongs"),
+                    Entry = entry.GetValue(doc),
+                    GreekBeta = entry.Element("greek").GetAttributeValue("BETA"),
+                    GreekUnicode = entry.Element("greek").GetAttributeValue("unicode"),
+                    GreekTranslit = entry.Element("greek").GetAttributeValue("translit"),
+                    Pronunciation = entry.Element("pronunciation").GetAttributeValue("strongs"),
+                    Derivation = entry.GetValueFromChild(doc, "strongs_derivation"),
+                    StrongsDefinition = entry.GetValueFromChild(doc, "strongs_def"),
+                    KingJamesDefinition = entry.GetValueFromChild(doc, "kjv_def"),
+                });
+            }
+
+            dispatcher.Invoke(() =>
+            {
+                this.InitialDataLoadCompleted?.Invoke(this, "Inserting Concordance Links", false, null);
+            });
+
+            skipIndex = 0;
+            
+            while (skipIndex <= strongsEntries.Count)
+            {
+                List<StrongsEntryModel> addList = strongsEntries.Skip(skipIndex).Take(takeValue).ToList();
+
+                BiblesData.Database.InsertStrongsEntryModelBulk(addList);
+
+                skipIndex += takeValue;
+            }
+
+            #endregion
+
+            dispatcher.Invoke(() =>
+            {
+                this.InitialDataLoadCompleted?.Invoke(this, "Completed", false, null);
+            });
+        }
+
     }
 }

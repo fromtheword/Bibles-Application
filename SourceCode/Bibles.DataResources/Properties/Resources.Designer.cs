@@ -74,6 +74,48 @@ namespace Bibles.DataResources.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE strongsdictionary [
+        ///   &lt;!ELEMENT strongsdictionary (prologue, entries) &gt;
+        ///   &lt;!ELEMENT prologue (#PCDATA) &gt;
+        ///   &lt;!ELEMENT entries (entry)+ &gt;
+        ///   &lt;!ELEMENT entry (#PCDATA|strongs|greek|pronunciation|latin|strongsref|strongs_def|strongs_derivation|kjv_def)* &gt;
+        ///   &lt;!ATTLIST entry strongs CDATA #REQUIRED &gt;
+        ///   &lt;!ELEMENT greek EMPTY &gt;
+        ///
+        ///
+        ///   &lt;!-- unicode is real Greek. translit is SBL-style transliteration. --&gt;
+        ///   &lt;!ATTLIST greek BETA CDATA #REQUIRED 
+        ///                   unicode CDATA #REQUIRED 
+        ///   [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string StrongsFormated {
+            get {
+                return ResourceManager.GetString("StrongsFormated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 07O||9||17||*H0001*For my father
+        ///19O||68||5||*H0001*A father
+        ///14O||30||7||*H0001*And be not ye like your fathers
+        ///07O||15||2||*H0001*And her father
+        ///04O||30||4||*H0001*And her father
+        ///11O||1||6||*H0001*And his father
+        ///01O||27||26||*H0001*And his father
+        ///01O||48||19||*H0001*And his father
+        ///04O||27||11||*H0001*And if his father
+        ///07O||21||22||*H0001*And it shall be when their fathers
+        ///19O||78||8||*H0001*And might not be as their fathers
+        ///11O||12||11||*H0001*And now whereas my father
+        ///01O||44||25||*H0001*And o [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string StrongsVerseMapping {
+            get {
+                return ResourceManager.GetString("StrongsVerseMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 01O||1||1||Ekuqalekeni uThixo wadala amazulu nehlabathi.
         ///01O||1||2||Ke ehlabathini kwakusenyanyeni, kuselubala; kwakumnyama phezu kwamanzi enzonzobila. UMoya kaThixo wafukama phezu kwamanzi lawo.
         ///01O||1||3||Wathi uThixo, Makubekho ukukhanya. Kwabakho ke ukukhanya.
