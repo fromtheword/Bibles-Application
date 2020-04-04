@@ -1,9 +1,12 @@
 ﻿using Bibles.Common;
 using Bibles.DataResources;
 using Bibles.DataResources.Models;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 using WPF.Tools.BaseClasses;
+using WPF.Tools.ModelViewer;
+using GeneralExtensions;
 
 namespace Bibles.Reader
 {
@@ -13,6 +16,8 @@ namespace Bibles.Reader
     public partial class Strongs : UserControlBase
     {
         private string verseKey;
+
+        bool reload = true;
 
         public Strongs()
         {
@@ -30,6 +35,8 @@ namespace Bibles.Reader
 
             set
             {
+                this.reload = this.verseKey != value;
+
                 this.verseKey = value;
 
                 if (this.IsLoaded)
@@ -45,21 +52,48 @@ namespace Bibles.Reader
 
         private void LoadEntries()
         {
-            this.uxEntries.Items.Clear();
-
-            List<StrongsEntry> entries = BiblesData.Database.GetStrongsEnteries(this.VerseKey);
-
-            foreach(StrongsEntry entry in entries)
+            if (!this.reload)
             {
-                this.uxEntries.Items.Add(entry);
+                return;
+            }
 
-                int index = this.uxEntries.Items.Count - 1;
+            try
+            {
+                this.uxEntries.Items.Clear();
 
-                this.uxEntries[index].SetAllowHeaderCollapse(true);
+                List<StrongsEntry> entries = BiblesData.Database.GetStrongsEnteries(this.VerseKey);
 
-                this.uxEntries[index].ToggelCollaps(true);
+                foreach (StrongsEntry entry in entries)
+                {
+                    this.uxEntries.Items.Add(entry);
 
-                this.uxEntries[index].Header = $"{entry.StrongsReference} - {entry.ReferencedText}";
+                    int index = this.uxEntries.Items.Count - 1;
+
+                    this.uxEntries[index].SetAllowHeaderCollapse(true);
+
+                    this.uxEntries[index].ToggelCollaps(true);
+
+                    this.uxEntries[index].Header = $"{entry.StrongsReference} - {entry.ReferencedText}";
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
+        }
+
+        private void ModelItem_Browse(object sender, string buttonKey)
+        {
+            try
+            { 
+                ModelViewObject modelObject = (ModelViewObject)sender;
+
+                string strongsKey = modelObject[0].GetValue().ParseToString();
+
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
             }
         }
     }

@@ -6,6 +6,7 @@ namespace Bibles.DataResources.Models
     public class StrongsEntry
     {
         [FieldInformationAttribute("Strong's", IsReadOnly = true, Sort = 1)]
+        //[BrowseButton("StrongsNumberKey", "", "Search")]
         public string StrongsNumber { get; set; }
 
         [FieldInformationAttribute("Notes", IsReadOnly = true, Sort = 2)]
