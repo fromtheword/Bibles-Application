@@ -1,0 +1,92 @@
+﻿using Bibles.Common;
+using Bibles.DataResources;
+using Bibles.DataResources.Models.Strongs;
+using System;
+using System.Collections.Generic;
+using System.Windows;
+using WPF.Tools.BaseClasses;
+
+namespace Bibles.Reader
+{
+    /// <summary>
+    /// Interaction logic for StrongsVerses.xaml
+    /// </summary>
+    public partial class StrongsVerses : UserControlBase
+    {
+        private StrongsVerse selectedVerse;
+        private StrongsVerse[] verses;
+
+        public StrongsVerses(int bibleId, string strongsNumber)
+        {
+            this.InitializeComponent();
+
+            this.DataContext = this;
+
+            this.BibleId = bibleId;
+
+            this.StrongsNumber = strongsNumber;
+
+            this.InitializeVerses();
+        }
+
+        public int BibleId { get; set; }
+
+        public string StrongsNumber { get; set; }
+
+        public StrongsVerse SelectedVerse
+        {
+            get
+            {
+                return this.selectedVerse;
+            }
+
+            set
+            {
+                this.selectedVerse = value;
+
+                base.OnPropertyChanged(() => this.SelectedVerse);
+
+                this.uxBibleVerse.Text = value == null ? string.Empty : value.VerseText;
+            }
+        }
+
+        public StrongsVerse[] Verses
+        {
+            get
+            {
+                return this.verses;
+            }
+
+            set
+            {
+                this.verses = value;
+
+                base.OnPropertyChanged(() => this.Verses);
+            }
+        }
+
+        private void OpenVers_Cliked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
+        }
+
+        private void InitializeVerses()
+        {
+            try
+            {
+                this.Verses = BiblesData.Database.GetStrongsVerseReferences(this.BibleId, this.StrongsNumber).ToArray();
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
+        }
+    }
+}

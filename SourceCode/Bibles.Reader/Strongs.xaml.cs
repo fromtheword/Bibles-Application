@@ -1,12 +1,14 @@
 ﻿using Bibles.Common;
 using Bibles.DataResources;
-using Bibles.DataResources.Models;
+using Bibles.DataResources.Models.Strongs;
+using GeneralExtensions;
 using System;
 using System.Collections.Generic;
 using System.Windows;
+using ViSo.Dialogs.Controls;
 using WPF.Tools.BaseClasses;
+using WPF.Tools.Exstention;
 using WPF.Tools.ModelViewer;
-using GeneralExtensions;
 
 namespace Bibles.Reader
 {
@@ -25,6 +27,8 @@ namespace Bibles.Reader
 
             this.Loaded += this.Strongs_Loaded;
         }
+
+        public int BibleId { private get; set; }
 
         public string VerseKey
         {
@@ -45,6 +49,7 @@ namespace Bibles.Reader
                 }
             }
         }
+        
         private void Strongs_Loaded(object sender, RoutedEventArgs e)
         {
             this.LoadEntries();
@@ -88,8 +93,11 @@ namespace Bibles.Reader
             { 
                 ModelViewObject modelObject = (ModelViewObject)sender;
 
-                string strongsKey = modelObject[0].GetValue().ParseToString();
+                string strongsNumber = modelObject[0].GetValue().ParseToString();
 
+                StrongsVerses verseView = new StrongsVerses(this.BibleId, strongsNumber);
+
+                ControlDialog.Show(strongsNumber, verseView, string.Empty, showCancelButton:false, autoSize:false, owner:this.GetParentWindow());
             }
             catch (Exception err)
             {

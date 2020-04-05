@@ -298,6 +298,5 @@ namespace Bibles.DataResources
                 this.InitialDataLoadCompleted?.Invoke(this, "Completed", false, null);
             });
         }
-
     }
 }

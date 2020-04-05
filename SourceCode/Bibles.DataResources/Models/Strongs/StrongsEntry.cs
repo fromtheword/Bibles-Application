@@ -1,12 +1,12 @@
 ﻿using WPF.Tools.Attributes;
 
-namespace Bibles.DataResources.Models
+namespace Bibles.DataResources.Models.Strongs
 {
     [ModelNameAttribute("Bibles")]
     public class StrongsEntry
     {
         [FieldInformationAttribute("Strong's", IsReadOnly = true, Sort = 1)]
-        //[BrowseButton("StrongsNumberKey", "", "Search")]
+        [BrowseButton("StrongsNumberKey", "", "Search")]
         public string StrongsNumber { get; set; }
 
         [FieldInformationAttribute("Notes", IsReadOnly = true, Sort = 2)]

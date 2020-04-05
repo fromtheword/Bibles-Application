@@ -124,6 +124,9 @@
     <Compile Include="Strongs.xaml.cs">
       <DependentUpon>Strongs.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StrongsVerses.xaml.cs">
+      <DependentUpon>StrongsVerses.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -143,6 +146,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Strongs.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="StrongsVerses.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

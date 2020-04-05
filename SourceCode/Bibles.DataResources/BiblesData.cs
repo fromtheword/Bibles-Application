@@ -1,8 +1,8 @@
 ﻿using Bibles.Common;
 using Bibles.DataResources.Aggregates;
 using Bibles.DataResources.Link;
-using Bibles.DataResources.Models;
 using Bibles.DataResources.Models.Categories;
+using Bibles.DataResources.Models.Strongs;
 using GeneralExtensions;
 using SQLite;
 using System;
@@ -52,7 +52,9 @@ namespace Bibles.DataResources
             }
         }
 
-        #region USERPREFERENCEMODEL
+        public object GlobalStaticData { get; private set; }
+
+        #region USERPREFERENCE MODEL
 
         public UserPreferenceModel GetPreferences()
         {
@@ -105,7 +107,7 @@ namespace Bibles.DataResources
 
         #endregion
 
-        #region BIBLEMODEL
+        #region BIBLE MODEL
 
         public Task<List<BibleModel>> GetBibles()
         {
@@ -141,7 +143,7 @@ namespace Bibles.DataResources
 
         #endregion
 
-        #region BIBLEVERSEMODEL
+        #region BIBLE VERSES
 
         public BibleVerseModel GetVerse(string verseKey)
         {
@@ -1066,6 +1068,46 @@ namespace Bibles.DataResources
                 resultEntry.StrongsReference = key.StrongsReference;
 
                 result.Add(resultEntry);
+            }
+
+            return result;
+        }
+
+        public List<StrongsVerse> GetStrongsVerseReferences(int biblesId, string strongsNumber)
+        {
+            string hebrewKey = $"H{(strongsNumber.Length == 5 ? strongsNumber.Substring(1) : strongsNumber)}";
+
+            string greekKey = $"G{(strongsNumber.Length == 5 ? strongsNumber.Substring(1) : strongsNumber)}";
+            
+            Task<List<StrongsVerseKeyModel>> verseLinks = BiblesData.database
+                .Table<StrongsVerseKeyModel>()
+                .Where(vk => vk.StrongsReference == hebrewKey
+                           ||vk.StrongsReference == greekKey)
+                .ToListAsync();
+
+            if (verseLinks.Result == null || verseLinks.Result.Count == 0)
+            {
+                return new List<StrongsVerse>();
+            }
+            
+            List<StrongsVerse> result = new List<StrongsVerse>();
+
+            result.AddRange(verseLinks.Result.Select(sv => new StrongsVerse             
+            { 
+                ReferencedText = sv.ReferencedText,
+                StrongsReference = sv.StrongsReference,
+                VerseKey = sv.VerseKey
+            }));
+
+            foreach(StrongsVerse verse in result)
+            {
+                string bibleVerseKey = $"{biblesId}||{verse.VerseKey}";
+
+                BibleVerseModel bibleVers = this.GetVerse(bibleVerseKey);
+
+                verse.VerseText = bibleVers.VerseText;
+
+                verse.VerseNumber = verse.InvokeMethod("Bibles.Data.GlobalInvokeData,Bibles.Data", "GetKeyDescription", new object[] { verse.VerseKey }).ParseToString();
             }
 
             return result;

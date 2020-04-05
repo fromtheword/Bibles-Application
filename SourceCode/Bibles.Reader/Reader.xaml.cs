@@ -553,6 +553,8 @@ namespace Bibles.Reader
 
                 this.SelectedVerseChanged?.Invoke(this, this.versesDictionary[Formatters.GetVerseFromKey(this.selectedKey)]);
 
+                this.uxStrongs.BibleId = this.Bible.BibleId;
+
                 this.uxStrongs.VerseKey = this.selectedKey;
             }
             catch (Exception err)
