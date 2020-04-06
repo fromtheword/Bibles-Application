@@ -23,7 +23,7 @@ namespace Bibles.Downloads
     /// </summary>
     public partial class DownloadsView : UserControlBase
     {
-        private readonly string[] directoryNames = new string[] { "Bibles", "Books", "Studies", "Translations" };
+        private readonly string[] directoryNames = new string[] { "Bibles", "Books", "Studies", "Translations", "Concordances" };
 
         private GitHubClient gitHubClient;
 
@@ -122,6 +122,15 @@ namespace Bibles.Downloads
                             ImportBibleStudy studyImport = new ImportBibleStudy();
 
                             if (studyImport.ImportStudy(fullName))
+                            {
+                                File.Delete(fullName);
+                            }
+                        }
+                        else if (repository.Path.StartsWith("Concordances/"))
+                        {
+                            ImportConcordance concordance = new ImportConcordance();
+
+                            if (concordance.Import(fullName))
                             {
                                 File.Delete(fullName);
                             }

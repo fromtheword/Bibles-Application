@@ -241,58 +241,6 @@ namespace Bibles.DataResources
 
             #endregion
             
-            #region LOADING CONCORDANCE
-
-            dispatcher.Invoke(() =>
-            {
-                this.InitialDataLoadCompleted?.Invoke(this, "Loading Concordance Links", false, null);
-            });
-
-            var concordance = typeof(Properties.Resources)
-                 .GetProperties(BindingFlags.Static | BindingFlags.NonPublic |
-                                BindingFlags.Public)
-                 .Where(p => p.PropertyType == typeof(string) && p.Name == "StrongsFormated")
-                 .Select(x => new { XmlString = x.GetValue(null, null) })
-                 .FirstOrDefault();
-
-            XDocument doc = XDocument.Parse(concordance.XmlString.ParseToString());
-
-            List<StrongsEntryModel> strongsEntries = new List<StrongsEntryModel>();
-
-            foreach(XElement entry in doc.Root.Descendants("entry"))
-            {
-                strongsEntries.Add(new StrongsEntryModel
-                {
-                    StrongsNumber = entry.GetAttributeValue("strongs"),
-                    Entry = entry.GetValue(doc),
-                    GreekBeta = entry.Element("greek").GetAttributeValue("BETA"),
-                    GreekUnicode = entry.Element("greek").GetAttributeValue("unicode"),
-                    GreekTranslit = entry.Element("greek").GetAttributeValue("translit"),
-                    Pronunciation = entry.Element("pronunciation").GetAttributeValue("strongs"),
-                    Derivation = entry.GetValueFromChild(doc, "strongs_derivation"),
-                    StrongsDefinition = entry.GetValueFromChild(doc, "strongs_def"),
-                    KingJamesDefinition = entry.GetValueFromChild(doc, "kjv_def"),
-                });
-            }
-
-            dispatcher.Invoke(() =>
-            {
-                this.InitialDataLoadCompleted?.Invoke(this, "Inserting Concordance Links", false, null);
-            });
-
-            skipIndex = 0;
-            
-            while (skipIndex <= strongsEntries.Count)
-            {
-                List<StrongsEntryModel> addList = strongsEntries.Skip(skipIndex).Take(takeValue).ToList();
-
-                BiblesData.Database.InsertStrongsEntryModelBulk(addList);
-
-                skipIndex += takeValue;
-            }
-
-            #endregion
-
             dispatcher.Invoke(() =>
             {
                 this.InitialDataLoadCompleted?.Invoke(this, "Completed", false, null);

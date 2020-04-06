@@ -1,5 +1,6 @@
 ﻿using Bibles.Common;
 using Bibles.DataResources.Aggregates;
+using Bibles.DataResources.DataEnums;
 using Bibles.DataResources.Link;
 using Bibles.DataResources.Models.Categories;
 using Bibles.DataResources.Models.Strongs;
@@ -1016,7 +1017,7 @@ namespace Bibles.DataResources
 
         #endregion
 
-        #region STRONGS
+        #region CONCORDANCES
 
         public bool IsStrongsMapped()
         {
@@ -1033,6 +1034,20 @@ namespace Bibles.DataResources
         }
 
         public void InsertStrongsEntryModelBulk(List<StrongsEntryModel> entries)
+        {
+            Task<int> result = BiblesData.database.InsertAllAsync(entries);
+
+            int check = result.Result;
+        }
+
+        public void InsertGreekEntryModelBulk(List<GreekEntryModel> entries)
+        {
+            Task<int> result = BiblesData.database.InsertAllAsync(entries);
+
+            int check = result.Result;
+        }
+
+        public void InsertHebrewEntityModelBulk(List<HebrewEntityModel> entries)
         {
             Task<int> result = BiblesData.database.InsertAllAsync(entries);
 
@@ -1113,6 +1128,60 @@ namespace Bibles.DataResources
             return result;
         }
 
+        public void TruncateStrongs()
+        {
+            Task<List<StrongsEntryModel>> deleteResult = BiblesData.database.QueryAsync<StrongsEntryModel>("DELETE FROM StrongsEntryModel", new object[] { });
+
+            List<StrongsEntryModel> result = deleteResult.Result;
+        }
+
+        public void TruncateGreekLexicon()
+        {
+            Task<List<GreekEntryModel>> deleteResult = BiblesData.database.QueryAsync<GreekEntryModel>("DELETE FROM GreekEntryModel", new object[] { });
+
+            List<GreekEntryModel> result = deleteResult.Result;
+        }
+
+        //HebrewEntityModel
+        public void TruncateHebrewLexicon()
+        {
+            Task<List<HebrewEntityModel>> deleteResult = BiblesData.database.QueryAsync<HebrewEntityModel>("DELETE FROM HebrewEntityModel", new object[] { });
+
+            List<HebrewEntityModel> result = deleteResult.Result;
+        }
+
+        #endregion
+
+        #region HAVE INSTALLED
+
+        public bool IsInstalled(HaveInstalledEnum entity)
+        {
+            int entityModel = (int)entity;
+
+            Task<HaveInstalledModel> result = BiblesData.database
+                .Table<HaveInstalledModel>()
+                .FirstOrDefaultAsync(em => em.EntityModel == entityModel);
+
+            return result.Result != null;
+        }
+
+        public void InstallEntity(HaveInstalledEnum entity)
+        {
+            if (this.IsInstalled(entity))
+            {
+                return;
+            }
+
+            HaveInstalledModel haveInstlled = new HaveInstalledModel
+            {
+                EntityModel = (int)entity
+            };
+
+            Task<int> result = BiblesData.database.InsertAsync(haveInstlled);
+
+            int check = result.Result;
+        }
+
         #endregion
 
         private async Task InitializeAsync()
@@ -1178,6 +1247,12 @@ namespace Bibles.DataResources
                 {
                     await database.CreateTablesAsync(CreateFlags.AutoIncPK, typeof(TranslationMappingModel)).ConfigureAwait(false);
                 }
+                                
+                
+                if (!database.TableMappings.Any(enm => enm.MappedType.Name == typeof(HaveInstalledModel).Name))
+                {
+                    await database.CreateTablesAsync(CreateFlags.None, typeof(HaveInstalledModel)).ConfigureAwait(false);
+                }
 
                 if (!database.TableMappings.Any(scon => scon.MappedType.Name == typeof(StrongsVerseKeyModel).Name))
                 {
@@ -1187,6 +1262,18 @@ namespace Bibles.DataResources
                 if (!database.TableMappings.Any(scon => scon.MappedType.Name == typeof(StrongsEntryModel).Name))
                 {
                     await database.CreateTablesAsync(CreateFlags.None, typeof(StrongsEntryModel)).ConfigureAwait(false);
+                }
+
+                // GreekEntryModel
+                if (!database.TableMappings.Any(scon => scon.MappedType.Name == typeof(GreekEntryModel).Name))
+                {
+                    await database.CreateTablesAsync(CreateFlags.None, typeof(GreekEntryModel)).ConfigureAwait(false);
+                }
+
+                // HebrewEntityModel
+                if (!database.TableMappings.Any(scon => scon.MappedType.Name == typeof(HebrewEntityModel).Name))
+                {
+                    await database.CreateTablesAsync(CreateFlags.None, typeof(HebrewEntityModel)).ConfigureAwait(false);
                 }
 
                 BiblesData.IsInitialized = true;

@@ -19,7 +19,19 @@ namespace GeneralExtensions
             return element.Attribute(attributeName).Value;
         }
 
-        public static string GetValueFromChild(this XElement parent, XDocument masterDocument, string childNodeName)
+        public static string GetNamespaceAttributeValue(this XElement element, string attributeName)
+        {
+            string[] splitName = attributeName.Split(':');
+
+            if (element == null || element.Attribute(element.GetNamespaceOfPrefix(splitName[0]) + splitName[1]) == null)
+            {
+                return string.Empty;
+            }
+
+            return element.Attribute(element.GetNamespaceOfPrefix(splitName[0]) + splitName[1]).Value.ToString();
+        }
+
+        public static string GetValueFromChildStandardStrongs(this XElement parent, XDocument masterDocument, string childNodeName)
         {
             if (parent.Element(childNodeName) == null)
             {
@@ -33,11 +45,6 @@ namespace GeneralExtensions
 
             foreach (XElement child in parent.Element(childNodeName).Elements("strongsref"))
             {
-                if (child.Name.LocalName == "latin")
-                {
-                    continue;
-                }
-
                 string strongs = child.GetAttributeValue("strongs").PadLeft(5, '0');
 
                 string language = child.GetAttributeValue("language");
@@ -50,6 +57,18 @@ namespace GeneralExtensions
             }
 
             return parent.Element(childNodeName).Value;
+        }
+
+        public static string GetValueFromChildHebrewLexicon(this XElement parent, XDocument masterDocument, string childNodeName)
+        {
+            if (parent.Element(childNodeName) == null)
+            {
+                return string.Empty;
+            }
+
+            XElement result = parent.Element(childNodeName);
+            
+            return result.Value;
         }
 
         public static string GetValue(this XElement element, XDocument masterDocument)
@@ -92,6 +111,16 @@ namespace GeneralExtensions
             int indexOfValue = rawValue.IndexOf(textValues[0].Replace("\r", string.Empty).Replace("\n", string.Empty));
 
             return rawValue.Substring(indexOfValue);
+        }
+    
+        public static void RemoveNamespaces(this XElement element)
+        {
+            element.Name = element.Name.LocalName;
+
+            foreach(XElement child in element.Elements())
+            {
+                child.RemoveNamespaces();
+            }
         }
     }
 }

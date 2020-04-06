@@ -112,6 +112,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\GreekEntryModel.cs" />
+    <Compile Include="Aggregates\HaveInstalledModel.cs" />
+    <Compile Include="Aggregates\HebrewEntityModel.cs" />
     <Compile Include="Aggregates\LanguageSetupModel.cs" />
     <Compile Include="Aggregates\StrongsEntryModel.cs" />
     <Compile Include="Aggregates\StrongsVerseKeyModel.cs" />
@@ -119,6 +122,7 @@
     <Compile Include="Aggregates\StudyContentModel.cs" />
     <Compile Include="Aggregates\TranslationMappingModel.cs" />
     <Compile Include="BiblesData.cs" />
+    <Compile Include="DataEnums\HaveInstalledEnum.cs" />
     <Compile Include="DataEnums\SearchComparisonEnum.cs" />
     <Compile Include="DbConstraints.cs" />
     <Compile Include="InitializeData.cs" />
@@ -182,9 +186,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\StrongsVerseMapping.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\StrongsFormated.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
