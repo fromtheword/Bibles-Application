@@ -74,6 +74,27 @@ namespace Bibles.DataResources.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &lt;!DOCTYPE strongsdictionary [
+        ///   &lt;!ELEMENT strongsdictionary (prologue, entries) &gt;
+        ///   &lt;!ELEMENT prologue (#PCDATA) &gt;
+        ///   &lt;!ELEMENT entries (entry)+ &gt;
+        ///   &lt;!ELEMENT entry (#PCDATA|strongs|greek|pronunciation|latin|strongsref|strongs_def|strongs_derivation|kjv_def)* &gt;
+        ///   &lt;!ATTLIST entry strongs CDATA #REQUIRED &gt;
+        ///   &lt;!ELEMENT greek EMPTY &gt;
+        ///
+        ///
+        ///   &lt;!-- unicode is real Greek. translit is SBL-style transliteration. --&gt;
+        ///   &lt;!ATTLIST greek BETA CDATA #REQUIRED 
+        ///                   unicode CDATA #REQUIRED 
+        ///   [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Strongs_Concordance {
+            get {
+                return ResourceManager.GetString("Strongs_Concordance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 07O||9||17||*H0001*For my father
         ///19O||68||5||*H0001*A father
         ///14O||30||7||*H0001*And be not ye like your fathers

@@ -44,18 +44,25 @@ namespace Bibles.Downloads
 
             foreach (XElement entry in doc.Root.Descendants("entry"))
             {
-                strongsEntries.Add(new StrongsEntryModel
+                try
                 {
-                    StrongsNumber = entry.GetAttributeValue("strongs"),
-                    Entry = entry.GetValue(doc),
-                    GreekBeta = entry.Element("greek").GetAttributeValue("BETA"),
-                    GreekUnicode = entry.Element("greek").GetAttributeValue("unicode"),
-                    GreekTranslit = entry.Element("greek").GetAttributeValue("translit"),
-                    Pronunciation = entry.Element("pronunciation").GetAttributeValue("strongs"),
-                    Derivation = entry.GetValueFromChildStandardStrongs(doc, "strongs_derivation"),
-                    StrongsDefinition = entry.GetValueFromChildStandardStrongs(doc, "strongs_def"),
-                    KingJamesDefinition = entry.GetValueFromChildStandardStrongs(doc, "kjv_def"),
-                });
+                    strongsEntries.Add(new StrongsEntryModel
+                    {
+                        StrongsNumber = entry.GetAttributeValue("strongs"),
+                        Entry = entry.GetValue(doc),
+                        GreekBeta = entry.Element("greek").GetAttributeValue("BETA"),
+                        GreekUnicode = entry.Element("greek").GetAttributeValue("unicode"),
+                        GreekTranslit = entry.Element("greek").GetAttributeValue("translit"),
+                        Pronunciation = entry.Element("pronunciation").GetAttributeValue("strongs"),
+                        Derivation = entry.GetValueFromChildStandardStrongs(doc, "strongs_derivation"),
+                        StrongsDefinition = entry.GetValueFromChildStandardStrongs(doc, "strongs_def"),
+                        KingJamesDefinition = entry.GetValueFromChildStandardStrongs(doc, "kjv_def"),
+                    });
+                }
+                catch
+                {
+                    throw;
+                }
             }
             
             int skipIndex = 0;
