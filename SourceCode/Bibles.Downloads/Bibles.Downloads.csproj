@@ -87,6 +87,9 @@
     <Compile Include="ImportConcordance.cs" />
     <Compile Include="LoadTranslations.cs" />
     <Compile Include="LogonCredentials.cs" />
+    <Compile Include="OnlineResources.xaml.cs">
+      <DependentUpon>OnlineResources.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -150,6 +153,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="DownloadsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="OnlineResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

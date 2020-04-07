@@ -148,7 +148,8 @@ namespace Bibles.Studies
 
                     StudyHeader studyHeader = controlBase.GetPropertyValue("SubjectHeader").To<StudyHeader>();
 
-                    if (studyHeader.StudyHeaderId <= 0)
+                    if (studyHeader.StudyHeaderId <= 0
+                        || studyHeader.StudyHeaderId != this.SelectedStudyHeader.StudyHeaderId)
                     {
                         continue;
                     }
@@ -161,7 +162,6 @@ namespace Bibles.Studies
                 }
 
                 #endregion
-
 
                 EditStudy edit = new EditStudy(this.SelectedStudyHeader);
 

@@ -468,6 +468,20 @@ namespace Bibles
             }
         }
 
+        private void OnlineResources_Cliked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                OnlineResources resources = new OnlineResources();
+
+                ControlDialog.Show("Resource Centre", resources, string.Empty, owner: this, autoSize:false);
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
+        }
+
         private void About_Cliked(object sender, RoutedEventArgs e)
         {
             About about = new About();
@@ -476,25 +490,6 @@ namespace Bibles
         }
 
         #endregion
-
-        //private void LoadTranslationsDictionary(int languageId)
-        //{
-        //    List<TranslationMappingModel> translationMapping = BiblesData.Database
-        //        .GetTranslationMapping(languageId);
-
-        //    List<DataItemModel> translationItems = new List<DataItemModel>();
-
-        //    foreach(TranslationMappingModel mapping in translationMapping)
-        //    {
-        //        translationItems.Add(new DataItemModel
-        //        {
-        //            ItemKey = mapping.EnglishLanguage.UnzipFile().ParseToString(),
-        //            DisplayValue = mapping.OtherLanguage.UnzipFile().ParseToString()
-        //        });
-        //    }
-
-        //    TranslationDictionary.LoadTransaltionFile(translationItems);
-        //}
 
         private void SetMenuTranslation(MenuItem item)
         {
@@ -576,6 +571,6 @@ namespace Bibles
             reader.SelectedVerseChanged += this.OnReaderSelectedVerse_Changed;
 
             return reader;
-        }            
+        }
     }
 }
