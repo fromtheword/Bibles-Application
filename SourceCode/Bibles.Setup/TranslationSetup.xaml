@@ -26,8 +26,8 @@
             <CommonControls:ActionButton ResourceImageName="Add" ToolTip="Add Transalation" Click="Add_Cliked" />
             <CommonControls:ActionButton ResourceImageName="Edit" ToolTip="Edit Translation" Click="Edit_Cliked" />
             <CommonControls:ActionButton ResourceImageName="Delete" ToolTip="Delete Transalation" Click="Delete_Cliked" />
-            <CommonControls:ActionButton ResourceImageName="Export" ToolTip="Export Transalation File" Click="ExportTranslation_Cliked" />
-            <CommonControls:ActionButton ResourceImageName="Import" ToolTip="Import Transalation File" Click="ImportTranslation_Cliked" />
+            <CommonControls:ActionButton ResourceImageName="Export" ToolTip="Export Translation File" Click="ExportTranslation_Cliked" />
+            <CommonControls:ActionButton ResourceImageName="Import" ToolTip="Import Translation File" Click="ImportTranslation_Cliked" />
         </StackPanel>
 
         <ModelViewer:ModelViewer Grid.Row="0" Grid.Column="1" x:Name="uxLanguage" ModelViewItemBrowse="LanguageSetup_Browse" />
