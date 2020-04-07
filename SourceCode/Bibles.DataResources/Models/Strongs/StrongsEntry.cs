@@ -2,7 +2,7 @@
 
 namespace Bibles.DataResources.Models.Strongs
 {
-    [ModelNameAttribute("Bibles")]
+    [ModelNameAttribute("Concordance")]
     public class StrongsEntry
     {
         [FieldInformationAttribute("Strong's", IsReadOnly = true, Sort = 1)]

@@ -1,5 +1,6 @@
 ﻿using Bibles.Common;
 using Bibles.DataResources;
+using Bibles.DataResources.DataEnums;
 using Bibles.DataResources.Models.Strongs;
 using GeneralExtensions;
 using System;
@@ -19,11 +20,15 @@ namespace Bibles.Reader
     {
         private string verseKey;
 
-        bool reload = true;
+        private bool reload = true;
 
-        public Strongs()
+        private HaveInstalledEnum loadInstalled;
+
+        public Strongs(HaveInstalledEnum installed)
         {
             this.InitializeComponent();
+
+            this.loadInstalled = installed;
 
             this.Loaded += this.Strongs_Loaded;
         }
@@ -66,19 +71,77 @@ namespace Bibles.Reader
             {
                 this.uxEntries.Items.Clear();
 
-                List<StrongsEntry> entries = BiblesData.Database.GetStrongsEnteries(this.VerseKey);
-
-                foreach (StrongsEntry entry in entries)
+                switch(this.loadInstalled)
                 {
-                    this.uxEntries.Items.Add(entry);
+                    case HaveInstalledEnum.StrongsEntryModel:
 
-                    int index = this.uxEntries.Items.Count - 1;
+                        #region STRONGS
 
-                    this.uxEntries[index].SetAllowHeaderCollapse(true);
+                        List<StrongsEntry> strongEntries = BiblesData.Database.GetStrongsEnteries(this.VerseKey);
 
-                    this.uxEntries[index].ToggelCollaps(true);
+                        foreach (StrongsEntry entry in strongEntries)
+                        {
+                            this.uxEntries.Items.Add(entry);
 
-                    this.uxEntries[index].Header = $"{entry.StrongsReference} - {entry.ReferencedText}";
+                            int index = this.uxEntries.Items.Count - 1;
+
+                            this.uxEntries[index].SetAllowHeaderCollapse(true);
+
+                            this.uxEntries[index].ToggelCollaps(true);
+
+                            this.uxEntries[index].Header = $"{entry.StrongsReference} - {entry.ReferencedText}";
+                        }
+
+                        #endregion
+
+                        break;
+
+                    case HaveInstalledEnum.HebrewEntityModel:
+
+                        #region HEBREW
+
+                        List<HebrewEntry> hebrewEntries = BiblesData.Database.GetHebrewEnteries(this.VerseKey);
+
+                        foreach (HebrewEntry entry in hebrewEntries)
+                        {
+                            this.uxEntries.Items.Add(entry);
+
+                            int index = this.uxEntries.Items.Count - 1;
+
+                            this.uxEntries[index].SetAllowHeaderCollapse(true);
+
+                            this.uxEntries[index].ToggelCollaps(true);
+
+                            this.uxEntries[index].Header = $"{entry.StrongsReference} - {entry.ReferencedText}";
+                        }
+
+                        #endregion
+
+                        break;
+
+                    case HaveInstalledEnum.GreekEntryModel:
+
+                        #region GREEK
+
+                        List<StrongsEntry> greekEntries = BiblesData.Database.GetGreekEnteries(this.VerseKey);
+
+                        foreach (StrongsEntry entry in greekEntries)
+                        {
+                            this.uxEntries.Items.Add(entry);
+
+                            int index = this.uxEntries.Items.Count - 1;
+
+                            this.uxEntries[index].SetAllowHeaderCollapse(true);
+
+                            this.uxEntries[index].ToggelCollaps(true);
+
+                            this.uxEntries[index].Header = $"{entry.StrongsReference} - {entry.ReferencedText}";
+                        }
+
+                        #endregion
+
+                        break;
+
                 }
             }
             catch (Exception err)
@@ -90,11 +153,11 @@ namespace Bibles.Reader
         private void ModelItem_Browse(object sender, string buttonKey)
         {
             try
-            { 
+            {
                 ModelViewObject modelObject = (ModelViewObject)sender;
 
                 string strongsNumber = modelObject[0].GetValue().ParseToString();
-
+                        
                 StrongsVerses verseView = new StrongsVerses(this.BibleId, strongsNumber);
 
                 ControlDialog.Show(strongsNumber, verseView, string.Empty, showCancelButton:false, autoSize:false, owner:this.GetParentWindow());

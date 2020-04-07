@@ -1,4 +1,5 @@
-﻿<src:UserControlBase xmlns:DataGridObjects="clr-namespace:WPF.Tools.DataGridObjects;assembly=WPF.Tools"  
+﻿<src:UserControlBase xmlns:Specialized="clr-namespace:WPF.Tools.Specialized;assembly=WPF.Tools" 
+                     xmlns:DataGridObjects="clr-namespace:WPF.Tools.DataGridObjects;assembly=WPF.Tools"  
                      xmlns:CommonControls="clr-namespace:WPF.Tools.CommonControls;assembly=WPF.Tools" 
                      x:Class="Bibles.Reader.StrongsVerses"
                      xmlns:src="clr-namespace:WPF.Tools.BaseClasses;assembly=WPF.Tools"
@@ -18,6 +19,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="3" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -35,10 +37,13 @@
             </DataGridObjects:ViSoDataGrid.Columns>
         </DataGridObjects:ViSoDataGrid>
 
+        <CommonControls:VerticalGridSplit Grid.Row="0" Grid.Column="2" />
+        
         <ScrollViewer Grid.Row="0" Grid.Column="3">
             <StackPanel >
+                <CommonControls:LableItem Content="Occurrences" x:Name="uxOccurrences" FontWeight="Bold" />
                 <CommonControls:LableItem Content="Verse" FontWeight="Bold" />
-                <CommonControls:TextBoxItem x:Name="uxBibleVerse" IsReadOnly="True" TextWrapping="WrapWithOverflow" Margin="0,0,0,15" BorderBrush="Transparent" />
+                <Specialized:HighlightRitchTextBox x:Name="uxBibleVerse" IsReadOnly="True" Margin="0,0,0,15" BorderBrush="Transparent" />
             </StackPanel>
         </ScrollViewer>
 

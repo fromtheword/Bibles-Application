@@ -227,6 +227,16 @@ namespace Bibles.Downloads
 
                     this.LoadDirectoryContent(content, treeItem, repositories[0].Id);
                 }
+                    
+                RepositoryContent biblesRepository = allContent.First(n => n.Name == "Bibles.msi");
+
+                this.Dispatcher.Invoke(() =>
+                {
+                    TreeViewItemTool treeItem = new TreeViewItemTool { Header = "Bibles Install", IsCheckBox = true, Tag = biblesRepository };
+
+                    this.uxDownloadTree.Items.Add(treeItem);
+                });
+
             });
         }
                
@@ -274,6 +284,11 @@ namespace Bibles.Downloads
             foreach (TreeViewItemTool item in this.uxDownloadTree.Items)
             {
                 result.AddRange(this.GetSelectedRepositories(item));
+
+                if (item.IsCheckBox)
+                {
+                    result.Add(item.Tag.To<RepositoryContent>());
+                }
             }
 
             return result;

@@ -24,6 +24,7 @@ using Bibles.DataResources.Models.Bookmarks;
 using WPF.Tools.ToolModels;
 using System.Linq;
 using WPF.Tools.TabControl;
+using Bibles.DataResources.DataEnums;
 
 namespace Bibles.Reader
 {
@@ -48,7 +49,11 @@ namespace Bibles.Reader
 
         private string selectedKey;
 
-        private Strongs uxStrongs = new Strongs();
+        private Strongs uxStrongs;
+
+        private Strongs uxHebrew;
+
+        private Strongs uxGreek;
 
         private Dictionary<int, BibleVerseModel> versesDictionary;
 
@@ -70,7 +75,7 @@ namespace Bibles.Reader
 
             this.uxBible.Items.Add(this.Bible);
 
-            this.uxStrongsPin.Items.Add(this.uxStrongs);
+            this.InitialzeConcordances();
         }
 
         ~Reader()
@@ -553,9 +558,27 @@ namespace Bibles.Reader
 
                 this.SelectedVerseChanged?.Invoke(this, this.versesDictionary[Formatters.GetVerseFromKey(this.selectedKey)]);
 
-                this.uxStrongs.BibleId = this.Bible.BibleId;
+                if (this.uxStrongs != null)
+                {
+                    this.uxStrongs.BibleId = this.Bible.BibleId;
 
-                this.uxStrongs.VerseKey = this.selectedKey;
+                    this.uxStrongs.VerseKey = this.selectedKey;
+                }
+
+                if (this.uxHebrew != null)
+                {
+                    this.uxHebrew.BibleId = this.Bible.BibleId;
+
+                    this.uxHebrew.VerseKey = this.selectedKey;
+                }
+
+                if (this.uxGreek != null)
+                {
+                    this.uxGreek.BibleId = this.Bible.BibleId;
+
+                    this.uxGreek.VerseKey = this.selectedKey;
+                }
+
             }
             catch (Exception err)
             {
@@ -682,5 +705,30 @@ namespace Bibles.Reader
 
             this.uxVerseGridScroll.ScrollToTop();
         }
+    
+        private void InitialzeConcordances()
+        {
+            if (BiblesData.Database.IsInstalled(HaveInstalledEnum.StrongsEntryModel))
+            {
+                this.uxStrongs = new Strongs(HaveInstalledEnum.StrongsEntryModel) { Title = "Strong's" };
+
+                this.uxStrongsPin.Items.Add(this.uxStrongs);
+            }
+
+            if (BiblesData.Database.IsInstalled(HaveInstalledEnum.HebrewEntityModel))
+            {
+                this.uxHebrew = new Strongs(HaveInstalledEnum.HebrewEntityModel) { Title = "Hebrew" };
+
+                this.uxStrongsPin.Items.Add(this.uxHebrew);
+            }
+
+            if (BiblesData.Database.IsInstalled(HaveInstalledEnum.GreekEntryModel))
+            {
+                this.uxGreek = new Strongs(HaveInstalledEnum.GreekEntryModel) { Title = "Greek" };
+
+                this.uxStrongsPin.Items.Add(this.uxGreek);
+            }
+        }
     }
+
 }

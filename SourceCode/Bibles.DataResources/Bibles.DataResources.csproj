@@ -146,6 +146,7 @@
     <Compile Include="Models\Preferences\LanguageSetup.cs" />
     <Compile Include="Models\Preferences\TranslationMapping.cs" />
     <Compile Include="Models\Preferences\UserPreference.cs" />
+    <Compile Include="Models\Strongs\HebrewEntry.cs" />
     <Compile Include="Models\Strongs\StrongsEntry.cs" />
     <Compile Include="Models\Strongs\StrongsVerse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -186,9 +187,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\StrongsVerseMapping.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Strongs Concordance.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\Bibles\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.13\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets" Condition="Exists('..\Bibles\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.1.13\build\net35\SQLitePCLRaw.lib.e_sqlite3.linux.targets')" />

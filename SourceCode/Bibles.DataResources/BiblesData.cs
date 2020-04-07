@@ -1088,6 +1088,74 @@ namespace Bibles.DataResources
             return result;
         }
 
+        public List<StrongsEntry> GetGreekEnteries(string verseKey)
+        {
+            List<StrongsEntry> result = new List<StrongsEntry>();
+
+            Task<List<StrongsVerseKeyModel>> verseKeysList = BiblesData.database
+                .Table<StrongsVerseKeyModel>()
+                .Where(vk => vk.VerseKey == verseKey)
+                .ToListAsync();
+
+            foreach (StrongsVerseKeyModel key in verseKeysList.Result)
+            {
+                string strongsKey = key.StrongsReference.Replace("H", "0").Replace("G", "0");
+
+                Task<GreekEntryModel> greekEntry = BiblesData.database
+                    .Table<GreekEntryModel>()
+                    .FirstOrDefaultAsync(sm => sm.StrongsNumber == strongsKey);
+
+                if (greekEntry.Result == null)
+                {
+                    continue;
+                }
+
+                StrongsEntry resultEntry = greekEntry.Result.CopyToObject(new StrongsEntry()).To<StrongsEntry>();
+
+                resultEntry.ReferencedText = key.ReferencedText;
+
+                resultEntry.StrongsReference = key.StrongsReference;
+
+                result.Add(resultEntry);
+            }
+
+            return result;
+        }
+
+        public List<HebrewEntry> GetHebrewEnteries(string verseKey)
+        {
+            List<HebrewEntry> result = new List<HebrewEntry>();
+
+            Task<List<StrongsVerseKeyModel>> verseKeysList = BiblesData.database
+                .Table<StrongsVerseKeyModel>()
+                .Where(vk => vk.VerseKey == verseKey)
+                .ToListAsync();
+
+            foreach (StrongsVerseKeyModel key in verseKeysList.Result)
+            {
+                string strongsKey = key.StrongsReference.Replace("G", "H");
+
+                Task<HebrewEntityModel> greekEntry = BiblesData.database
+                    .Table<HebrewEntityModel>()
+                    .FirstOrDefaultAsync(sm => sm.StrongsNumber == strongsKey);
+
+                if (greekEntry.Result == null)
+                {
+                    continue;
+                }
+
+                HebrewEntry resultEntry = greekEntry.Result.CopyToObject(new HebrewEntry()).To<HebrewEntry>();
+
+                resultEntry.ReferencedText = key.ReferencedText;
+
+                resultEntry.StrongsReference = key.StrongsReference;
+
+                result.Add(resultEntry);
+            }
+
+            return result;
+        }
+
         public List<StrongsVerse> GetStrongsVerseReferences(int biblesId, string strongsNumber)
         {
             string hebrewKey = $"H{(strongsNumber.Length == 5 ? strongsNumber.Substring(1) : strongsNumber)}";

@@ -14,6 +14,7 @@ namespace Bibles.Reader
     public partial class StrongsVerses : UserControlBase
     {
         private StrongsVerse selectedVerse;
+
         private StrongsVerse[] verses;
 
         public StrongsVerses(int bibleId, string strongsNumber)
@@ -47,6 +48,8 @@ namespace Bibles.Reader
                 base.OnPropertyChanged(() => this.SelectedVerse);
 
                 this.uxBibleVerse.Text = value == null ? string.Empty : value.VerseText;
+
+                this.uxBibleVerse.HighlightText(value.ReferencedText);
             }
         }
 
@@ -82,6 +85,8 @@ namespace Bibles.Reader
             try
             {
                 this.Verses = BiblesData.Database.GetStrongsVerseReferences(this.BibleId, this.StrongsNumber).ToArray();
+
+                this.uxOccurrences.Content = $"Occurrences: {this.Verses.Length}";
             }
             catch (Exception err)
             {
