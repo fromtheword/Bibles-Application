@@ -66,6 +66,8 @@ namespace Bibles.Reader
         {
             this.InitializeComponent();
 
+            this.ReaderKey = Guid.NewGuid();
+
             this.Loaded += this.Reader_Loaded;
 
             this.BibleLeft = new ModelsBibleBook();
@@ -97,6 +99,8 @@ namespace Bibles.Reader
                 return this.selectedKey;
             }
         }
+
+        public Guid ReaderKey { get; private set; }
 
         public ModelsBibleBook BibleLeft { get; set; }
 

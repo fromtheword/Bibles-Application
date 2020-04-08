@@ -95,6 +95,22 @@ namespace GeneralExtensions
             return Convert.ToString(value);
         }
 
+        public static Guid ParseToGuid<T>(this T value)
+        {
+            string valueString = value.ParseToString();
+
+            if (valueString.IsNullEmptyOrWhiteSpace())
+            {
+                return Guid.Empty;
+            }
+
+            Guid result = Guid.Empty;
+
+            Guid.TryParse(valueString, out result);
+
+            return result;
+        }
+
         public static DateTime TryToDate<T>(this T value)
         {
             try

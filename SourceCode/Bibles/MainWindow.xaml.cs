@@ -202,11 +202,25 @@ namespace Bibles
         {
             try
             {
+                Guid senderKey = sender.GetPropertyValue("ReaderKey").ParseToGuid();
+
                 this.selectedItemKey = verse.BibleVerseKey;
 
                 if (GlobalResources.UserPreferences.SynchronizzeTabs)
                 {
+                    foreach(UserControlBase tabItem in this.uxMainTab.Items)
+                    {
+                        Guid readerKey = tabItem.GetPropertyValue("ReaderKey").ParseToGuid();
 
+                        if (senderKey == readerKey)
+                        {
+                            continue;
+                        }
+
+                        tabItem.InvokeMethod(tabItem, "SetChapter", new object[] { verse.BibleVerseKey });
+
+                        tabItem.InvokeMethod(tabItem, "SetVerse", new object[] { verse.BibleVerseKey });
+                    }
                 }
             }
             catch (Exception err)
