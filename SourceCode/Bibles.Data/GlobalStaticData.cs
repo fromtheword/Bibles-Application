@@ -6,6 +6,7 @@ using GeneralExtensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using WPF.Tools.Dictionaries;
 
 namespace Bibles.Data
 {
@@ -326,7 +327,7 @@ namespace Bibles.Data
                 BookModel book = new BookModel
                 {
                     BookKey = bookKey,
-                    BookName = this.keyToBookIndex[bookKey]
+                    BookName = TranslationDictionary.Translate(this.keyToBookIndex[bookKey])
                 };
 
                 this.LoadBookChapters(book);
@@ -345,7 +346,7 @@ namespace Bibles.Data
                 BookModel book = new BookModel
                 {
                     BookKey = bookKey,
-                    BookName = this.keyToBookIndex[bookKey]
+                    BookName = TranslationDictionary.Translate(this.keyToBookIndex[bookKey])
                 };
 
                 this.LoadBookChapters(book);

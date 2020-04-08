@@ -1,8 +1,27 @@
 {"TranslationMappingId":1,"LanguageId":1,"EnglishLanguage":"<ALL>","OtherLanguage":"<Almal>","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":95,"LanguageId":1,"EnglishLanguage":"1 Chronicles","OtherLanguage":"1 Kronieke","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":128,"LanguageId":1,"EnglishLanguage":"1 Corinthians","OtherLanguage":"1 Korinthiërs","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":144,"LanguageId":1,"EnglishLanguage":"1 John","OtherLanguage":"1 Johannes","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":93,"LanguageId":1,"EnglishLanguage":"1 Kings","OtherLanguage":"1 Konings","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":142,"LanguageId":1,"EnglishLanguage":"1 Peter","OtherLanguage":"1 Petrus","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":91,"LanguageId":1,"EnglishLanguage":"1 Samuel","OtherLanguage":"1 Samuel","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":134,"LanguageId":1,"EnglishLanguage":"1 Thessalonians","OtherLanguage":"1 Thessalonicense","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":136,"LanguageId":1,"EnglishLanguage":"1 Timothy","OtherLanguage":"1 Timótheüs","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":96,"LanguageId":1,"EnglishLanguage":"2 Chronicles","OtherLanguage":"2 Kronieke","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":129,"LanguageId":1,"EnglishLanguage":"2 Corinthians","OtherLanguage":"2 Korinthiërs","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":145,"LanguageId":1,"EnglishLanguage":"2 John","OtherLanguage":"2 Johannes","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":94,"LanguageId":1,"EnglishLanguage":"2 Kings","OtherLanguage":"2 Konings","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":143,"LanguageId":1,"EnglishLanguage":"2 Peter","OtherLanguage":"2 Petrus","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":92,"LanguageId":1,"EnglishLanguage":"2 Samuel","OtherLanguage":"2 Samuel","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":135,"LanguageId":1,"EnglishLanguage":"2 Thessalonians","OtherLanguage":"2 Thessalonicense","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":137,"LanguageId":1,"EnglishLanguage":"2 Timothy","OtherLanguage":"2 Timótheüs","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":146,"LanguageId":1,"EnglishLanguage":"3 John","OtherLanguage":"3 Johannes","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":2,"LanguageId":1,"EnglishLanguage":"About","OtherLanguage":"Aangaande","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":126,"LanguageId":1,"EnglishLanguage":"Acts of the Apostles","OtherLanguage":"Handelinge","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":3,"LanguageId":1,"EnglishLanguage":"Add Language","OtherLanguage":"Voeg Taal By","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":4,"LanguageId":1,"EnglishLanguage":"Add Transalation","OtherLanguage":"Voeg Vertaaling By","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":5,"LanguageId":1,"EnglishLanguage":"All of These","OtherLanguage":"Al die","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":112,"LanguageId":1,"EnglishLanguage":"Amos","OtherLanguage":"Amos","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":6,"LanguageId":1,"EnglishLanguage":"Any of These","OtherLanguage":"Enige van die","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":7,"LanguageId":1,"EnglishLanguage":"Are you sure that you want to download the selected items? This may take a while.","OtherLanguage":"Is u seker dat u die geselekteerde ietems wil aflaai? Dit kan n rukkie duur.","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":8,"LanguageId":1,"EnglishLanguage":"Are you sure you would like to delete?","OtherLanguage":"Is u seker dat u dit wil uitvee?","HasModelChanged":false,"Changes":{}}
@@ -12,53 +31,90 @@
 {"TranslationMappingId":12,"LanguageId":1,"EnglishLanguage":"Bible","OtherLanguage":"Bybel","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":13,"LanguageId":1,"EnglishLanguage":"Bible Books","OtherLanguage":"Bybel Boeke","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":14,"LanguageId":1,"EnglishLanguage":"Bibles","OtherLanguage":"Bybels","HasModelChanged":false,"Changes":{}}
-{"TranslationMappingId":86,"LanguageId":1,"EnglishLanguage":"Bibles Install","OtherLanguage":"Bybles Instaleer","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":15,"LanguageId":1,"EnglishLanguage":"Bold","OtherLanguage":"Vet","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":16,"LanguageId":1,"EnglishLanguage":"Bookmark Verse","OtherLanguage":"Boekmerk Vers","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":17,"LanguageId":1,"EnglishLanguage":"Bookmarks","OtherLanguage":"Boekmerke","HasModelChanged":false,"Changes":{}}
-{"TranslationMappingId":83,"LanguageId":1,"EnglishLanguage":"Books","OtherLanguage":"Boeke","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":18,"LanguageId":1,"EnglishLanguage":"Cancel","OtherLanguage":"Kanseleer","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":19,"LanguageId":1,"EnglishLanguage":"Cannot delete category whiles a study is attached to it. Please move the study before attempting to delete the category.","OtherLanguage":"Kan nie die kategorie verwyder as 'n studie daaraan verbonde is nie. Skuif die studie voordat u probeer om die kategorie te verwyder.","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":20,"LanguageId":1,"EnglishLanguage":"Category","OtherLanguage":"Kategorie","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":21,"LanguageId":1,"EnglishLanguage":"Clear Highlights","OtherLanguage":"Verwyder Hoogtepunt","HasModelChanged":false,"Changes":{}}
-{"TranslationMappingId":84,"LanguageId":1,"EnglishLanguage":"Concordances","OtherLanguage":"Konkordansies","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":133,"LanguageId":1,"EnglishLanguage":"Colossians","OtherLanguage":"Kolossense","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":22,"LanguageId":1,"EnglishLanguage":"Copy","OtherLanguage":"Kopie","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":23,"LanguageId":1,"EnglishLanguage":"Copywrite","OtherLanguage":"Kopiereg","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":109,"LanguageId":1,"EnglishLanguage":"Daniel","OtherLanguage":"Daniël","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":24,"LanguageId":1,"EnglishLanguage":"Default Bible","OtherLanguage":"Voorkeur Bybel","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":25,"LanguageId":1,"EnglishLanguage":"Delete Bookmark","OtherLanguage":"Vee Boekmerk Uit","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":26,"LanguageId":1,"EnglishLanguage":"Delete selected Highlight","OtherLanguage":"Vee uit Hoogtepunt","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":27,"LanguageId":1,"EnglishLanguage":"Delete Transalation","OtherLanguage":"Verwyder Vertaaling","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":28,"LanguageId":1,"EnglishLanguage":"Description","OtherLanguage":"Beskrywing","HasModelChanged":false,"Changes":{}}
-{"TranslationMappingId":87,"LanguageId":1,"EnglishLanguage":"Downloads","OtherLanguage":"Laai af","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":87,"LanguageId":1,"EnglishLanguage":"Deuteronomy","OtherLanguage":"Deuteronómium","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":150,"LanguageId":1,"EnglishLanguage":"Downloads","OtherLanguage":"Laai af","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":103,"LanguageId":1,"EnglishLanguage":"Ecclesiastes","OtherLanguage":"Prediker","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":29,"LanguageId":1,"EnglishLanguage":"Edit Bookmark","OtherLanguage":"Redigeer Boekmerk","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":30,"LanguageId":1,"EnglishLanguage":"Edit Mapping","OtherLanguage":"Wysig Vertaaling","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":31,"LanguageId":1,"EnglishLanguage":"Edit Translation","OtherLanguage":"Wysig Vertaaling","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":32,"LanguageId":1,"EnglishLanguage":"English King James Version","OtherLanguage":"KJV","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":131,"LanguageId":1,"EnglishLanguage":"Ephesians","OtherLanguage":"Efésiërs","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":99,"LanguageId":1,"EnglishLanguage":"Esther","OtherLanguage":"Ester","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":33,"LanguageId":1,"EnglishLanguage":"Exact","OtherLanguage":"Presies","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":34,"LanguageId":1,"EnglishLanguage":"Exit","OtherLanguage":"Gaan Uit","HasModelChanged":false,"Changes":{}}
-{"TranslationMappingId":88,"LanguageId":1,"EnglishLanguage":"Export Translation File","OtherLanguage":"Voer Vertaallêer Uit","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":84,"LanguageId":1,"EnglishLanguage":"Exodus","OtherLanguage":"Exodus","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":152,"LanguageId":1,"EnglishLanguage":"Export Translation File","OtherLanguage":"Voer Vertaaling Uit","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":108,"LanguageId":1,"EnglishLanguage":"Ezekiel","OtherLanguage":"Eségiël","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":97,"LanguageId":1,"EnglishLanguage":"Ezra","OtherLanguage":"Esra","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":35,"LanguageId":1,"EnglishLanguage":"File","OtherLanguage":"Lêr","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":36,"LanguageId":1,"EnglishLanguage":"Font Size","OtherLanguage":"Font Groote","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":37,"LanguageId":1,"EnglishLanguage":"Fore Color","OtherLanguage":"Voorkleur","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":130,"LanguageId":1,"EnglishLanguage":"Galatians","OtherLanguage":"Galásiërs","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":83,"LanguageId":1,"EnglishLanguage":"Genesis","OtherLanguage":"Génesis","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":38,"LanguageId":1,"EnglishLanguage":"German Luther 1545","OtherLanguage":"Duits Luther 1545","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":117,"LanguageId":1,"EnglishLanguage":"Habakkuk","OtherLanguage":"Hábakuk","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":119,"LanguageId":1,"EnglishLanguage":"Haggai","OtherLanguage":"Haggai","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":140,"LanguageId":1,"EnglishLanguage":"Hebrews","OtherLanguage":"Hebreërs","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":39,"LanguageId":1,"EnglishLanguage":"Highlight","OtherLanguage":"Hoogtepunt","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":40,"LanguageId":1,"EnglishLanguage":"Highlighted Verses","OtherLanguage":"Uitgewysde Verse","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":41,"LanguageId":1,"EnglishLanguage":"Highlights","OtherLanguage":"Hoogtepunte","HasModelChanged":false,"Changes":{}}
-{"TranslationMappingId":89,"LanguageId":1,"EnglishLanguage":"Import Translation File","OtherLanguage":"Voer Vertaallêer In","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":110,"LanguageId":1,"EnglishLanguage":"Hosea","OtherLanguage":"Hoséa","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":153,"LanguageId":1,"EnglishLanguage":"Import Translation File","OtherLanguage":"Voer Vertaaling In","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":105,"LanguageId":1,"EnglishLanguage":"Isaiah","OtherLanguage":"Jesaja","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":141,"LanguageId":1,"EnglishLanguage":"James","OtherLanguage":"Jakobus","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":106,"LanguageId":1,"EnglishLanguage":"Jeremiah","OtherLanguage":"Jeremia","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":100,"LanguageId":1,"EnglishLanguage":"Job","OtherLanguage":"Job","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":111,"LanguageId":1,"EnglishLanguage":"Joel","OtherLanguage":"Joël","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":125,"LanguageId":1,"EnglishLanguage":"John","OtherLanguage":"Johannes","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":114,"LanguageId":1,"EnglishLanguage":"Jonah","OtherLanguage":"Jona","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":88,"LanguageId":1,"EnglishLanguage":"Joshua","OtherLanguage":"Josua","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":147,"LanguageId":1,"EnglishLanguage":"Jude","OtherLanguage":"Judas","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":89,"LanguageId":1,"EnglishLanguage":"Judges","OtherLanguage":"Rigters","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":107,"LanguageId":1,"EnglishLanguage":"Lamentations","OtherLanguage":"Klaagliedere van Jeremia","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":42,"LanguageId":1,"EnglishLanguage":"Language","OtherLanguage":"Taal","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":43,"LanguageId":1,"EnglishLanguage":"Language Setup","OtherLanguage":"Taal Opstelling","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":85,"LanguageId":1,"EnglishLanguage":"Leviticus","OtherLanguage":"Levitikus","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":44,"LanguageId":1,"EnglishLanguage":"Like this Phrase","OtherLanguage":"Soos hiedie Frase","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":45,"LanguageId":1,"EnglishLanguage":"Link Another?","OtherLanguage":"Skakel nog een?","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":46,"LanguageId":1,"EnglishLanguage":"Link Verse","OtherLanguage":"Skakel Vers","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":124,"LanguageId":1,"EnglishLanguage":"Luke","OtherLanguage":"Lukas","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":121,"LanguageId":1,"EnglishLanguage":"Malachi","OtherLanguage":"Maleági","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":123,"LanguageId":1,"EnglishLanguage":"Mark","OtherLanguage":"Markus","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":122,"LanguageId":1,"EnglishLanguage":"Matthew","OtherLanguage":"Matthéüs","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":115,"LanguageId":1,"EnglishLanguage":"Micah","OtherLanguage":"Miga","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":116,"LanguageId":1,"EnglishLanguage":"Nahum","OtherLanguage":"Nahum","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":47,"LanguageId":1,"EnglishLanguage":"Name","OtherLanguage":"Naam","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":98,"LanguageId":1,"EnglishLanguage":"Nehemiah","OtherLanguage":"Nehemia","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":48,"LanguageId":1,"EnglishLanguage":"New Mapping","OtherLanguage":"Nuwe Vertaaling","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":49,"LanguageId":1,"EnglishLanguage":"New Study","OtherLanguage":"Nuwe Studie","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":50,"LanguageId":1,"EnglishLanguage":"No Records Found","OtherLanguage":"Geen Rekords","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":86,"LanguageId":1,"EnglishLanguage":"Numbers","OtherLanguage":"Númeri","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":113,"LanguageId":1,"EnglishLanguage":"Obadiah","OtherLanguage":"Obadja","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":51,"LanguageId":1,"EnglishLanguage":"OK","OtherLanguage":"Reg","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":149,"LanguageId":1,"EnglishLanguage":"Online","OtherLanguage":"Aanlyn","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":151,"LanguageId":1,"EnglishLanguage":"Online Resources","OtherLanguage":"Aanlynbronne","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":52,"LanguageId":1,"EnglishLanguage":"Open Study","OtherLanguage":"Open Studie","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":53,"LanguageId":1,"EnglishLanguage":"Open verse in Reader","OtherLanguage":"Open vers in Leeser","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":54,"LanguageId":1,"EnglishLanguage":"Parallel Reader","OtherLanguage":"Parallelle Leser","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":55,"LanguageId":1,"EnglishLanguage":"Paste","OtherLanguage":"Plak","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":139,"LanguageId":1,"EnglishLanguage":"Philemon","OtherLanguage":"Filémon","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":132,"LanguageId":1,"EnglishLanguage":"Philippians","OtherLanguage":"Filippense","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":56,"LanguageId":1,"EnglishLanguage":"Please select a Bookmark","OtherLanguage":"Kies aseblief n Boekmerk","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":57,"LanguageId":1,"EnglishLanguage":"Please select a Language","OtherLanguage":"Keis aseblief n Taal","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":58,"LanguageId":1,"EnglishLanguage":"Please select a Link","OtherLanguage":"Kies aseblief n skakel","HasModelChanged":false,"Changes":{}}
@@ -66,8 +122,13 @@
 {"TranslationMappingId":60,"LanguageId":1,"EnglishLanguage":"Please select a Study.","OtherLanguage":"Kies aseblief n Studie.","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":61,"LanguageId":1,"EnglishLanguage":"Please select a Verse.","OtherLanguage":"Kies n Vers aseblief","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":62,"LanguageId":1,"EnglishLanguage":"Preferences","OtherLanguage":"Voorkeure","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":102,"LanguageId":1,"EnglishLanguage":"Proverbs","OtherLanguage":"Spreuke van Salomo","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":101,"LanguageId":1,"EnglishLanguage":"Psalms","OtherLanguage":"Psalms","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":63,"LanguageId":1,"EnglishLanguage":"Redo","OtherLanguage":"Weer","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":148,"LanguageId":1,"EnglishLanguage":"Revelation","OtherLanguage":"Openbaring","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":127,"LanguageId":1,"EnglishLanguage":"Romans","OtherLanguage":"Romeine","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":64,"LanguageId":1,"EnglishLanguage":"Rows per Page","OtherLanguage":"Rye per Bladsy","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":90,"LanguageId":1,"EnglishLanguage":"Ruth","OtherLanguage":"Rut","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":65,"LanguageId":1,"EnglishLanguage":"Search","OtherLanguage":"Soek","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":66,"LanguageId":1,"EnglishLanguage":"Search Comparison","OtherLanguage":"Soek Vergelyking","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":67,"LanguageId":1,"EnglishLanguage":"Search New Testament Books","OtherLanguage":"Soek na Nuwe Testament Boek","HasModelChanged":false,"Changes":{}}
@@ -77,7 +138,8 @@
 {"TranslationMappingId":71,"LanguageId":1,"EnglishLanguage":"Study Centre","OtherLanguage":"Studiesentrum","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":72,"LanguageId":1,"EnglishLanguage":"Subject","OtherLanguage":"Onderwerp","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":73,"LanguageId":1,"EnglishLanguage":"Synchronize Tabs","OtherLanguage":"Sinchroniseer Oortjies","HasModelChanged":false,"Changes":{}}
-{"TranslationMappingId":85,"LanguageId":1,"EnglishLanguage":"Translations","OtherLanguage":"Vertalings","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":104,"LanguageId":1,"EnglishLanguage":"The Song of Solomon","OtherLanguage":"Hooglied van Salomo","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":138,"LanguageId":1,"EnglishLanguage":"Titus","OtherLanguage":"Titus","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":74,"LanguageId":1,"EnglishLanguage":"Underline","OtherLanguage":"Onderstreep","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":75,"LanguageId":1,"EnglishLanguage":"Undo","OtherLanguage":"Ongedaan","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":76,"LanguageId":1,"EnglishLanguage":"User Preferences","OtherLanguage":"Gebruikers Voorkeure","HasModelChanged":false,"Changes":{}}
@@ -87,3 +149,5 @@
 {"TranslationMappingId":80,"LanguageId":1,"EnglishLanguage":"Warning","OtherLanguage":"Waarskuwing","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":81,"LanguageId":1,"EnglishLanguage":"was linked to","OtherLanguage":"was gekoppel aan","HasModelChanged":false,"Changes":{}}
 {"TranslationMappingId":82,"LanguageId":1,"EnglishLanguage":"Would you like to link another one?","OtherLanguage":"Wil u n ander aan skakel?","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":120,"LanguageId":1,"EnglishLanguage":"Zechariah","OtherLanguage":"Sagaria","HasModelChanged":false,"Changes":{}}
+{"TranslationMappingId":118,"LanguageId":1,"EnglishLanguage":"Zephaniah","OtherLanguage":"Sefánja","HasModelChanged":false,"Changes":{}}

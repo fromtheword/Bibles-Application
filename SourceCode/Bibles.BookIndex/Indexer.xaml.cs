@@ -49,7 +49,7 @@ namespace Bibles.BookIndex
             this.InitializeComponent();
 
             this.DataContext = this;
-            
+
             this.OldTestamentBooks = GlobalStaticData.Intance.GetTestament(TestamentEnum.O).ToArray();
 
             this.NewTestamentBooks = GlobalStaticData.Intance.GetTestament(TestamentEnum.N).ToArray();
