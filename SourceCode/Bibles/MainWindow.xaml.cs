@@ -374,7 +374,7 @@ namespace Bibles
             {
                 StudiesByCategory study = new StudiesByCategory();
 
-                ControlDialog.ShowDialog("Open Study", study, string.Empty, autoSize:false, showCancelButton:false);
+                ControlDialog.ShowDialog("Open Study", study, string.Empty, autoSize:false, showOkButton:false);
             }
             catch (Exception err)
             {

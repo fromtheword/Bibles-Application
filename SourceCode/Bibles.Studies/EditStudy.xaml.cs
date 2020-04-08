@@ -192,6 +192,8 @@ namespace Bibles.Studies
                 {
                     StudyBookmarkModel studyBookmark = bookmark.CopyToObject(new StudyBookmarkModel()).To<StudyBookmarkModel>();
 
+                    studyBookmark.StudyName = this.SubjectHeader.StudyName;
+
                     result.AppendLine(JsonConvert.SerializeObject(studyBookmark));
                 }
 

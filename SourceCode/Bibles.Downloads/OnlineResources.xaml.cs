@@ -82,7 +82,9 @@ namespace Bibles.Downloads
                 new DataItemModel { DisplayValue = "The Third Angel Message", ItemKey = "https://thethirdangelsmessage.com/bible-study-series.php" },
                 new DataItemModel { DisplayValue = "The Third Angel Message (YouTube)", ItemKey = "https://www.youtube.com/channel/UC-VWzjQ7kbnZRipdBzCvnEg" },
                 new DataItemModel { DisplayValue = "Amazing Discoveries", ItemKey = "https://amazingdiscoveries.co.za/"},
-                new DataItemModel { DisplayValue = "Amazing Discoveries (YouTube)", ItemKey = "https://www.youtube.com/channel/UC1oOoBASMrTyUBSltYcx0jA"}
+                new DataItemModel { DisplayValue = "Amazing Discoveries (YouTube)", ItemKey = "https://www.youtube.com/channel/UC1oOoBASMrTyUBSltYcx0jA"},
+                new DataItemModel { DisplayValue = "Saved To Serve – Prophesy Again", ItemKey = "https://www.prophesyagain.org/" },
+                new DataItemModel { DisplayValue = "Saved To Serve – Prophesy Again (YouTube)", ItemKey = "https://www.youtube.com/playlist?list=PLp1HL89V3I5jmZjv-hKdlJzYI_Zp2xk-c" }
             };
         }
     }

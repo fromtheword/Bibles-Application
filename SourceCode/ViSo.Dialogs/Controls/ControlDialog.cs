@@ -30,6 +30,8 @@ namespace ViSo.Dialogs.Controls
 
                 ControlDialog.window.Closing += ControlDialog.ControlWindow_Closing;
 
+                ControlDialog.window.Owner = Application.Current.MainWindow;
+
                 return ControlDialog.window.ShowDialog();
             }
             catch (Exception err)

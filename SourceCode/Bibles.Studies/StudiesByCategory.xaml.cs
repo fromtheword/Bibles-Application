@@ -91,7 +91,7 @@ namespace Bibles.Studies
 
                 ControlDialog.ControlDialogClosing += this.ControlDialog_Closing;
 
-                ControlDialog.Show("New Study", this.newStudy, "SaveStudy", owner: this.GetParentWindow(), autoSize: false);
+                ControlDialog.Show("New Study", this.newStudy, "SaveStudy", autoSize: false, owner: Application.Current.MainWindow);
             }
             catch (Exception err)
             {
@@ -165,7 +165,7 @@ namespace Bibles.Studies
 
                 EditStudy edit = new EditStudy(this.SelectedStudyHeader);
 
-                ControlDialog.Show(this.SelectedStudyHeader.StudyName, edit, "SaveStudy", autoSize:false);
+                ControlDialog.Show(this.SelectedStudyHeader.StudyName, edit, "SaveStudy", autoSize:false, owner: Application.Current.MainWindow);
 
                 this.CloseIfNotMainWindow(true);
             }
