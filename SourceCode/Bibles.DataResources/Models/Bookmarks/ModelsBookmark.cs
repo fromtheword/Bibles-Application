@@ -174,7 +174,7 @@ namespace Bibles.DataResources.Bookmarks
         {
             this.VerseKey = verseKey;
 
-            this.SelectedVerse = this.InvokeMethod("Bibles.Data.GlobalInvokeData,Bibles.Data", "GetKeyDescription", new object[] { verseKey }).ParseToString();
+            this.SelectedVerse = this.InvokeMethod("Bibles.Data.GlobalInvokeData,Bibles.Data", "GetKeyDescription", new object[] { verseKey, this.VerseRangeEnd }).ParseToString();
 
             int bibleId = Formatters.GetBibleFromKey(verseKey);
 

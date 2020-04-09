@@ -11,9 +11,9 @@ namespace Bibles.Data
             return BiblesData.Database.GetBibleName(bibleId);
         }
 
-        public string GetKeyDescription(string unknownKey)
+        public string GetKeyDescription(string unknownKey, int toVerse = 0)
         {
-            return GlobalStaticData.Intance.GetKeyDescription(unknownKey);
+            return GlobalStaticData.Intance.GetKeyDescription(unknownKey, toVerse);
         }
 
         public int GetChapterVerseCount(string unknownKey)

@@ -215,7 +215,7 @@ namespace Bibles.Data
             return keyToBookIndex[this.GetBookKey(key)];
         }
         
-        public string GetKeyDescription(string unknownKey)
+        public string GetKeyDescription(string unknownKey, int toVerse = 0)
         {
             string[] keyItems = unknownKey.Split(Formatters.KeySplitValue, StringSplitOptions.RemoveEmptyEntries);
 
@@ -227,11 +227,14 @@ namespace Bibles.Data
                         
             string bookName = keyItems.Length >= (indexOffset + 1) ? GlobalStaticData.Intance.GetBookName(bookKey) : string.Empty;
 
-            string chapter = keyItems.Length >= (indexOffset + 2) ? $" - {keyItems[(indexOffset + 1)]}" : string.Empty;
+            string chapter = keyItems.Length >= (indexOffset + 2) ? $" {keyItems[(indexOffset + 1)]}" : string.Empty;
 
             string verse = keyItems.Length >= (indexOffset + 3) ? $":{keyItems[(indexOffset + 2)]}" : string.Empty;
 
-            return $"{bookName}{chapter}{verse}";
+            return toVerse == 0 ?
+                $"{bookName}{chapter}{verse}"
+                :
+                $"{bookName}{chapter}{verse}-{toVerse}";
         }
 
         public List<BookModel> GetTestament(TestamentEnum testament)
