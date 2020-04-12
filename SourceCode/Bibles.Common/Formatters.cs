@@ -66,9 +66,9 @@ namespace Bibles.Common
             bool isBibleKey = Formatters.IsBiblesKey(bibleKey, out keySplit);
             
             return isBibleKey ?
-                keySplit.Length >= 3 ? keySplit[2].ToInt32() : -1
+                keySplit.Length >= 3 ? keySplit[2].ToInt32() : 1
                 :
-                keySplit.Length >= 2 ? keySplit[1].ToInt32() : -1;
+                keySplit.Length == 2 ? keySplit[1].ToInt32() : 1;
         }
 
         public static int GetVerseFromKey(string bibleKey)
@@ -169,6 +169,11 @@ namespace Bibles.Common
             if (isBibleKey)
             {
                 return keySplit;
+            }
+
+            if (keySplit.Length == 2)
+            {
+                return new string[] { "Empty", keySplit[0], keySplit[1], "1" };
             }
 
             return new string[] { "Empty", keySplit[0], keySplit[1], keySplit[2] };
