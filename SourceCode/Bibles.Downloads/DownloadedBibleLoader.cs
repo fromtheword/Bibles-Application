@@ -8,9 +8,9 @@ using WPF.Tools.Functions;
 
 namespace Bibles.Downloads
 {
-    internal class DownloadedBibleLoader
+    public class DownloadedBibleLoader
     {
-        internal static bool LoadBible(string path)
+        public static bool LoadBible(string path)
         {
             string bibleName = Path.GetFileNameWithoutExtension(path);
 
@@ -18,7 +18,8 @@ namespace Bibles.Downloads
 
             if (bibleModel != null)
             {
-                return true;
+                BiblesData.Database.DeleteBibleVerses(bibleModel.BiblesId);
+                //return true;
             }
 
             bibleModel = new BibleModel

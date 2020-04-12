@@ -75,7 +75,12 @@ namespace Bibles.Common
         {
             string[] keySplit = Formatters.CreateBibleKeySplit(bibleKey);
          
-            return keySplit.Length >= 4 ? keySplit[3].ToInt32() : -1;
+            if(keySplit.Length == 3 && keySplit[0].IsNumberic())
+            {
+                return 1;
+            }
+
+            return keySplit.Length >= 4 ? keySplit[3].ToInt32() : 1;
         }
         
         public static string GetBookFromKey(string bibleKey)
@@ -152,7 +157,7 @@ namespace Bibles.Common
                 return bibleKey;
             }
 
-            return $"{keyItems[1]}||{keyItems[2]}||{keyItems[3]}||";
+            return $"{keyItems[1]}||{keyItems[2]}||{(keyItems.Length <= 3 ? "1" : keyItems[3])}||";
         }
     
         public static string[] CreateBibleKeySplit(string key)

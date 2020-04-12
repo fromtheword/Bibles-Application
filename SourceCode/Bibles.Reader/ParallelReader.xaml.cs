@@ -544,6 +544,11 @@ namespace Bibles.Reader
                 this.PageToChapter(chapter);
 
                 this.BookChanged?.Invoke(this, this.selectedKey);
+
+                if (this.versesDictionaryLeft.ContainsKey(Formatters.GetVerseFromKey(this.selectedKey)))
+                {
+                    this.SelectedVerseChanged?.Invoke(this, this.versesDictionaryLeft[Formatters.GetVerseFromKey(this.selectedKey)]);
+                }
             }
             catch (Exception err)
             {
@@ -562,6 +567,11 @@ namespace Bibles.Reader
                 this.PageToChapter(chapter);
 
                 this.BookChanged?.Invoke(this, this.selectedKey);
+
+                if (this.versesDictionaryLeft.ContainsKey(Formatters.GetVerseFromKey(this.selectedKey)))
+                {
+                    this.SelectedVerseChanged?.Invoke(this, this.versesDictionaryLeft[Formatters.GetVerseFromKey(this.selectedKey)]);
+                }
             }
             catch (Exception err)
             {

@@ -146,6 +146,17 @@ namespace Bibles.DataResources
 
         #region BIBLE VERSES
 
+        public void DeleteBibleVerses(int bibleId)
+        {
+            string bibkeKey = $"{bibleId}||";
+
+            Task<int> result = BiblesData.database
+                .Table<BibleVerseModel>()
+                .DeleteAsync(bi => bi.BibleVerseKey.StartsWith(bibkeKey));
+                        
+            var check = result.Result;
+        }
+
         public BibleVerseModel GetVerse(string verseKey)
         {
             return BiblesData.database.Table<BibleVerseModel>().FirstOrDefaultAsync(vk => vk.BibleVerseKey == verseKey).Result;

@@ -527,6 +527,11 @@ namespace Bibles.Reader
                 this.PageToChapter(chapter);
 
                 this.BookChanged?.Invoke(this, this.selectedKey);
+
+                if (this.versesDictionary.ContainsKey(Formatters.GetVerseFromKey(this.selectedKey)))
+                {
+                    this.SelectedVerseChanged?.Invoke(this, this.versesDictionary[Formatters.GetVerseFromKey(this.selectedKey)]);
+                }
             }
             catch (Exception err)
             {
@@ -545,6 +550,11 @@ namespace Bibles.Reader
                 this.PageToChapter(chapter);
 
                 this.BookChanged?.Invoke(this, this.selectedKey);
+
+                if (this.versesDictionary.ContainsKey(Formatters.GetVerseFromKey(this.selectedKey)))
+                {
+                    this.SelectedVerseChanged?.Invoke(this, this.versesDictionary[Formatters.GetVerseFromKey(this.selectedKey)]);
+                }
             }
             catch (Exception err)
             {
@@ -617,10 +627,7 @@ namespace Bibles.Reader
         {
             this.versesDictionary = null;
 
-            this.versesDictionary = Formatters.IsBiblesKey(this.selectedKey) ?
-                BiblesData.Database.GetVerses(this.selectedKey)
-                :
-                BiblesData.Database.GetVerses($"{this.Bible.BibleId}||{this.selectedKey}");
+            this.versesDictionary = BiblesData.Database.GetVerses($"{this.Bible.BibleId}||{Formatters.RemoveBibleId(this.selectedKey)}");
 
             this.ResetversSetup();
 

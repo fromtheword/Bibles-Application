@@ -58,6 +58,9 @@ namespace Bibles
             initialData.InitialDataLoadCompleted += this.InitialDataLoad_Completed;
 
             initialData.LoadEmbeddedBibles(this.Dispatcher, Application.Current.MainWindow.FontFamily);
+
+            //DownloadedBibleLoader.LoadBible(@"C:\AAA\Hansie\Bibles Unformated\Geneva 1560\Geneva Bible 1560.txt");
+
         }
 
         public void LoadReader(int bibleId, string verseKey)
@@ -351,6 +354,8 @@ namespace Bibles
 
                 ParallelReader reader = new ParallelReader { ShowCloseButton = true };
 
+                reader.SelectedVerseChanged += this.OnReaderSelectedVerse_Changed;
+
                 reader.SetBible(bibleId);
 
                 if (!this.selectedItemKey.IsNullEmptyOrWhiteSpace())
@@ -367,7 +372,8 @@ namespace Bibles
                 ErrorLog.ShowError(err);
             }
         }
-        
+
+       
         private void NewStudy_Cliked(object sender, RoutedEventArgs e)
         {
             try
