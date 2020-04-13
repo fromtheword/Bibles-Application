@@ -313,6 +313,8 @@ namespace Bibles.Reader
 
                         bookmark = dbModel.CopyToObject(bookmark).To<ModelsBookmark>();
 
+                        bookmark.SetVerse(bookmark.VerseKey);
+
                         this.InvokeMethod(openStudies[studyMark.Study], "AddBookmark", new object[] { bookmark });
                     }
 
