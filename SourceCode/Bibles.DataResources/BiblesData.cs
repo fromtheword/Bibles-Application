@@ -1201,7 +1201,7 @@ namespace Bibles.DataResources
 
                 verse.VerseText = bibleVers.VerseText;
 
-                verse.VerseNumber = verse.InvokeMethod("Bibles.Data.GlobalInvokeData,Bibles.Data", "GetKeyDescription", new object[] { verse.VerseKey }).ParseToString();
+                verse.VerseNumber = verse.InvokeMethod("Bibles.Data.GlobalInvokeData,Bibles.Data", "GetKeyDescription", new object[] { verse.VerseKey, 0 }).ParseToString();
             }
 
             return result;

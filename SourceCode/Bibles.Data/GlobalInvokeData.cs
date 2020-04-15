@@ -11,7 +11,12 @@ namespace Bibles.Data
             return BiblesData.Database.GetBibleName(bibleId);
         }
 
-        public string GetKeyDescription(string unknownKey, int toVerse = 0)
+        public string GetKeyDescription(string unknownKey)
+        {
+            return this.GetKeyDescription(unknownKey, 0);
+        }
+
+        public string GetKeyDescription(string unknownKey, int toVerse)
         {
             return GlobalStaticData.Intance.GetKeyDescription(unknownKey, toVerse);
         }
