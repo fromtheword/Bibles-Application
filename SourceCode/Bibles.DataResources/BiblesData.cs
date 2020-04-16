@@ -1199,6 +1199,11 @@ namespace Bibles.DataResources
 
                 BibleVerseModel bibleVers = this.GetVerse(bibleVerseKey);
 
+                if (bibleVers == null)
+                {
+                    continue;
+                }
+
                 verse.VerseText = bibleVers.VerseText;
 
                 verse.VerseNumber = verse.InvokeMethod("Bibles.Data.GlobalInvokeData,Bibles.Data", "GetKeyDescription", new object[] { verse.VerseKey, 0 }).ParseToString();
