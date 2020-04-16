@@ -314,33 +314,33 @@ namespace WPF.Tools.ModelViewer
             {
                 case ModelItemTypeEnum.CheckBox:
 
-                    ((CheckBoxItem) this.contentObject).IsChecked = value.TryToBool();
+                    ((CheckBoxItem)this.contentObject).IsChecked = value.TryToBool();
 
                     break;
 
                 case ModelItemTypeEnum.ComboBox:
                 case ModelItemTypeEnum.EnumBox:
 
-                    ((ComboBoxTool) this.contentObject).SelectedValue = value;
+                    ((ComboBoxTool)this.contentObject).SelectedValue = value;
 
                     break;
 
                 case ModelItemTypeEnum.DatePicker:
 
-                    ((DatePicker) this.contentObject).SelectedDate = value.TryToDate();
+                    ((DatePicker)this.contentObject).SelectedDate = value.TryToDate();
 
                     break;
 
                 case ModelItemTypeEnum.SecureString:
 
-                    ((PasswordBoxBindable) this.contentObject).Password = value.ParseToString();
+                    ((PasswordBoxBindable)this.contentObject).Password = value.ParseToString();
 
                     break;
 
                 case ModelItemTypeEnum.TextBox:
                 default:
 
-                    ((TextBoxItem) this.contentObject).Text = value.ParseToString();
+                    ((TextBoxItem)this.contentObject).Text = value.ParseToString();
 
                     break;
             }

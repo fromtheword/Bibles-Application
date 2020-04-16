@@ -3,6 +3,7 @@ using Bibles.Data;
 using Bibles.DataResources;
 using Bibles.DataResources.Aggregates;
 using System;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
 using WPF.Tools.BaseClasses;
@@ -32,6 +33,8 @@ namespace Bibles.Link
             this.uxReader.SetBible(bibleId);
 
             this.SetVerseLinkText();
+
+            this.SizeChanged += this.LinkEditor_SizeChanged;
         }
 
         public bool AcceptLink()
@@ -71,6 +74,11 @@ namespace Bibles.Link
 
                 return false;
             }
+        }
+        
+        private void LinkEditor_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            this.uxReader.Height = e.NewSize.Height - 150;
         }
 
         private void IndexerChapter_Changed(object sender, string key)

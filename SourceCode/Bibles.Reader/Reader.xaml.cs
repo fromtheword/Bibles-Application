@@ -181,6 +181,15 @@ namespace Bibles.Reader
                 base.WasFirstLoaded = true;
                 
                 this.SetCanPage(Formatters.GetChapterFromKey(this.selectedKey));
+
+                if (this.uxStrongs != null
+                || this.uxHebrew != null
+                || this.uxGreek != null)
+                {
+                    this.uxColumn2.MinWidth = this.uxStrongsPin.ActualWidth;
+
+                    //this.uxColumn2.Width = new GridLength(item.ActualWidth, GridUnitType.Auto);
+                }
             }
             catch (Exception err)
             {
@@ -613,10 +622,14 @@ namespace Bibles.Reader
             if (isPined)
             {
                 this.uxColumn1.Width = new GridLength(3);
+
+                this.uxTabGridSplitter.Visibility = Visibility.Visible;
             }
             else
             {
                 this.uxColumn1.Width = new GridLength(0);
+
+                this.uxTabGridSplitter.Visibility = Visibility.Collapsed;
             }
         }
                
@@ -742,7 +755,7 @@ namespace Bibles.Reader
                 this.uxGreek = new Strongs(HaveInstalledEnum.GreekEntryModel) { Title = "Greek" };
 
                 this.uxStrongsPin.Items.Add(this.uxGreek);
-            }
+            }            
         }
     }
 

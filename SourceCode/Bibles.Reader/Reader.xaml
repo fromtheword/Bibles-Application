@@ -46,7 +46,7 @@
             </Grid>
         </ScrollViewer>
 
-        <CommonControls:VerticalGridSplit Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" />
+        <CommonControls:VerticalGridSplit Grid.Row="0" Grid.Column="1" Grid.RowSpan="3" x:Name="uxTabGridSplitter" Visibility="Collapsed" />
         
         <TabControl:TabControlVertical Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" x:Name="uxStrongsPin" DockLocation="Right" OnPinChanged="StronsPin_Changed" />
         

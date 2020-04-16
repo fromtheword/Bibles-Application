@@ -36,7 +36,7 @@
         <StackPanel Grid.Row="2" Grid.Column="2">
             <CommonControls:LableItem Content="Comments" FontWeight="Bold" />
             <CommonControls:TextBoxItem x:Name="uxLinkComments" BorderThickness="1" TextWrapping="Wrap" MinHeight="50" AcceptsReturn="True" AcceptsTab="True" />
-            <Reader:Reader  x:Name="uxReader"
+            <Reader:Reader x:Name="uxReader"
                            SelectedVerseChanged="ChildVerse_Changed"/>
         </StackPanel>
         
