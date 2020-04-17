@@ -21,9 +21,12 @@
 
         <CommonControls:LableItem Grid.Row="0" Grid.Column="0" Content="Right click to add categories" Foreground="Gray" />
 
-        <ScrollViewer Grid.Row="1" Grid.Column="0" >
-            <CommonControls:ViSoTreeView x:Name="uxCategoryTree" VerticalAlignment="Stretch" SelectedItemChanged="TreeViewItem_Changed" />            
-        </ScrollViewer>
-            
+        <CommonControls:ViSoTreeView Grid.Row="1" Grid.Column="0"  
+                                     x:Name="uxCategoryTree" 
+                                     VerticalAlignment="Stretch" 
+                                     SelectedItemChanged="TreeViewItem_Changed"
+                                     SelectiveScrollingGrid.SelectiveScrollingOrientation="Vertical"/>
+        
+
     </Grid>
 </src:UserControlBase>
