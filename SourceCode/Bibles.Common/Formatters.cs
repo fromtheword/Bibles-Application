@@ -41,6 +41,18 @@ namespace Bibles.Common
             return keyItems[0].IsNumberic() && !keyItems[1].IsNumberic();
         }
 
+        public static bool IsOldTestament(string bibleKey)
+        {
+            string[] keyItems = null;
+
+            if (Formatters.IsBiblesKey(bibleKey, out keyItems))
+            {
+                return keyItems[1].Contains("O");
+            }
+
+            return keyItems[0].Contains("O");
+        }
+
         public static int GetBibleFromKey(string bibleKey)
         {
             if (bibleKey.IsNullEmptyOrWhiteSpace()

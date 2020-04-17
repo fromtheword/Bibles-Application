@@ -158,7 +158,7 @@ namespace Bibles.Reader
 
                 string strongsNumber = modelObject[0].GetValue().ParseToString();
                         
-                StrongsVerses verseView = new StrongsVerses(this.BibleId, strongsNumber);
+                StrongsVerses verseView = new StrongsVerses(this.BibleId, strongsNumber, this.verseKey);
 
                 ControlDialog.Show(strongsNumber, verseView, string.Empty, showCancelButton:false, autoSize:false, owner:this.GetParentWindow());
             }

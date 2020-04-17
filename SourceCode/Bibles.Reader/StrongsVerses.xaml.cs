@@ -13,11 +13,13 @@ namespace Bibles.Reader
     /// </summary>
     public partial class StrongsVerses : UserControlBase
     {
+        private string selectedVerseKey;
+
         private StrongsVerse selectedVerse;
 
         private StrongsVerse[] verses;
 
-        public StrongsVerses(int bibleId, string strongsNumber)
+        public StrongsVerses(int bibleId, string strongsNumber, string verseKey)
         {
             this.InitializeComponent();
 
@@ -26,6 +28,8 @@ namespace Bibles.Reader
             this.BibleId = bibleId;
 
             this.StrongsNumber = strongsNumber;
+
+            this.selectedVerseKey = verseKey;
 
             this.InitializeVerses();
         }
@@ -84,7 +88,7 @@ namespace Bibles.Reader
         {
             try
             {
-                this.Verses = BiblesData.Database.GetStrongsVerseReferences(this.BibleId, this.StrongsNumber).ToArray();
+                this.Verses = BiblesData.Database.GetStrongsVerseReferences(this.BibleId, this.StrongsNumber, this.selectedVerseKey).ToArray();
 
                 this.uxOccurrences.Content = $"Occurrences: {this.Verses.Length}";
             }

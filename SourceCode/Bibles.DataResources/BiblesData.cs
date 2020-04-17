@@ -1074,9 +1074,18 @@ namespace Bibles.DataResources
                 .Where(vk => vk.VerseKey == verseKey)
                 .ToListAsync();
 
-            foreach(StrongsVerseKeyModel key in verseKeysList.Result)
+            List<string> loadedKeys = new List<string>();
+
+            foreach (StrongsVerseKeyModel key in verseKeysList.Result)
             {
                 string strongsKey = key.StrongsReference.Replace("H", "0").Replace("G", "0");
+
+                if (loadedKeys.Contains(strongsKey))
+                {
+                    continue;
+                }
+
+                loadedKeys.Add(strongsKey);
 
                 Task<StrongsEntryModel> strongsEntry = BiblesData.database
                     .Table<StrongsEntryModel>()
@@ -1108,9 +1117,18 @@ namespace Bibles.DataResources
                 .Where(vk => vk.VerseKey == verseKey)
                 .ToListAsync();
 
+            List<string> loadedKeys = new List<string>();
+
             foreach (StrongsVerseKeyModel key in verseKeysList.Result)
             {
                 string strongsKey = key.StrongsReference.Replace("H", "0").Replace("G", "0");
+
+                if (loadedKeys.Contains(strongsKey))
+                {
+                    continue;
+                }
+
+                loadedKeys.Add(strongsKey);
 
                 Task<GreekEntryModel> greekEntry = BiblesData.database
                     .Table<GreekEntryModel>()
@@ -1139,12 +1157,21 @@ namespace Bibles.DataResources
 
             Task<List<StrongsVerseKeyModel>> verseKeysList = BiblesData.database
                 .Table<StrongsVerseKeyModel>()
-                .Where(vk => vk.VerseKey == verseKey)
+                .Where(vk => vk.VerseKey == verseKey)                
                 .ToListAsync();
+
+            List<string> loadedKeys = new List<string>();
 
             foreach (StrongsVerseKeyModel key in verseKeysList.Result)
             {
                 string strongsKey = key.StrongsReference.Replace("G", "H");
+
+                if (loadedKeys.Contains(strongsKey))
+                {
+                    continue;
+                }
+
+                loadedKeys.Add(strongsKey);
 
                 Task<HebrewEntityModel> greekEntry = BiblesData.database
                     .Table<HebrewEntityModel>()
@@ -1167,16 +1194,16 @@ namespace Bibles.DataResources
             return result;
         }
 
-        public List<StrongsVerse> GetStrongsVerseReferences(int biblesId, string strongsNumber)
+        public List<StrongsVerse> GetStrongsVerseReferences(int biblesId, string strongsNumber, string verseKey)
         {
-            string hebrewKey = $"H{(strongsNumber.Length == 5 ? strongsNumber.Substring(1) : strongsNumber)}";
-
-            string greekKey = $"G{(strongsNumber.Length == 5 ? strongsNumber.Substring(1) : strongsNumber)}";
+            string referenceKey = Formatters.IsOldTestament(verseKey) ? 
+                $"H{(strongsNumber.Length == 5 ? strongsNumber.Substring(1) : strongsNumber)}"
+                :
+                $"G{(strongsNumber.Length == 5 ? strongsNumber.Substring(1) : strongsNumber)}";
             
             Task<List<StrongsVerseKeyModel>> verseLinks = BiblesData.database
                 .Table<StrongsVerseKeyModel>()
-                .Where(vk => vk.StrongsReference == hebrewKey
-                           ||vk.StrongsReference == greekKey)
+                .Where(vk => vk.StrongsReference == referenceKey)
                 .ToListAsync();
 
             if (verseLinks.Result == null || verseLinks.Result.Count == 0)
