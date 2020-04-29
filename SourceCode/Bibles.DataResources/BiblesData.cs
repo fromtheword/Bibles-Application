@@ -5,8 +5,10 @@ using Bibles.DataResources.Link;
 using Bibles.DataResources.Models.Categories;
 using Bibles.DataResources.Models.Strongs;
 using GeneralExtensions;
+using Microsoft.SqlServer.Server;
 using SQLite;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -160,6 +162,22 @@ namespace Bibles.DataResources
         public BibleVerseModel GetVerse(string verseKey)
         {
             return BiblesData.database.Table<BibleVerseModel>().FirstOrDefaultAsync(vk => vk.BibleVerseKey == verseKey).Result;
+        }
+
+        public Dictionary<string, BibleVerseModel> GetVersesByStringKey(string[] verseKeysList)
+        {
+            Task<List<BibleVerseModel>> taskListResult = BiblesData.database.Table<BibleVerseModel>()
+                .Where(vk => verseKeysList.Contains(vk.BibleVerseKey))
+                .ToListAsync();
+
+            List<BibleVerseModel> resultList = taskListResult.Result;
+
+            if (resultList.Count == 0)
+            {
+                return new Dictionary<string, BibleVerseModel>();
+            }
+
+            return resultList.ToDictionary(di => di.BibleVerseKey);
         }
 
         public Dictionary<int, BibleVerseModel> GetVerses(string bibleKey)
@@ -1220,21 +1238,32 @@ namespace Bibles.DataResources
                 VerseKey = sv.VerseKey
             }));
 
-            foreach(StrongsVerse verse in result)
+            ConcurrentBag<string> verseKeys = new ConcurrentBag<string>();
+
+            Parallel.ForEach(result, verse => 
             {
                 string bibleVerseKey = $"{biblesId}||{verse.VerseKey}";
 
-                BibleVerseModel bibleVers = this.GetVerse(bibleVerseKey);
+                verseKeys.Add(bibleVerseKey);
+            });
 
-                if (bibleVers == null)
+            Dictionary<string, BibleVerseModel> verseKeyDictionary = this.GetVersesByStringKey(verseKeys.ToArray());
+
+            Parallel.ForEach(result, verse =>
+            {
+                string bibleVerseKey = $"{biblesId}||{verse.VerseKey}";
+
+                if (!verseKeyDictionary.ContainsKey(bibleVerseKey))
                 {
-                    continue;
+                    return;
                 }
+
+                BibleVerseModel bibleVers = verseKeyDictionary[bibleVerseKey];
 
                 verse.VerseText = bibleVers.VerseText;
 
                 verse.VerseNumber = verse.InvokeMethod("Bibles.Data.GlobalInvokeData,Bibles.Data", "GetKeyDescription", new object[] { verse.VerseKey, 0 }).ParseToString();
-            }
+            });
 
             return result;
         }
