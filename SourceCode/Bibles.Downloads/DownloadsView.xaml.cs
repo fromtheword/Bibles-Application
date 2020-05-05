@@ -10,6 +10,7 @@ using System.Net;
 using System.Reflection;
 using System.Resources;
 using System.Threading.Tasks;
+using System.Web.Security;
 using System.Windows;
 using ViSo.Common;
 using WPF.Tools.BaseClasses;
@@ -179,12 +180,6 @@ namespace Bibles.Downloads
 
         private async void ConnectToGitHub()
         {
-            //string username = LogonCredentials.UserName();
-
-            //string password = LogonCredentials.Password();
-
-            string token = LogonCredentials.Token();
-
             await Task.Run(() => 
             {
                 this.Dispatcher.Invoke(() => 
@@ -192,17 +187,15 @@ namespace Bibles.Downloads
                     this.uxMessage.Content = "Connecting with server"; 
                 });
 
-                Credentials credentials = new Credentials(token);
-
                 this.gitHubClient = new GitHubClient(new ProductHeaderValue("fromtheword"));
-
-                this.gitHubClient.Credentials = credentials;
 
                 this.gitHubClient.SetRequestTimeout(new TimeSpan(0, 5, 0));
 
-                IReadOnlyList<Repository> repositories = this.gitHubClient.Repository.GetAllForCurrent().Result;
+                Task<Repository> repository = this.gitHubClient.Repository.Get("fromtheword", "Bibles-Application");
 
-                IReadOnlyList<RepositoryContent> allContent = this.gitHubClient.Repository.Content.GetAllContents(repositories[0].Id).Result;
+                long reposirotyId = repository.Result.Id;
+
+                IReadOnlyList<RepositoryContent> allContent = this.gitHubClient.Repository.Content.GetAllContents(reposirotyId).Result;
 
                 foreach (RepositoryContent content in allContent.Where(t => t.Type == ContentType.Dir))
                 {
@@ -220,7 +213,7 @@ namespace Bibles.Downloads
                         this.uxDownloadTree.Items.Add(treeItem);                
                     });
 
-                    this.LoadDirectoryContent(content, treeItem, repositories[0].Id);
+                    this.LoadDirectoryContent(content, treeItem, reposirotyId);
                 }
                     
                 RepositoryContent biblesRepository = allContent.First(n => n.Name == "Bibles.msi");

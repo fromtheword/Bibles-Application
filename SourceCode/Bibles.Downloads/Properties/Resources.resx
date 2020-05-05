@@ -117,13 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Password" xml:space="preserve">
-    <value>Sonj@Vih@n2</value>
-  </data>
-  <data name="Token" xml:space="preserve">
-    <value>12a54fb41219e3ee902312b4eb01fa5a9537b345</value>
-  </data>
-  <data name="UserName" xml:space="preserve">
-    <value>fromtheword.info@gmail.com</value>
-  </data>
 </root>

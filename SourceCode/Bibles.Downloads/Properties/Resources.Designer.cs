@@ -59,32 +59,5 @@ namespace Bibles.Downloads.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Sonj@Vih@n2.
-        /// </summary>
-        internal static string Password {
-            get {
-                return ResourceManager.GetString("Password", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 12a54fb41219e3ee902312b4eb01fa5a9537b345.
-        /// </summary>
-        internal static string Token {
-            get {
-                return ResourceManager.GetString("Token", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to fromtheword.info@gmail.com.
-        /// </summary>
-        internal static string UserName {
-            get {
-                return ResourceManager.GetString("UserName", resourceCulture);
-            }
-        }
     }
 }
