@@ -31,7 +31,6 @@ namespace Bibles.Downloads
         {
             this.InitializeComponent();
 
-
             this.Loaded += this.DownloadsView_Loaded;
         }
         
@@ -86,12 +85,6 @@ namespace Bibles.Downloads
                 using (DownloadWebClient client = new DownloadWebClient())
                 {
                     client.UseDefaultCredentials = false;
-
-                    string username = LogonCredentials.UserName();
-
-                    string password = LogonCredentials.Password();
-
-                    client.Credentials = new NetworkCredential(username, password);
 
                     foreach (RepositoryContent repository in this.GetSelectedRepositories())
                     {
@@ -186,9 +179,11 @@ namespace Bibles.Downloads
 
         private async void ConnectToGitHub()
         {
-            string username = LogonCredentials.UserName();
+            //string username = LogonCredentials.UserName();
 
-            string password = LogonCredentials.Password();
+            //string password = LogonCredentials.Password();
+
+            string token = LogonCredentials.Token();
 
             await Task.Run(() => 
             {
@@ -197,7 +192,7 @@ namespace Bibles.Downloads
                     this.uxMessage.Content = "Connecting with server"; 
                 });
 
-                Credentials credentials = new Credentials(username, password);
+                Credentials credentials = new Credentials(token);
 
                 this.gitHubClient = new GitHubClient(new ProductHeaderValue("fromtheword"));
 

@@ -70,6 +70,15 @@ namespace Bibles.Downloads.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 12a54fb41219e3ee902312b4eb01fa5a9537b345.
+        /// </summary>
+        internal static string Token {
+            get {
+                return ResourceManager.GetString("Token", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to fromtheword.info@gmail.com.
         /// </summary>
         internal static string UserName {
