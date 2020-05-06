@@ -381,6 +381,50 @@ namespace Bibles.Reader
             }
         }
 
+        private void Notes_Cliked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                int selectedVerse = Formatters.GetVerseFromKey(this.selectedKey);
+
+                if (selectedVerse <= 0)
+                {
+                    throw new ApplicationException("Please select a Verse.");
+                }
+
+                string bibleVerseKey = Formatters.IsBiblesKey(this.selectedKey) ? this.selectedKey : $"{this.Bible.BibleId}||{this.selectedKey}";
+
+                VerseNotesModel noteModel = BiblesData.Database.GetVerseNotes(bibleVerseKey);
+
+                if (noteModel == null)
+                {
+                    noteModel = new VerseNotesModel { BibleVerseKey = bibleVerseKey, FootNote = new byte[] { } };
+                }
+
+                string footNotes = noteModel.FootNote.UnzipFile().ParseToString();
+
+                if (TextEditing.ShowDialog(GlobalStaticData.Intance.GetKeyDescription(this.SelectedVerseKey), footNotes).IsFalse())
+                {
+                    return;
+                }
+
+                noteModel.FootNote = TextEditing.Text.ZipFile();
+
+                BiblesData.Database.InsertVerseNote(noteModel);
+
+                BibleLoader.RefreshVerseNumberPanel
+                    (
+                        this.loadedVerseStackDictionary[selectedVerse],
+                        this.Bible.BibleId,
+                        this.versesDictionary[selectedVerse]
+                    );
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
+        }
+
         private void LinkVerse_Cliked(object sender, RoutedEventArgs e)
         {
             if (this.SelectedVerseKey.IsNullEmptyOrWhiteSpace() ||
@@ -677,6 +721,8 @@ namespace Bibles.Reader
             this.uxVerseGrid.RowDefinitions.Clear();
 
             this.uxBookmark.IsEnabled = this.versesDictionary.Count > 0;
+
+            this.uxNotes.IsEnabled = this.versesDictionary.Count > 0;
 
             this.uxLink.IsEnabled = this.versesDictionary.Count > 0;
 

@@ -17,6 +17,8 @@ using System.Text;
 using ViSo.Dialogs.ModelViewer;
 using Bibles.Studies;
 using Bibles.Studies.Models;
+using ViSo.Dialogs.TextEditor;
+using Bibles.Data;
 
 namespace Bibles.Reader
 {
@@ -204,10 +206,55 @@ namespace Bibles.Reader
                 ErrorLog.ShowError(err);
             }
         }
-        
+
+        private static void VerseNote_Selected(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                Image item = (Image)sender;
+
+                string bibleVerseKey = item.Tag.ParseToString();
+
+                VerseNotesModel noteModel = BiblesData.Database.GetVerseNotes(bibleVerseKey);
+
+                if (noteModel == null)
+                {
+                    noteModel = new VerseNotesModel { BibleVerseKey = bibleVerseKey };
+                }
+
+                string footNotes = noteModel.FootNote.UnzipFile().ParseToString();
+
+                if (TextEditing.ShowDialog(GlobalStaticData.Intance.GetKeyDescription(bibleVerseKey), footNotes).IsFalse())
+                {
+                    return;
+                }
+
+                if (TextEditing.Text.IsNullEmptyOrWhiteSpace())
+                {
+                    BiblesData.Database.DeleteVerseNote(bibleVerseKey);
+
+                    StackPanel parentpanel = item.Parent.To<StackPanel>();
+
+                    parentpanel.Children.Remove(item);
+
+                    return;
+                }
+
+                noteModel.FootNote = TextEditing.Text.ZipFile();
+
+                item.ToolTip = TextEditing.Text;
+
+                BiblesData.Database.InsertVerseNote(noteModel);
+            }
+            catch(Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
+        }
+
         private static UIElement[] GetVerseNumberElements(int bibleId, BibleVerseModel verse)
         {
-            UIElement[] result = new UIElement[4];
+            UIElement[] result = new UIElement[5];
 
             Label labelVerse = new Label { Content = Formatters.GetVerseFromKey(verse.BibleVerseKey), Foreground = Brushes.LightGray, Tag = verse };
 
@@ -218,6 +265,8 @@ namespace Bibles.Reader
             result[2] = BibleLoader.GetStudyBookmarkImage(bibleId, verse.BibleVerseKey);
 
             result[3] = BibleLoader.GetLinkImage(verse.BibleVerseKey);
+
+            result[4] = BibleLoader.GetNotesImage(verse.BibleVerseKey);
 
             return result;
         }
@@ -296,9 +345,8 @@ namespace Bibles.Reader
 
             return img;
         }
-
-        
-        public static Image GetLinkImage(string verseKey)
+                
+        private static Image GetLinkImage(string verseKey)
         {
             if (!BiblesData.Database.HaveLink(verseKey))
             {
@@ -317,5 +365,28 @@ namespace Bibles.Reader
             return linkImage;
         }
 
+        private static Image GetNotesImage(string bibleVerseKey)
+        {
+            VerseNotesModel noteModel = BiblesData.Database.GetVerseNotes(bibleVerseKey);
+
+            if (noteModel == null)
+            {
+                return null;
+            }
+
+            Image linkImage = new Image
+            {
+                Source = IconSets.ResourceImageSource("Notes", 16),
+                Opacity = 0.5,
+                Tag = bibleVerseKey,
+                ToolTip = noteModel.FootNote.UnzipFile()
+            };
+
+            linkImage.PreviewMouseLeftButtonUp += BibleLoader.VerseNote_Selected;
+
+            return linkImage;
+        }
+
+        
     }
 }

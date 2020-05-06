@@ -1324,6 +1324,44 @@ namespace Bibles.DataResources
 
         #endregion
 
+        #region VERSE NOTES
+
+        public VerseNotesModel GetVerseNotes(string bibleVersekey)
+        {
+            Task<VerseNotesModel> resultTask = BiblesData.database
+                .Table<VerseNotesModel>()
+                .FirstOrDefaultAsync(vn => vn.BibleVerseKey == bibleVersekey);
+
+            return resultTask.Result;
+        }
+
+        public void InsertVerseNote(VerseNotesModel notes)
+        {
+            Task<VerseNotesModel> exsitingTask = BiblesData.database
+                .Table<VerseNotesModel>()
+                .FirstOrDefaultAsync(vn => vn.BibleVerseKey == notes.BibleVerseKey);
+
+            VerseNotesModel exsiting = exsitingTask.Result;
+
+            if (exsiting != null)
+            {
+                exsiting.FootNote = notes.FootNote;
+
+                BiblesData.database.UpdateAsync(exsiting);
+            }
+            else
+            {
+                BiblesData.database.InsertAsync(notes);
+            }
+        }
+
+        public void DeleteVerseNote(string bibleVerseKey)
+        {
+            BiblesData.database.Table<VerseNotesModel>().DeleteAsync(hi => hi.BibleVerseKey == bibleVerseKey);
+        }
+
+        #endregion
+
         private async Task InitializeAsync()
         {
             if (!BiblesData.IsInitialized)
@@ -1414,6 +1452,12 @@ namespace Bibles.DataResources
                 if (!database.TableMappings.Any(scon => scon.MappedType.Name == typeof(HebrewEntityModel).Name))
                 {
                     await database.CreateTablesAsync(CreateFlags.None, typeof(HebrewEntityModel)).ConfigureAwait(false);
+                }
+
+                // Foot notes
+                if (!database.TableMappings.Any(scon => scon.MappedType.Name == typeof(VerseNotesModel).Name))
+                {
+                    await database.CreateTablesAsync(CreateFlags.None, typeof(VerseNotesModel)).ConfigureAwait(false);
                 }
 
                 BiblesData.IsInitialized = true;

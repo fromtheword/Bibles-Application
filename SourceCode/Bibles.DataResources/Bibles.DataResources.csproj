@@ -121,6 +121,7 @@
     <Compile Include="Aggregates\StudyBookmarkModel.cs" />
     <Compile Include="Aggregates\StudyContentModel.cs" />
     <Compile Include="Aggregates\TranslationMappingModel.cs" />
+    <Compile Include="Aggregates\VerseNotesModel.cs" />
     <Compile Include="BiblesData.cs" />
     <Compile Include="DataEnums\HaveInstalledEnum.cs" />
     <Compile Include="DataEnums\SearchComparisonEnum.cs" />

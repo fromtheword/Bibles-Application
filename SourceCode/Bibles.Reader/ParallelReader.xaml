@@ -24,6 +24,7 @@
 
         <StackPanel  Grid.Row="0" Grid.Column="0" Orientation="Horizontal">
             <CommonControls:ActionButton x:Name="uxBookmark" ToolTip="Bookmark Verse" ResourceImageName="Bookmark" IsEnabled="False" Click="Bookmark_Cliked" />
+            <CommonControls:ActionButton x:Name="uxNotes" ToolTip="Take Notes" ResourceImageName="Notes" IsEnabled="False" Click="Notes_Cliked" />
             <CommonControls:ActionButton x:Name="uxLink" ToolTip="Link Verse" ResourceImageName="Link" IsEnabled="False" Click="LinkVerse_Cliked" />
             <CommonControls:ActionButton ResourceImageName="Highlight" ToolTip="Highlight" Click="BackColour_Clicked" Margin="0,0,5,0" DefaultSize="20" />
             <CommonControls:ActionButton ResourceImageName="HighlightClear" ToolTip="Clear Highlights" Click="ClearBackColour_Clicked" Margin="0,0,5,0" DefaultSize="20" />

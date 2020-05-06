@@ -388,6 +388,57 @@ namespace Bibles.Reader
             }
         }
 
+        private void Notes_Cliked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string bibleVerseKey = this.SelectedVerseKey;
+
+                if (!Formatters.IsBiblesKey(bibleVerseKey))
+                {
+                    bibleVerseKey = $"{this.selectedBibleId}||{bibleVerseKey}";
+                }
+
+                VerseNotesModel noteModel = BiblesData.Database.GetVerseNotes(bibleVerseKey);
+
+                if (noteModel == null)
+                {
+                    noteModel = new VerseNotesModel { BibleVerseKey = bibleVerseKey, FootNote = new byte[] { } };
+                }
+
+                string footNotes = noteModel.FootNote.UnzipFile().ParseToString();
+
+                if (TextEditing.ShowDialog(GlobalStaticData.Intance.GetKeyDescription(this.SelectedVerseKey), footNotes).IsFalse())
+                {
+                    return;
+                }
+
+                noteModel.FootNote = TextEditing.Text.ZipFile();
+
+                BiblesData.Database.InsertVerseNote(noteModel);
+
+                int selectedVerse = Formatters.GetVerseFromKey(this.selectedKey);
+
+                BibleLoader.RefreshVerseNumberPanel
+                   (
+                       this.loadedVerseStackDictionaryLeft[selectedVerse],
+                       this.BibleLeft.BibleId,
+                       this.versesDictionaryLeft[selectedVerse]
+                   );
+
+                BibleLoader.RefreshVerseNumberPanel
+                    (
+                        this.loadedVerseStackDictionaryRight[selectedVerse],
+                        this.BibleRight.BibleId,
+                        this.versesDictionaryRight[selectedVerse]
+                    );
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
+        }
+
         private void LinkVerse_Cliked(object sender, RoutedEventArgs e)
         {
             if (this.SelectedVerseKey.IsNullEmptyOrWhiteSpace()
@@ -717,6 +768,8 @@ namespace Bibles.Reader
 
             this.uxBookmark.IsEnabled = this.versesDictionaryLeft.Count > 0;
 
+            this.uxNotes.IsEnabled = this.versesDictionaryLeft.Count > 0;
+
             this.uxLink.IsEnabled = this.versesDictionaryLeft.Count > 0;
 
             int rowCount = this.versesDictionaryLeft.Count > this.versesDictionaryRight.Count ?
@@ -778,5 +831,6 @@ namespace Bibles.Reader
             this.uxVerseGridScroll.ScrollToTop();
         }
 
+        
     }
 }
