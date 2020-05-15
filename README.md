@@ -14,12 +14,9 @@ With studies and links to follow as this project takes form, scriptures will be 
 
 No dogma, just scripture. Though some text needs explaining, like the word ‘hell’ that occurs in the old testament 65 times, in the Hebrew, was translated half the time as ‘Death’ and the other half as ‘Hell’. There for no perceptions will be allowed in the studies.
 
-Download the installer here: 
-
+Download the installer here:
 https://github.com/fromtheword/Bibles-Application/blob/master/Bibles.msi
 
-To Install select the Bibles.msi. 
-
-To the right select the ‘Download’ button. 
-
+To Install select the Bibles.msi.
+To the right select the ‘Download’ button.
 This will download the installable to your defined downloads folder from where you can install the Bibles Application
