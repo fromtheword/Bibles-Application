@@ -1,3 +1,4 @@
+<meta name="google-site-verification" content="uO0KIXcA0ryHEfgwWVi7QrXMM0WQfqpXSs_DtX34bgc" />
 During the ages the controversy between Jesus and Satan is portrayed in the Word of God; a battle between good and eval. Satan trying to dethrone God, and God displaying to His whole kingdom the result of transgressing His law.
 
 Satan, knowing the ways of his eval, knowing that his time is short, try by force to destroy Gods people, and thereby inflicting as much harm and sorrow to God, Jesus, and his people.
@@ -15,6 +16,7 @@ With studies and links to follow as this project takes form, scriptures will be 
 No dogma, just scripture. Though some text needs explaining, like the word ‘hell’ that occurs in the old testament 65 times, in the Hebrew, was translated half the time as ‘Death’ and the other half as ‘Hell’. There for no perceptions will be allowed in the studies.
 
 Download the installer here:
+
 https://github.com/fromtheword/Bibles-Application/blob/master/Bibles.msi
 
 To Install select the Bibles.msi.
