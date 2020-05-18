@@ -20,4 +20,4 @@ No dogma, just scripture. Though some text needs explaining, like the word ‘he
 
 Download the source code here:
 
-https://github.com/fromtheword/Bibles-Application/
+https://github.com/fromtheword/Bibles-Application
