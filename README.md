@@ -1,5 +1,7 @@
 <meta name="google-site-verification" content="uO0KIXcA0ryHEfgwWVi7QrXMM0WQfqpXSs_DtX34bgc" />
 
+<a href="https://raw.githubusercontent.com/fromtheword/Bibles-Application/master/Bibles.msi" download="Bibles.msi">Download Application</a>
+
 During the ages the controversy between Jesus and Satan is portrayed in the Word of God; a battle between good and eval. Satan trying to dethrone God, and God displaying to His whole kingdom the result of transgressing His law.
 
 Satan, knowing the ways of his eval, knowing that his time is short, try by force to destroy Gods people, and thereby inflicting as much harm and sorrow to God, Jesus, and his people.
