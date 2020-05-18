@@ -12,7 +12,7 @@ In the beginning God said to Adam, if you eat of the fruit of this tree you will
 
 This lie of Satan is believed today, churches preach that if you die you go to heaven, they preach an eternal fire, that will consume the wicket for ever and ever.
 
-What about the poor soul, that died in his early 20’s, not having a chance the meet Jesus, his Saviour. Do you think God is that cruel? This is not what the Bible teaches us, in fact, the Word of God teaches the opposite. The Word teaches us that, God in His grace, send forth His only begotten Son, Jesus, to overcome and conquer Satan, on our behalf.
+What about the poor soul, that died in his early 20’s, not having a chance to meet Jesus, his Saviour. Do you think God is that cruel? This is not what the Bible teaches us, in fact, the Word of God teaches the opposite. The Word teaches us that, God in His grace, send forth His only begotten Son, Jesus, to overcome and conquer Satan, on our behalf.
 
 With studies and links to follow as this project takes form, scriptures will be highlighted so that you can read it for yourself.
 
