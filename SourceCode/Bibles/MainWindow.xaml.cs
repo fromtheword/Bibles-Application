@@ -5,6 +5,7 @@ using Bibles.Data;
 using Bibles.DataResources;
 using Bibles.DataResources.Aggregates;
 using Bibles.DataResources.AvailableBooks;
+using Bibles.DataResources.BibleBooks;
 using Bibles.DataResources.Bookmarks;
 using Bibles.DataResources.Models.Preferences;
 using Bibles.Downloads;
@@ -141,10 +142,12 @@ namespace Bibles
                         Formatters.GetBibleFromKey(this.selectedItemKey)
                         :
                         GlobalResources.UserPreferences.DefaultBible;
-                    
+
+                    int verseNumber = Formatters.GetVerseFromKey(this.selectedItemKey);
+
                     ((Reader.Reader)this.uxMainTab.Items[0]).SetBible(bibleId);
 
-                    ((Reader.Reader)this.uxMainTab.Items[0]).SetVerse(this.selectedItemKey);
+                    this.uxIndexer.SetVerse(this.selectedItemKey);
                 }
                 else
                 {

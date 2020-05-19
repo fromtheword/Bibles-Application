@@ -212,6 +212,48 @@ namespace Bibles.BookIndex
             }
         }
 
+        public void SetVerse(string bibleVerseKey)
+        {
+            try
+            {
+                if (bibleVerseKey.IsNullEmptyOrWhiteSpace())
+                {
+                    bibleVerseKey = "01O||1||1";
+                }
+
+                string bookKey = $"{Formatters.GetBookFromKey(bibleVerseKey)}||";
+
+                string chapterKey = $"{bookKey}{Formatters.GetChapterFromKey(bibleVerseKey)}||";
+
+                string verseKey = $"{chapterKey}{Formatters.GetVerseFromKey(bibleVerseKey)}||";
+
+                if (Formatters.IsOldTestament(bibleVerseKey))
+                {
+                    BookModel book = this.OldTestamentBooks.FirstOrDefault(b => b.BookKey == bookKey);
+
+                    this.SelectedOldTestamentBook = book;
+                }
+                else
+                {
+                    BookModel book = this.OldTestamentBooks.FirstOrDefault(b => b.BookKey == bookKey);
+
+                    this.selectedNewTetamentBook = book;
+                }
+
+                ChapterModel chapter = this.bookChapters.FirstOrDefault(c => c.ChapterKey == chapterKey);
+
+                this.SelectedChapter = chapter;
+
+                VerseModel verse = this.ChapterVerses.FirstOrDefault(v => v.VerseKey == verseKey);
+
+                this.SelectedVerse = verse;
+            }
+            catch
+            {
+                // DO NOTHING, We would not like to have things fall over
+            }
+        }
+
         private void SearchOldTestament_TextChanged(object sender, System.Windows.RoutedEventArgs e)
         {
             try
