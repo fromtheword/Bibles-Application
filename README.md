@@ -4,7 +4,7 @@
 
 During the ages the controversy between Jesus and Satan is portrayed in the Word of God; a battle between good and eval. Satan trying to dethrone God, and God displaying to His whole kingdom the result of transgressing His law.
 
-Satan, knowing the ways of his eval, knowing that his time is short, try by force to destroy Gods people, and thereby inflicting as much harm and sorrow to God, Jesus, and his people.
+Satan, knowing the ways of his eval, knowing that his time is short, try by force to destroy Gods people, and thereby inflicting as much harm and sorrow to God, Jesus, and his people as possible.
 
 God always open and truth full, where Satan always working in the dark and behind the scene. For this reason, Jesus warned that we should take heed that no one deceives us.
 
@@ -16,7 +16,7 @@ What about the poor soul, that died in his early 20’s, not having a chance to 
 
 With studies and links to follow as this project takes form, scriptures will be highlighted so that you can read it for yourself.
 
-No dogma, just scripture. Though some text needs explaining, like the word ‘hell’ that occurs in the old testament 65 times, in the Hebrew, was translated half the time as ‘Death’ and the other half as ‘Hell’. There for no perceptions will be allowed in the studies.
+No dogma, just scripture. Though some text needs explaining, like the word ‘hades’, in Hebrew, that occurs in the old testament 65 times, was translated half the time as ‘Death’ and the other half as ‘Hell’. There for no perceptions will be allowed in the studies, scripture only.
 
 Download the source code here:
 
