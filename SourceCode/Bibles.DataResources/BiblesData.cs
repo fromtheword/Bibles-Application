@@ -4,6 +4,7 @@ using Bibles.DataResources.DataEnums;
 using Bibles.DataResources.Link;
 using Bibles.DataResources.Models.Categories;
 using Bibles.DataResources.Models.Strongs;
+using Bibles.DataResources.Models.VerseNotes;
 using GeneralExtensions;
 using Microsoft.SqlServer.Server;
 using SQLite;
@@ -1333,6 +1334,38 @@ namespace Bibles.DataResources
                 .FirstOrDefaultAsync(vn => vn.BibleVerseKey == bibleVersekey);
 
             return resultTask.Result;
+        }
+
+        public List<VerseNoteGridModel> GetAllVerseNotes()
+        {
+            ConcurrentBag<VerseNoteGridModel> result = new ConcurrentBag<VerseNoteGridModel>();
+
+            Task<List<VerseNotesModel>> resultTask = BiblesData.database
+                .Table<VerseNotesModel>()
+                .ToListAsync();
+
+            Task<List<BibleModel>> biblesList = BiblesData.database.Table<BibleModel>().ToListAsync();
+
+            Parallel.ForEach(resultTask.Result, verse => 
+            {
+                int bibleId = Formatters.GetBibleFromKey(verse.BibleVerseKey);
+
+                BibleModel bibleModel = biblesList.Result.FirstOrDefault(b => b.BiblesId == bibleId);
+
+                string verseDescription = this.InvokeMethod("Bibles.Data.GlobalInvokeData,Bibles.Data", "GetKeyDescription", new object[] { verse.BibleVerseKey }).ParseToString();
+
+                VerseNoteGridModel verseresult = new VerseNoteGridModel
+                {
+                    BibleVerseKey = verse.BibleVerseKey,
+                    Bible = bibleModel == null ? string.Empty : bibleModel.BibleName,
+                    Verse = verseDescription
+                };
+
+                result.Add(verseresult);
+
+            });
+
+            return result.OrderBy(bv => bv.BibleVerseKey).ToList();
         }
 
         public void InsertVerseNote(VerseNotesModel notes)

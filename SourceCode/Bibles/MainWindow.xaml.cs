@@ -8,6 +8,7 @@ using Bibles.DataResources.AvailableBooks;
 using Bibles.DataResources.BibleBooks;
 using Bibles.DataResources.Bookmarks;
 using Bibles.DataResources.Models.Preferences;
+using Bibles.DataResources.Models.VerseNotes;
 using Bibles.Downloads;
 using Bibles.Reader;
 using Bibles.Search;
@@ -282,7 +283,7 @@ namespace Bibles
 
                 bookmarks.BookmarkReaderRequest += this.BookmarkReader_Request;
 
-                ControlDialog.Show("Bookmarks", bookmarks, string.Empty, owner:this, isTopMost:true, autoSize:false);
+                ControlDialog.Show("Bookmarks", bookmarks, string.Empty, showOkButton:false , owner:this, isTopMost:true, autoSize:false);
             }
             catch (Exception err)
             {
@@ -312,11 +313,53 @@ namespace Bibles
             {
                 BibleHighlights highlight = new BibleHighlights();
 
-                ControlDialog.Show("Highlights", highlight, string.Empty, showCancelButton:false, autoSize:false);
+                highlight.BibleHighlightsModelRequest += this.BibleHighlightsModel_Request;
+
+                ControlDialog.Show("Highlights", highlight, string.Empty, showOkButton:false, autoSize:false);
             }
             catch (Exception err)
             {
                 ErrorLog.ShowError(err); ;
+            }
+        }
+
+        private void BibleHighlightsModel_Request(object sender, BibleHighlightsModel highlight)
+        {
+            try
+            {
+                this.LoadReader(Formatters.GetBibleFromKey(highlight.BibleVerseKeyId), highlight.BibleVerseKeyId);
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
+        }
+
+        private void Notes_Cliked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                VersesNotes notes = new VersesNotes();
+
+                notes.VerseNoteGridModelRequest += this.VerseNoteGridModel_Request;
+
+                ControlDialog.Show("Verses Notes", notes, string.Empty, showOkButton: false, autoSize: false);
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err); ;
+            }
+        }
+
+        private void VerseNoteGridModel_Request(object sender, VerseNoteGridModel verseNote)
+        {
+            try
+            {
+                this.LoadReader(Formatters.GetBibleFromKey(verseNote.BibleVerseKey), verseNote.BibleVerseKey);
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
             }
         }
 
@@ -375,8 +418,7 @@ namespace Bibles
                 ErrorLog.ShowError(err);
             }
         }
-
-       
+               
         private void NewStudy_Cliked(object sender, RoutedEventArgs e)
         {
             try
@@ -397,7 +439,7 @@ namespace Bibles
             {
                 StudiesByCategory study = new StudiesByCategory();
 
-                ControlDialog.ShowDialog("Open Study", study, string.Empty, autoSize:false, showOkButton:false);
+                ControlDialog.ShowDialog("Open Study", study, "TryEditStudy", autoSize:false);
             }
             catch (Exception err)
             {

@@ -19,6 +19,10 @@ namespace Bibles.Bookmarks
     /// </summary>
     public partial class BibleHighlights : UserControlBase
     {
+        public delegate void BibleHighlightsModelRequestEvent(object sender, BibleHighlightsModel highlight);
+
+        public event BibleHighlightsModelRequestEvent BibleHighlightsModelRequest;
+
         private readonly char[] keySplitChar = new  char[] { '*' };
 
         private BibleHighlightsModel selectedHighlight;
@@ -112,6 +116,25 @@ namespace Bibles.Bookmarks
         private void Page_Changed(object sender, object[] selectedItems)
         {
             this.HighlightModelsPage = selectedItems.TryCast<BibleHighlightsModel>();
+        }
+
+        private void OpenVers_Cliked(object sender, RoutedEventArgs e)
+        {
+            if (this.SelectedHighlight == null)
+            {
+                MessageDisplay.Show("Please select a Verse.");
+
+                return;
+            }
+
+            try
+            {
+                this.BibleHighlightsModelRequest?.Invoke(this, this.SelectedHighlight);
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
         }
 
         private void Delete_Cliked(object sender, RoutedEventArgs e)

@@ -28,6 +28,8 @@ namespace Bibles.Bookmarks
 
         private ModelsBookmark[] bookmarks;
 
+        private ModelsBookmark[] gridBookmarks;
+
         public BookmarksList()
         {
             this.InitializeComponent();
@@ -70,7 +72,22 @@ namespace Bibles.Bookmarks
             {
                 this.bookmarks = value;
 
-                base.OnPropertyChanged(() => this.Bookmarks);
+                this.uxPager.ItemsSource.AddRange(value);
+            }
+        }
+
+        public ModelsBookmark[] GridBookmarks
+        {
+            get
+            {
+                return this.gridBookmarks;
+            }
+
+            set
+            {
+                this.gridBookmarks = value;
+
+                base.OnPropertyChanged(() => this.GridBookmarks);
             }
         }
 
@@ -170,6 +187,11 @@ namespace Bibles.Bookmarks
             {
                 ErrorLog.ShowError(err);
             }
+        }
+
+        private void Page_Changed(object sender, object[] selectedItems)
+        {
+            this.GridBookmarks = selectedItems.TryCast<ModelsBookmark>();
         }
     
         private void InitializeData()

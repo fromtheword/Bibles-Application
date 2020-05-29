@@ -235,9 +235,9 @@ namespace Bibles.BookIndex
                 }
                 else
                 {
-                    BookModel book = this.OldTestamentBooks.FirstOrDefault(b => b.BookKey == bookKey);
+                    BookModel book = this.NewTestamentBooks.FirstOrDefault(b => b.BookKey == bookKey);
 
-                    this.selectedNewTetamentBook = book;
+                    this.SelectedNewTestamentBook = book;
                 }
 
                 ChapterModel chapter = this.bookChapters.FirstOrDefault(c => c.ChapterKey == chapterKey);

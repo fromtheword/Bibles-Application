@@ -62,6 +62,53 @@ namespace Bibles.Studies
             }
         }
 
+        public bool TryEditStudy()
+        {
+            if (this.SelectedStudyHeader == null)
+            {
+                MessageDisplay.Show("Please select a Study.");
+
+                return false;
+            }
+
+            #region CHECK FOR OPEN STUDIES
+
+            foreach (Window window in Application.Current.Windows)
+            {
+                if (window.GetType() != typeof(ControlWindow))
+                {
+                    continue;
+                }
+
+                UserControlBase controlBase = window.GetPropertyValue("ControlContent").To<UserControlBase>();
+
+                if (controlBase.GetType() != typeof(EditStudy))
+                {
+                    continue;
+                }
+
+                StudyHeader studyHeader = controlBase.GetPropertyValue("SubjectHeader").To<StudyHeader>();
+
+                if (studyHeader.StudyHeaderId <= 0
+                    || studyHeader.StudyHeaderId != this.SelectedStudyHeader.StudyHeaderId)
+                {
+                    continue;
+                }
+
+                window.Focus();
+
+                return true;
+            }
+
+            #endregion
+
+            EditStudy edit = new EditStudy(this.SelectedStudyHeader);
+
+            ControlDialog.Show(this.SelectedStudyHeader.StudyName, edit, "SaveStudy", autoSize: false, owner: Application.Current.MainWindow);
+
+            return true;                
+        }
+
         private void SelectedCategory_Changed(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             try
@@ -129,45 +176,10 @@ namespace Bibles.Studies
 
             try
             {
-
-                #region CHECK FOR OPEN STUDIES
-
-                foreach (Window window in Application.Current.Windows)
+                if (this.TryEditStudy())
                 {
-                    if (window.GetType() != typeof(ControlWindow))
-                    {
-                        continue;
-                    }
-
-                    UserControlBase controlBase = window.GetPropertyValue("ControlContent").To<UserControlBase>();
-
-                    if (controlBase.GetType() != typeof(EditStudy))
-                    {
-                        continue;
-                    }
-
-                    StudyHeader studyHeader = controlBase.GetPropertyValue("SubjectHeader").To<StudyHeader>();
-
-                    if (studyHeader.StudyHeaderId <= 0
-                        || studyHeader.StudyHeaderId != this.SelectedStudyHeader.StudyHeaderId)
-                    {
-                        continue;
-                    }
-
-                    window.Focus();
-
                     this.CloseIfNotMainWindow(true);
-
-                    return;
                 }
-
-                #endregion
-
-                EditStudy edit = new EditStudy(this.SelectedStudyHeader);
-
-                ControlDialog.Show(this.SelectedStudyHeader.StudyName, edit, "SaveStudy", autoSize:false, owner: Application.Current.MainWindow);
-
-                this.CloseIfNotMainWindow(true);
             }
             catch (Exception err)
             {

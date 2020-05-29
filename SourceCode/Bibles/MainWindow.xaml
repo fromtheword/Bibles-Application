@@ -34,6 +34,7 @@
                 <Separator />
                 <MenuItem Header="Bookmarks" Click="Bookmarks_Cliked" />
                 <MenuItem Header="Highlighted Verses" Click="Highlights_Cliked" />
+                <MenuItem Header="Notes" Click="Notes_Cliked" />
             </MenuItem>
             <MenuItem Header="Study Centre">
                 <MenuItem Header="New Study" Click="NewStudy_Cliked" />

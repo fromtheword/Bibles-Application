@@ -1,13 +1,13 @@
-﻿<src:UserControlBase xmlns:DataGridObjects="clr-namespace:WPF.Tools.DataGridObjects;assembly=WPF.Tools" 
-                     xmlns:CommonControls="clr-namespace:WPF.Tools.CommonControls;assembly=WPF.Tools" 
-                     x:Class="Bibles.Bookmarks.BookmarksList"
+﻿<src:UserControlBase xmlns:CommonControls="clr-namespace:WPF.Tools.CommonControls;assembly=WPF.Tools"  
+                     xmlns:DataGridObjects="clr-namespace:WPF.Tools.DataGridObjects;assembly=WPF.Tools"  
+                     x:Class="Bibles.Bookmarks.VersesNotes"
                      xmlns:src="clr-namespace:WPF.Tools.BaseClasses;assembly=WPF.Tools"
                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                      xmlns:local="clr-namespace:Bibles.Bookmarks"
-                     Title="Bookmarks"
+                     Title="Verses Notes"
                      mc:Ignorable="d" 
                      d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -28,30 +28,28 @@
             <CommonControls:ActionButton ResourceImageName="Edit" ToolTip="Edit Bookmark" Click="EditVerse_Cliked" />
             <CommonControls:ActionButton ResourceImageName="Delete" ToolTip="Delete Bookmark" Click="DeleteVerse_Cliked" />
         </StackPanel>
-
-        <DataGridObjects:ViSoDataGridPager Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" ShowSearch="True" x:Name="uxPager" SelectedPageChange="Page_Changed" />
+        
+        <DataGridObjects:ViSoDataGridPager Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3"  ShowSearch="True" x:Name="uxNotesPager" SelectedPageChange="Page_Changed" />      
         
         <DataGridObjects:ViSoDataGrid Grid.Row="1" Grid.Column="1"
-                                      ItemsSource="{Binding GridBookmarks}"
-                                      SelectedItem="{Binding SelectedBookmark}"
+                                      ItemsSource="{Binding GridNotes}"
+                                      SelectedItem="{Binding SelectedNote}"
                                       AutoGenerateColumns="False">
             <DataGridObjects:ViSoDataGrid.Columns>
-                <DataGridObjects:VisoDataGridTextColumn HeaderTranslate="Verse" Binding="{Binding SelectedVerse}" />
-                <DataGridObjects:VisoDataGridTextColumn HeaderTranslate="Bible" Binding="{Binding BibleName}" />
-                <DataGridObjects:VisoDataGridTextColumn HeaderTranslate="Name" Binding="{Binding BookMarkName}" />
-            </DataGridObjects:ViSoDataGrid.Columns>
+                <DataGridTextColumn Header="Bible" Binding="{Binding Bible}" />
+                <DataGridTextColumn Header="Verse" Binding="{Binding Verse}" />
+            </DataGridObjects:ViSoDataGrid.Columns>            
         </DataGridObjects:ViSoDataGrid>
 
         <CommonControls:VerticalGridSplit Grid.Row="1" Grid.Column="2" />
 
-        <ScrollViewer Grid.Row="1" Grid.Column="3">
-            <StackPanel >
-                <CommonControls:LableItem Content="Verse" FontWeight="Bold" />
-                <CommonControls:TextBoxItem x:Name="uxBibleVerse" IsReadOnly="True" TextWrapping="WrapWithOverflow" Margin="0,0,0,15" BorderBrush="Transparent" />
-                <CommonControls:LableItem Content="Description" FontWeight="Bold" />
-                <CommonControls:TextBoxItem x:Name="uxBookmarkDescription" IsReadOnly="True" TextWrapping="WrapWithOverflow" Margin="0,0,0,15" BorderBrush="Transparent" />            
-            </StackPanel>
-        </ScrollViewer>
+        <StackPanel Grid.Row="1" Grid.Column="3">
+            <CommonControls:LableItem Content="Verse" FontWeight="Bold" />
+            <CommonControls:TextBoxItem x:Name="uxBibleVerse" IsReadOnly="True" TextWrapping="WrapWithOverflow" Margin="0,0,0,15" BorderBrush="Transparent" />
+            <CommonControls:LableItem Content="Notes" FontWeight="Bold" />
+            <CommonControls:TextBoxItem x:Name="uxVerseNotes" IsReadOnly="True" TextWrapping="WrapWithOverflow" Margin="0,0,0,15" BorderBrush="Transparent" />
+        </StackPanel>
         
+            
     </Grid>
 </src:UserControlBase>

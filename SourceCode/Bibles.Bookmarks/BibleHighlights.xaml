@@ -31,6 +31,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
+            <CommonControls:ActionButton ResourceImageName="OpenBook" ToolTip="Open verse in Reader" Click="OpenVers_Cliked" />
             <CommonControls:ActionButton ResourceImageName="Delete" ToolTip="Delete selected Highlight" Click="Delete_Cliked" />
         </StackPanel>
 
