@@ -112,6 +112,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aggregates\DictionaryModel.cs" />
     <Compile Include="Aggregates\GreekEntryModel.cs" />
     <Compile Include="Aggregates\HaveInstalledModel.cs" />
     <Compile Include="Aggregates\HebrewEntityModel.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="Models\Bookmarks\ModelsBookmark.cs" />
     <Compile Include="Models\Bookmarks\StudyBookmarksModel.cs" />
     <Compile Include="Models\Categories\CategoryTreeModel.cs" />
+    <Compile Include="Models\Dictionaries\DictionaryEntity.cs" />
     <Compile Include="Models\Link\ModelsLink.cs" />
     <Compile Include="Models\Preferences\LanguageSetup.cs" />
     <Compile Include="Models\Preferences\TranslationMapping.cs" />

@@ -24,7 +24,7 @@ namespace Bibles.Downloads
     /// </summary>
     public partial class DownloadsView : UserControlBase
     {
-        private readonly string[] directoryNames = new string[] { "Bibles", "Books", "Studies", "Translations", "Concordances" };
+        private readonly string[] directoryNames = new string[] { "Bibles", "Books", "Studies", "Translations", "Concordances", "Dictionaries" };
 
         private GitHubClient gitHubClient;
 
@@ -127,6 +127,15 @@ namespace Bibles.Downloads
                             if (concordance.Import(fullName))
                             {
                                 File.Delete(fullName);
+                            }
+                        }
+                        else if (repository.Path.StartsWith("Dictionaries/"))
+                        {
+                            if (DownloadedDictionaryLoader.InstallDictionary(fullName))
+                            {
+                                File.Delete(fullName);
+                                
+                                restart = true;
                             }
                         }
                         else

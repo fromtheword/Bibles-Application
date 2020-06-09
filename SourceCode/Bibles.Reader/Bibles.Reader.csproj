@@ -101,6 +101,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BibleLoader.cs" />
+    <Compile Include="DictionaryViewer.xaml.cs">
+      <DependentUpon>DictionaryViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ParalelleSideEnum.cs" />
     <Compile Include="ParallelReader.xaml.cs">
       <DependentUpon>ParallelReader.xaml</DependentUpon>
@@ -137,6 +140,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="DictionaryViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ParallelReader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

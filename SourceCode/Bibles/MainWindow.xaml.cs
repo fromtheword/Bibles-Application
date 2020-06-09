@@ -7,6 +7,7 @@ using Bibles.DataResources.Aggregates;
 using Bibles.DataResources.AvailableBooks;
 using Bibles.DataResources.BibleBooks;
 using Bibles.DataResources.Bookmarks;
+using Bibles.DataResources.DataEnums;
 using Bibles.DataResources.Models.Preferences;
 using Bibles.DataResources.Models.VerseNotes;
 using Bibles.Downloads;
@@ -22,6 +23,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Markup;
 using System.Windows.Media;
 using ViSo.Dialogs.Controls;
 using ViSo.Dialogs.ModelViewer;
@@ -62,7 +64,7 @@ namespace Bibles
             initialData.LoadEmbeddedBibles(this.Dispatcher, Application.Current.MainWindow.FontFamily);
 
             //DownloadedBibleLoader.LoadBible(@"C:\AAA\Hansie\Bibles Unformated\Geneva 1560\Geneva Bible 1560.txt");
-
+            //DownloadedDictionaryLoader.InstallDictionary(HaveInstalledEnum.LifeMoreAbundant, @"C:\temp\Bible Prophetic Dictionary\Working 1.txt");
         }
 
         public void LoadReader(int bibleId, string verseKey)
@@ -300,6 +302,20 @@ namespace Bibles
                 search.SearchReaderRequest += this.SearchReader_Request;
 
                 ControlDialog.Show("Search", search, string.Empty, owner:this, showCancelButton:false, autoSize:false);
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
+        }
+
+        private void Dictionaries_Cliked(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DictionaryViewer dictionary = new DictionaryViewer(HaveInstalledEnum.LifeMoreAbundant);
+
+                ControlDialog.Show(HaveInstalledEnum.LifeMoreAbundant.GetDescriptionAttribute(), dictionary, string.Empty, showOkButton:false, autoSize:false);
             }
             catch (Exception err)
             {
@@ -555,7 +571,7 @@ namespace Bibles
         }
 
         #endregion
-
+        
         private void SetMenuTranslation(MenuItem item)
         {
             item.Header = TranslationDictionary.Translate(item.Header.ParseToString());
@@ -606,11 +622,14 @@ namespace Bibles
             {
                 MenuItem item = new MenuItem { Header = bible.BibleName, Tag = bible.BiblesId };
 
-                //item.FontSize
-
                 item.Click += this.MenuBiblesItem_Clicked;
 
                 this.uxMenuBiles.Items.Add(item);
+            }
+
+            if (BiblesData.Database.IsInstalled(HaveInstalledEnum.LifeMoreAbundant))
+            {
+                this.uxDictionaries.Visibility = Visibility.Visible;
             }
         }
 
@@ -637,5 +656,7 @@ namespace Bibles
 
             return reader;
         }
+
+        
     }
 }

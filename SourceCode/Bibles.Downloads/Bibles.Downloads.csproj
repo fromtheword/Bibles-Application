@@ -78,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DownloadedBibleLoader.cs" />
+    <Compile Include="DownloadedDictionaryLoader.cs" />
     <Compile Include="DownloadsView.xaml.cs">
       <DependentUpon>DownloadsView.xaml</DependentUpon>
     </Compile>

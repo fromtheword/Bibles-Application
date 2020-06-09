@@ -3,6 +3,7 @@ using Bibles.DataResources.Aggregates;
 using Bibles.DataResources.DataEnums;
 using Bibles.DataResources.Link;
 using Bibles.DataResources.Models.Categories;
+using Bibles.DataResources.Models.Dictionaries;
 using Bibles.DataResources.Models.Strongs;
 using Bibles.DataResources.Models.VerseNotes;
 using GeneralExtensions;
@@ -1395,6 +1396,56 @@ namespace Bibles.DataResources
 
         #endregion
 
+        #region DICTIONARIES
+
+        public void DeleteDictionary(HaveInstalledEnum entity)
+        {
+            string bibkeKey = this.DictionaryEntityKey(entity);
+
+            Task<int> result = BiblesData.database
+                .Table<DictionaryModel>()
+                .DeleteAsync(bi => bi.EntityModelKey.StartsWith(bibkeKey));
+
+            var check = result.Result;
+        }
+
+        public void InsertDictionaryBulk(List<DictionaryModel> dictionaryList)
+        {
+            Task<int> result = BiblesData.database.InsertAllAsync(dictionaryList);
+
+            int check = result.Result;
+        }
+
+        public List<DictionaryEntity> GetDictionary(HaveInstalledEnum entity)
+        {
+            string bibkeKey = this.DictionaryEntityKey(entity);
+
+            Task<List<DictionaryModel>> result = BiblesData.database
+                .Table<DictionaryModel>()
+                .Where(bi => bi.EntityModelKey.StartsWith(bibkeKey))
+                .ToListAsync();
+
+            return result.Result
+                .Select(m => new DictionaryEntity { ModelKey = this.GetDictionaryModelKey(m.EntityModelKey), ModelValue = m.EntityValue })
+                .ToList();
+        }
+
+        private static string[] dictionaryKeySplit = new string[] { "||" };
+
+        private string GetDictionaryModelKey(string entityModelKey)
+        {
+            string[] splitKey = entityModelKey.Split(BiblesData.dictionaryKeySplit, StringSplitOptions.None);
+
+            return splitKey[1];
+        }
+
+        private string DictionaryEntityKey(HaveInstalledEnum entity)
+        {
+            return $"{(int)entity}||";
+        }
+
+        #endregion
+
         private async Task InitializeAsync()
         {
             if (!BiblesData.IsInitialized)
@@ -1458,7 +1509,6 @@ namespace Bibles.DataResources
                 {
                     await database.CreateTablesAsync(CreateFlags.AutoIncPK, typeof(TranslationMappingModel)).ConfigureAwait(false);
                 }
-                                
                 
                 if (!database.TableMappings.Any(enm => enm.MappedType.Name == typeof(HaveInstalledModel).Name))
                 {
@@ -1491,6 +1541,14 @@ namespace Bibles.DataResources
                 if (!database.TableMappings.Any(scon => scon.MappedType.Name == typeof(VerseNotesModel).Name))
                 {
                     await database.CreateTablesAsync(CreateFlags.None, typeof(VerseNotesModel)).ConfigureAwait(false);
+                }
+
+                // General Dictionary
+                if (!database.TableMappings.Any(dic => dic.MappedType.Name == typeof(DictionaryModel).Name))
+                {
+                    //await database.DropTableAsync<DictionaryModel>();
+
+                    await database.CreateTablesAsync(CreateFlags.None, typeof(DictionaryModel)).ConfigureAwait(false);
                 }
 
                 BiblesData.IsInitialized = true;
