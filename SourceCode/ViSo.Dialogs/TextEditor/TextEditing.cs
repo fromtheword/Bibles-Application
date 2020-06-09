@@ -3,34 +3,33 @@ using ViSo.Dialogs.Controls;
 
 namespace ViSo.Dialogs.TextEditor
 {
-  public static class TextEditing
-  {
-    private static TextEditorControl textControl;
-
-    public static bool? ShowDialog(string windowTitle, string text)
+    public static class TextEditing
     {
-      TextEditing.Text = text;
+        private static TextEditorControl textControl;
 
-      textControl = new TextEditorControl(text);
+        public static bool? ShowDialog(string windowTitle, string text)
+        {
+            TextEditing.Text = text;
 
-      bool? result = ControlDialog.ShowDialog(windowTitle, textControl, string.Empty);
-      
-      if (result.IsTrue())
-      {
-        TextEditing.Text = textControl.Text;
-      }
+            textControl = new TextEditorControl(text);
 
-      textControl = null;
+            bool? result = ControlDialog.ShowDialog(windowTitle, textControl, string.Empty);
 
-      return result;
+            if (result.IsTrue())
+            {
+                TextEditing.Text = textControl.Text;
+            }
 
+            textControl = null;
+
+            return result;
+        }
+
+        public static string Text
+        {
+            get;
+
+            private set;
+        }
     }
-
-    public static string Text
-    {
-      get;
-
-      private set;
-    }
-  }
 }

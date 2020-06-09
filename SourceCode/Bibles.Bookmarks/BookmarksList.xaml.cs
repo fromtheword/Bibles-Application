@@ -181,7 +181,7 @@ namespace Bibles.Bookmarks
 
                 BiblesData.Database.DeleteBookmark(this.SelectedBookmark.VerseKey);
 
-                this.Bookmarks = this.Bookmarks.Remove(this.SelectedBookmark);
+                this.uxPager.ItemsSource.Remove(this.SelectedBookmark);
             }
             catch (Exception err)
             {
