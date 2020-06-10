@@ -104,6 +104,7 @@
     <Compile Include="DictionaryViewer.xaml.cs">
       <DependentUpon>DictionaryViewer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\DictionaryListModel.cs" />
     <Compile Include="ParalelleSideEnum.cs" />
     <Compile Include="ParallelReader.xaml.cs">
       <DependentUpon>ParallelReader.xaml</DependentUpon>
@@ -207,5 +208,6 @@
       <Name>WPF.Tools</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

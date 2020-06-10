@@ -313,9 +313,9 @@ namespace Bibles
         {
             try
             {
-                DictionaryViewer dictionary = new DictionaryViewer(HaveInstalledEnum.LifeMoreAbundant);
+                DictionaryViewer dictionary = new DictionaryViewer();
 
-                ControlDialog.Show(HaveInstalledEnum.LifeMoreAbundant.GetDescriptionAttribute(), dictionary, string.Empty, showOkButton:false, autoSize:false);
+                ControlDialog.Show("Dictionaries", dictionary, string.Empty, showOkButton:false, autoSize:false);
             }
             catch (Exception err)
             {
@@ -625,11 +625,6 @@ namespace Bibles
                 item.Click += this.MenuBiblesItem_Clicked;
 
                 this.uxMenuBiles.Items.Add(item);
-            }
-
-            if (BiblesData.Database.IsInstalled(HaveInstalledEnum.LifeMoreAbundant))
-            {
-                this.uxDictionaries.Visibility = Visibility.Visible;
             }
         }
 

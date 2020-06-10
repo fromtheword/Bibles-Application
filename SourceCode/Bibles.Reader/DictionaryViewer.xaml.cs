@@ -1,8 +1,15 @@
-﻿using Bibles.DataResources;
+﻿using Bibles.Common;
+using Bibles.DataResources;
 using Bibles.DataResources.DataEnums;
 using Bibles.DataResources.Models.Dictionaries;
-using WPF.Tools.BaseClasses;
+using Bibles.Reader.Models;
 using GeneralExtensions;
+using System;
+using System.ComponentModel;
+using System.Windows;
+using WPF.Tools.BaseClasses;
+using WPF.Tools.Dictionaries;
+using WPF.Tools.Specialized;
 
 namespace Bibles.Reader
 {
@@ -13,15 +20,21 @@ namespace Bibles.Reader
     {
         private DictionaryEntity selecteItem;
 
+        private DictionaryListModel dictionaryModel = new DictionaryListModel();
+
         private DictionaryEntity[] dictionaryItemsPage;
 
-        public DictionaryViewer(HaveInstalledEnum entity)
+        public DictionaryViewer()
         {
             this.InitializeComponent();
 
             this.DataContext = this;
 
-            this.DictionaryItems = BiblesData.Database.GetDictionary(entity).ToArray();
+            this.dictionaryModel.PropertyChanged += this.SelectedDictionary_Changed;
+               
+            this.uxDictionary.Items.Add(this.dictionaryModel);
+
+            this.Loaded += this.DictionaryViewer_Loaded;
         }
 
         public DictionaryEntity SelectedItem
@@ -47,6 +60,8 @@ namespace Bibles.Reader
         {
             set
             {
+                this.uxPager.ItemsSource.Clear();
+
                 this.uxPager.ItemsSource.AddRange(value);
             }
         }
@@ -66,9 +81,40 @@ namespace Bibles.Reader
             }
         }
 
+        private void DictionaryViewer_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (!base.WasFirstLoaded && this.dictionaryModel.GetDictionaries.Length == 0)
+                {
+                    MessageDisplay.Show(TranslationDictionary.Translate("No dictionaries were installed. From the Online Menu select Downloads and select a Dictionary to install."));
+                }
+
+                base.WasFirstLoaded = true;
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
+        }
+
         private void Page_Changed(object sender, object[] selectedItems)
         {
             this.DictionaryItemsPage = selectedItems.TryCast<DictionaryEntity>();
+        }
+        
+        private void SelectedDictionary_Changed(object sender, PropertyChangedEventArgs e)
+        {
+            try
+            {
+                HaveInstalledEnum entity = (HaveInstalledEnum)this.dictionaryModel.Dictionary;
+
+                this.DictionaryItems = BiblesData.Database.GetDictionary(entity).ToArray();
+            }
+            catch (Exception err)
+            {
+                ErrorLog.ShowError(err);
+            }
         }
     }
 }
