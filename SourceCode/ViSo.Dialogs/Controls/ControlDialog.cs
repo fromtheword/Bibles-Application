@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Bibles.Common;
+using GeneralExtensions;
+using System;
 using System.ComponentModel;
 using System.Windows;
-using Bibles.Common;
-using GeneralExtensions;
 using WPF.Tools.BaseClasses;
+using WPF.Tools.Exstention;
 using WPF.Tools.Specialized;
 
 namespace ViSo.Dialogs.Controls
@@ -15,14 +16,15 @@ namespace ViSo.Dialogs.Controls
         public static event ControlDialogClosingEvent ControlDialogClosing;
 
         private static ControlWindow window;
-        
+                
         public static bool? ShowDialog(
             string windowTitle, 
             UserControlBase control, 
             string boolUpdateMethod, 
             bool autoSize = true,
             bool showOkButton = true,
-            bool showCancelButton = true)
+            bool showCancelButton = true,
+            double desiredSize = 0)
         {
             try
             {
@@ -31,6 +33,11 @@ namespace ViSo.Dialogs.Controls
                 ControlDialog.window.Closing += ControlDialog.ControlWindow_Closing;
 
                 ControlDialog.window.Owner = Application.Current.MainWindow;
+
+                if (desiredSize > ControlDialog.window.ScreenWidth().ToDouble())
+                {
+                    ControlDialog.FitToScreen();
+                }
 
                 return ControlDialog.window.ShowDialog();
             }
@@ -49,7 +56,8 @@ namespace ViSo.Dialogs.Controls
             bool isTopMost = false,
             bool autoSize = true,
             bool showOkButton = true,
-            bool showCancelButton = true)
+            bool showCancelButton = true,
+            double desiredSize = 0)
         {
             try
             {
@@ -64,6 +72,11 @@ namespace ViSo.Dialogs.Controls
 
                 ControlDialog.window.Closing += ControlDialog.ControlWindow_Closing;
 
+                if (desiredSize > ControlDialog.window.ScreenWidth().ToDouble())
+                {
+                    ControlDialog.FitToScreen();
+                }
+
                 ControlDialog.window.Show();
 
             }
@@ -72,7 +85,17 @@ namespace ViSo.Dialogs.Controls
                 MessageDisplay.Show(err.InnerExceptionMessage());
             }
         }
-        
+
+        private static void FitToScreen()
+        {
+            ControlDialog.window.MaxWidth = ControlDialog.window.ScreenWidth().ToDouble() - 100;
+
+            ControlDialog.window.MaxHeight = ControlDialog.window.ScreenHeight().ToDouble() - 100;
+
+            ControlDialog.window.Top = 100;
+
+            ControlDialog.window.Left = 100;
+        }
 
         private static void ControlWindow_Closing(object sender, CancelEventArgs e)
         {

@@ -1,4 +1,5 @@
 ﻿using GeneralExtensions;
+using System.Windows.Controls;
 using ViSo.Dialogs.Controls;
 
 namespace ViSo.Dialogs.TextEditor
@@ -13,7 +14,7 @@ namespace ViSo.Dialogs.TextEditor
 
             textControl = new TextEditorControl(text);
 
-            bool? result = ControlDialog.ShowDialog(windowTitle, textControl, string.Empty);
+            bool? result = ControlDialog.ShowDialog(windowTitle, textControl, string.Empty, autoSize:true, desiredSize: textControl.TextLenght);
 
             if (result.IsTrue())
             {

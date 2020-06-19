@@ -129,6 +129,7 @@
     <Compile Include="CommonControls\LableItem.cs" />
     <Compile Include="CommonControls\ScrollViewerPanable.cs" />
     <Compile Include="CommonControls\TextBoxItem.cs" />
+    <Compile Include="CommonControls\TooltipLabel.cs" />
     <Compile Include="CommonControls\TreeViewItemTool.cs" />
     <Compile Include="CommonControls\VerticalGridSplit.cs" />
     <Compile Include="CommonControls\ViSoTreeView.cs" />
@@ -144,6 +145,7 @@
     <Compile Include="Exstention\ComboBoxExstentions.cs" />
     <Compile Include="Exstention\DataGridExstentions.cs" />
     <Compile Include="Exstention\EnumirationExstentions.cs" />
+    <Compile Include="Exstention\ScreenExstentions.cs" />
     <Compile Include="Exstention\UIElmentExstentions.cs" />
     <Compile Include="Functions\EventParser.cs" />
     <Compile Include="Functions\Sleep.cs" />

@@ -17,8 +17,6 @@ namespace WPF.Tools.BaseClasses
 
         private bool autoSize;
 
-        //private bool loadSizeChanged = false;
-
         public WindowBase()
         {
             //this.Initialize();
@@ -56,7 +54,7 @@ namespace WPF.Tools.BaseClasses
                 this.CenterWindow();
             }
         }
-
+        
         private void WindowBase_Loaded(object sender, RoutedEventArgs e)
         {
             try

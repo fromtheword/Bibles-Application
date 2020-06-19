@@ -19,6 +19,7 @@ using Bibles.Studies;
 using Bibles.Studies.Models;
 using ViSo.Dialogs.TextEditor;
 using Bibles.Data;
+using WPF.Tools.CommonControls;
 
 namespace Bibles.Reader
 {
@@ -379,14 +380,12 @@ namespace Bibles.Reader
                 Source = IconSets.ResourceImageSource("Notes", 16),
                 Opacity = 0.5,
                 Tag = bibleVerseKey,
-                ToolTip = noteModel.FootNote.UnzipFile()
+                ToolTip = new TooltipLabel { Text = noteModel.FootNote.UnzipFile().ParseToString() }
             };
 
             linkImage.PreviewMouseLeftButtonUp += BibleLoader.VerseNote_Selected;
 
             return linkImage;
         }
-
-        
     }
 }
