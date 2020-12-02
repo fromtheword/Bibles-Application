@@ -2,6 +2,8 @@
 
 <a style="color:#0000FF" href="https://raw.githubusercontent.com/fromtheword/Bibles-Application/master/Bibles.msi" download="Bibles.msi">Download Application</a>
 
+"In this world you may say whatever you want, as long as it is not the truth." - Me
+
 During the ages the controversy between Jesus and Satan is portrayed in the Word of God; a battle between good and eval. Satan trying to dethrone God, and God displaying to His whole kingdom the result of transgressing His law.
 
 Satan, knowing the ways of his eval, knowing that his time is short, try by force to destroy Gods people, and thereby inflicting as much harm and sorrow to God, Jesus, and his people as possible.
