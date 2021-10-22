@@ -1,5 +1,4 @@
 <meta name="google-site-verification" content="uO0KIXcA0ryHEfgwWVi7QrXMM0WQfqpXSs_DtX34bgc" />
-<meta name="msvalidate.01" content="38F9DFAC225565BA82DE475535B2BC6A" />
 
 <a style="color:#0000FF" href="https://raw.githubusercontent.com/fromtheword/Bibles-Application/master/Bibles.msi" download="Bibles.msi">Download Application</a>
 
