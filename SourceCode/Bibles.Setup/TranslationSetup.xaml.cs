@@ -1,33 +1,32 @@
 ﻿using Bibles.Common;
-using Bibles.DataResources.Models.Preferences;
-using System;
-using System.ComponentModel;
-using WPF.Tools.BaseClasses;
-using GeneralExtensions;
-using Bibles.DataResources.Aggregates;
 using Bibles.DataResources;
-using ViSo.Dialogs.ModelViewer;
-using System.Windows;
-using System.Collections.Generic;
-using System.Linq;
-using ViSo.Dialogs.Input;
-using WPF.Tools.ToolModels;
-using WPF.Tools.Specialized;
-using System.Text;
-using Newtonsoft.Json;
-using System.IO;
-using ViSo.Common;
-using static ViSo.Common.KnownFolders;
-using System.Diagnostics;
+using Bibles.DataResources.Aggregates;
+using Bibles.DataResources.Models.Preferences;
+using GeneralExtensions;
 using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using ViSo.Common;
+using ViSo.Dialogs.Input;
+using ViSo.Dialogs.ModelViewer;
+using WPF.Tools.BaseClasses;
 using WPF.Tools.Dictionaries;
+using WPF.Tools.Specialized;
+using WPF.Tools.ToolModels;
+using static ViSo.Common.KnownFolders;
 
 namespace Bibles.Setup
 {
-    /// <summary>
-    /// Interaction logic for TranslationSetup.xaml
-    /// </summary>
-    public partial class TranslationSetup : UserControlBase
+	/// <summary>
+	/// Interaction logic for TranslationSetup.xaml
+	/// </summary>
+	public partial class TranslationSetup : UserControlBase
     {
         private TranslationMapping selectedMapping;
 
@@ -294,7 +293,7 @@ namespace Bibles.Setup
 
                 foreach(string line in mappingLines)
                 {
-                    TranslationMapping mapping = JsonConvert.DeserializeObject(line, typeof(TranslationMapping)).To<TranslationMapping>();
+                    TranslationMapping mapping =  JsonConvert.DeserializeObject(line, typeof(TranslationMapping)).To<TranslationMapping>();
 
                     mapping.TranslationMappingId = 0;
 

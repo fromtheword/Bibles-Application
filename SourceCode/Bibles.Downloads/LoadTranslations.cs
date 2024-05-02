@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Bibles.DataResources;
+﻿using Bibles.DataResources;
 using Bibles.DataResources.Aggregates;
 using Bibles.DataResources.Models.Preferences;
 using GeneralExtensions;
 using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace Bibles.Downloads
 {
-    internal class LoadTranslations
+	internal class LoadTranslations
     {
         internal static bool LoadFile(string path)
         {

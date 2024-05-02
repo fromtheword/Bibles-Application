@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Bibles.Downloads
 {
-    public class ImportBibleStudy
+	public class ImportBibleStudy
     {
         public bool ImportStudy(string fileName)
         {

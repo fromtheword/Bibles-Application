@@ -5,7 +5,6 @@ using Bibles.DataResources.Bookmarks;
 using Bibles.Studies.Models;
 using GeneralExtensions;
 using Microsoft.Win32;
-using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Text;
@@ -16,10 +15,10 @@ using WPF.Tools.Exstention;
 
 namespace Bibles.Studies
 {
-    /// <summary>
-    /// Interaction logic for EditStudy.xaml
-    /// </summary>
-    public partial class EditStudy : UserControlBase
+	/// <summary>
+	/// Interaction logic for EditStudy.xaml
+	/// </summary>
+	public partial class EditStudy : UserControlBase
     {        
         public EditStudy(StudyHeaderModel study)
         {
